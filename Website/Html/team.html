@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Team: Spice | Team Members</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Main CSS Stylesheet -->
     <link rel="stylesheet" href="../Css/stylesheet.css" type="text/css">
+    <!-- Favicon links -->
     <link rel="apple-touch-icon" sizes="57x57" href="../Favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../Favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="../Favicon/apple-icon-72x72.png">
@@ -24,6 +27,15 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../Favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <!-- JS function scripts -->
+    <script defer src="../Js/app.js"></script>
+
+    <!-- JQuery, Popper.js, and Bootstrap scripts -->
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <!-- <ul class="topnav">
@@ -88,8 +100,8 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
               </li>
             </ul>
-            <form class="form-inline mt-2 mt-md-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
+              <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
           </div>
@@ -109,8 +121,8 @@
               <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
                 <img class="img-fluid" width="100%" height="100%" src="../Images/chopping-board-colorful-colourful-616360.jpg" alt="Responsive spices image">
               <div class="container">
-                <div class="carousel-caption text-left text-muted">
-                  <h1>Spice Team</h1>
+                <div class="carousel-caption text-left text-dark font-weight-bold">
+                  <h1 class="font-weight-bold">Spice Team</h1>
                   <p>Whatever your needs, our spice team is ready to help 24/7!</p>
                   <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                 </div>
@@ -236,7 +248,7 @@
         <!-- FOOTER -->
         <footer class="container">
           <p class="float-right"><a href="#">Back to top</a></p>
-          <p>&copy; 2019-2020 Spice, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+          <p>&copy; 2019-2020 Spice, Inc. <!-- &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> --></p>
         </footer>
       </main>      
 </body>
