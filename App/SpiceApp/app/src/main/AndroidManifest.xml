@@ -11,9 +11,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SocialPage"
+            android:parentActivityName=".HomePage$HomePageActivity"
             android:label="@string/title_activity_social_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".SpiceItUp" />
+        <activity
+            android:name=".SpiceItUp"
+            android:parentActivityName=".HomePage$HomePageActivity"/>
         <activity android:name=".HomePage" />
         <activity android:name=".HomePage$HomePageActivity">
             <intent-filter>
