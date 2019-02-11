@@ -1,5 +1,5 @@
-/* CSS Stylesheet 
-Author: Alan Manning
+/* Project: Spice App Website
+Course: CS495
 Date: 2/6/19 */
 
 /* GLOBAL STYLES
@@ -10,6 +10,7 @@ body {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: #5a5a5a;
+  background-color: black;
 }
 
 
@@ -24,6 +25,31 @@ body {
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
+}
+
+/* Controls carousel-control icons (color) */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  outline: black;
+  background-size: 100%, 100%;
+  /* border-radius: 50%; */
+  /* border: 1px solid black; */
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  content: '>';
+  font-size: 55px;
+  color: blue;
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: blue;
 }
 
 /* Declare heights because of positioning of img element */
@@ -91,6 +117,10 @@ body {
   .featurette-heading {
     margin-top: 7rem;
   }
+}
+
+.transOp {
+  opacity: 0.7;
 }
 
 /* Former code below */

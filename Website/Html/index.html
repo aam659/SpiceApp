@@ -1,3 +1,6 @@
+<!-- Course: CS495  -->
+<!-- Date: 2/11/19 -->
+
 <!DOCTYPE html>
 <Html lang="en">
 <head>
@@ -5,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Team: Spice | Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Main CSS Stylesheet -->
     <link rel="stylesheet" href="../Css/stylesheet.css" type="text/css">
 
     <link rel="apple-touch-icon" sizes="57x57" href="../Favicon/apple-icon-57x57.png">
@@ -24,26 +30,126 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../Favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <!-- JS function scripts -->
+    <script defer src="../Js/app.js"></script>
+
+    <!-- JQuery, Popper.js, and Bootstrap scripts -->
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </head>
 <body>
-    <ul class="topnav">
-            <li><a class="active" href="../Html/index.Html">Home</a></li>
-            <li><a href="../Html/team.Html">Team</a></li>
-            <li><a href="../Html/downloads.Html">Download</a></li>
-        <!-- <li class="right"><a href="#about">About</a></li> -->
-        <li class="right" id="green">Spice</li>
-    </ul>
     <header>
-        <h1>Description</h1>
-    </header>
-    <p>
-        Spice is here to help you find your next dining experience! You can create
-        a user profile to customize the results based on your preferences. Users
-        can also invite each other to events where we handle finding the best experience
-        based on a groups overall prefences. Users could also find a restaurant
-        without preferences, Spice it up, to get something out of the ordinary
-        to break up the monotony.
-    </p>
-    <footer>In association with the University of Alabama CS495 Course</footer>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <!-- <a class="navbar-brand" href="#">Carousel</a> -->
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Spice Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="downloads.html">Deliverables</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="team.html">Development Team</a>
+              </li>
+            </ul>
+            <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
+              <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>
+      </header>
+      
+      <main role="main">
+      
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+                <img class="img-fluid transOp" width="100%" height="100%" src="../Images/chopping-board-colorful-colourful-616360.jpg" alt="Responsive cutting board image">
+              <div class="container">
+                <div class="carousel-caption text-left text-light font-weight-bold">
+                  <h1 class="font-weight-bold">App Updates</h1>
+                  <h3 class="font-weight-bold">Sign up for updates on our latest app progress!</h3>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <img class="img-fluid transOp" width="100%" height="100%" src="../Images/cinnamon-sticks-citrus-close-up-1735095.jpg" alt="Responsive spice image">
+              <div class="container">
+                <div class="carousel-caption text-lg-left text-light font-weight-bold">
+                  <h1 class="font-weight-bold">Gallery</h1>
+                  <h3 class="font-weight-bold">Interested in</h3>
+                  <h3 class="font-weight-bold">our progress?</h3>
+                  <h3 class="font-weight-bold">Click the link below
+                  <h3 class="font-weight-bold">to learn more!</h3>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <img class="img-fluid transOp" width="100%" height="100%" src="../Images/appetizers-chef-cooking-1267320.jpg" alt="Responsive spice image">
+              <div class="container">
+                <div class="carousel-caption text-lg-right text-light font-weight-bold">
+                  <h1 class="font-weight-bold">Contact</h1>
+                  <h3 class="font-weight-bold">Whatever your needs, our</h3>
+                  <h3 class="font-weight-bold">spice team is ready to help 24/7!</h3>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      
+      
+        <!-- Marketing messaging and featurettes
+        ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+      
+        <div class="container marketing">
+            <div class="row">
+                <div class="text-light">
+                    <h1 class="display-4">Spice up your life!</h1>
+                    <p class="lead">
+                        Spice is here to help you find your next dining experience! You can create
+                        a user profile to customize the results based on your preferences. Users
+                        can also invite each other to events where we handle finding the best experience
+                        based on a groups overall prefences. Users could also find a restaurant
+                        without preferences, Spice it up, to get something out of the ordinary
+                        to break up the monotony.
+                    </p>
+                </div>
+            </div>
+        </div>
+      
+      
+        <!-- FOOTER -->
+        <footer class="container">
+          <p class="float-right"><a href="#">Back to top</a></p>
+          <p>&copy; 2019-2020 Spice, Inc. <!-- &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> --></p>
+        </footer>
+      </main>      
 </body>
 </Html>

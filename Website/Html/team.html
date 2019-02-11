@@ -1,3 +1,7 @@
+<!-- Project: Spice App Website -->
+<!-- Course: CS495  -->
+<!-- Date: 2/11/19 -->
+
 <!DOCTYPE html>
 <Html lang="en">
 <head>
@@ -38,72 +42,22 @@
 
 </head>
 <body>
-    <!-- <ul class="topnav">
-            <li><a class="active" href="../Html/index.Html">Home</a></li>
-            <li><a href="../Html/team.Html">Team</a></li>
-            <li><a href="../Html/downloads.Html">Download</a></li> -->
-            <!-- <li class="right"><a href="#about">About</a></li> -->
-        <!-- <li class="right" id="green">Spice</li>
-    </ul>
-
-    <h1>Design Team</h1>
-
-    <h4>Team Members</h4>
-
-    <div id="menu-outer">
-        <div class="table">
-            <ul id="horizontal-list">
-                <li>Alan Manning</li>
-                <li>Donald Lochbiler</li> -->
-                <!--
-                I am a computer science student at the University of Alabama from Wolverine Lake, MI and I graduate May, 2019.
-                I have an interest in data science and machine learning. Previously was an intern and contributor for EffiecencyIsEveything.com
-                I hope this app helps people spend less time deciding where to eat and teaches me important skills throughout its development.
-                -->
-                <!-- 
-                <li>Logan Dawkins</li> -->
-                <!--
-                I am from Birmingham, Alabama and I graduate May, 2019.
-                I will start working at Lockheed Martin in Manassas, Virginia following graduation.
-                This is my first time developing an android application, so I hope you all enjoy it.
-                -->
-                <!--     -->
-                <!--
-                I am a senior computer science student from Mobile, Alabama. I graduate in May 2019 where
-                I will move back home to Mobile and work. Although I have some minor experience in web development,
-                this will be my first time creating an application using the Android Development Kit. Im looking forward
-                to learning as much as I can this semester and excited to make something that others can find useful.        
-                -->
-            <!-- </ul>
-        </div>
-    </div>
-
-    <h4>Project Advisors</h4>
-    <ul>
-        <li>Dr. Jeff Carver</li>
-        <li>Dr. Jeff Gray</li>
-        <li>Moumita Tabassum</li>
-        <li>Saheed Popoola</li>
-    </ul>
-
-    <footer>In association with the University of Alabama CS495 Course</footer> -->
-
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="#">Carousel</a>
+          <!-- <a class="navbar-brand" href="#">Carousel</a> -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Spice Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="downloads.html">Devliverables</a>
+              </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link" href="team.html">Development Team <span class="sr-only">(current)</span></a>
               </li>
             </ul>
             <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
@@ -112,6 +66,36 @@
             </form>
           </div>
         </nav>
+
+        <!-- <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-white">About</h4>
+                <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Contact</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                  <li><a href="#" class="text-white">Like on Facebook</a></li>
+                  <li><a href="#" class="text-white">Email me</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+          <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              <strong>Album</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div> -->
       </header>
       
       <main role="main">
@@ -125,32 +109,38 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
-                <img class="img-fluid" width="100%" height="100%" src="../Images/chopping-board-colorful-colourful-616360.jpg" alt="Responsive spices image">
+                <img class="img-fluid transOp" width="100%" height="100%" src="../Images/chopping-board-colorful-colourful-616360.jpg" alt="Responsive cutting board image">
               <div class="container">
-                <div class="carousel-caption text-left text-dark font-weight-bold">
-                  <h1 class="font-weight-bold">Spice Team</h1>
-                  <p>Whatever your needs, our spice team is ready to help 24/7!</p>
+                  <div class="carousel-caption text-left text-light font-weight-bold">
+                    <h1 class="font-weight-bold">App Updates</h1>
+                    <h3 class="font-weight-bold">Sign up for updates on our latest app progress!</h3>
                   <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                 </div>
               </div>
             </div>
             <div class="carousel-item">
-              {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %}
+              <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <img class="img-fluid transOp" width="100%" height="100%" src="../Images/cinnamon-sticks-citrus-close-up-1735095.jpg" alt="Responsive spice image">
               <div class="container">
-                <div class="carousel-caption">
-                  <h1>Another example headline.</h1>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                  <div class="carousel-caption text-lg-left text-light font-weight-bold">
+                    <h1 class="font-weight-bold">Gallery</h1>
+                    <h3 class="font-weight-bold">Interested in</h3>
+                    <h3 class="font-weight-bold">our progress?</h3>
+                    <h3 class="font-weight-bold">Click the link below
+                    <h3 class="font-weight-bold">to learn more!</h3>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
                 </div>
               </div>
             </div>
             <div class="carousel-item">
-              {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %}
+              <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <img class="img-fluid transOp" width="100%" height="100%" src="../Images/appetizers-chef-cooking-1267320.jpg" alt="Responsive spice image">
               <div class="container">
-                <div class="carousel-caption text-right">
-                  <h1>One more for good measure.</h1>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                  <div class="carousel-caption text-lg-right text-light font-weight-bold">
+                    <h1 class="font-weight-bold">Contact</h1>
+                    <h3 class="font-weight-bold">Whatever your needs, our</h3>
+                    <h3 class="font-weight-bold">spice team is ready to help 24/7!</h3>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
                 </div>
               </div>
             </div>
@@ -173,26 +163,26 @@
         <div class="container marketing">
       
           <!-- Three columns of text below the carousel -->
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-4">
               {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %}
               <h2>Heading</h2>
               <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
               <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
+            </div> /.col-lg-4 -->
+            <!-- <div class="col-lg-4">
               {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %}
               <h2>Heading</h2>
               <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
               <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-            <div class="col-lg-4">
+            </div>/.col-lg-4 -->
+            <!-- <div class="col-lg-4">
               {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %}
               <h2>Heading</h2>
               <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
               <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div><!-- /.col-lg-4 -->
-          </div><!-- /.row -->
+            </div>/.col-lg-4 -->
+          <!-- </div>/.row -->
       
       
           <!-- START THE FEATURETTES -->
@@ -200,9 +190,9 @@
           <hr class="featurette-divider">
       
           <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7 text-light">
               <h2 class="featurette-heading">Alan Manning</h2>
-              <h4 class="text-muted">Software Developer</h4>
+              <h4>Software Developer</h4>
               <p class="lead">I am originally from Greenville, Mississippi, and I graduate in December, 2019. I hope to live and work in
                 Tuscaloosa, where I hope to attain a job as a web and mobile app developer. Having previous experience creating such applications,
                 I hope to create with Spice an app that many will enjoy and utilize a great deal in their daily lives.
@@ -217,9 +207,9 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7 order-md-2 text-light">
               <h2 class="featurette-heading">Donald Lochbiler</h2>
-              <h4 class="text-muted">Software Developer</h4>
+              <h4>Software Developer</h4>
               <p class="lead">I am a senior computer science student from Mobile, Alabama. I graduate in May 2019 where
                 I will move back home to Mobile and work. Although I have some minor experience in web development,
                 this will be my first time creating an application using the Android Development Kit. Im looking forward
@@ -234,9 +224,9 @@
           <hr class="featurette-divider">
       
           <div class="row featurette">
-            <div class="col-md-7 order-md-2">
+            <div class="col-md-7 text-light">
               <h2 class="featurette-heading">Logan Dawkins</h2>
-              <h4 class="text-muted">Software Developer</h4>
+              <h4>Software Developer</h4>
               <p class="lead">I am from Birmingham, Alabama and I graduate May, 2019.
                 I will start working at Lockheed Martin in Manassas, Virginia following graduation.
                 This is my first time developing an android application, so I hope you all enjoy it.</p>
@@ -250,9 +240,9 @@
           <hr class="featurette-divider">
       
           <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7 order-md-2 text-light">
               <h2 class="featurette-heading">Ryan Simpson</h2>
-              <h4 class="text-muted">Software Developer</h4>
+              <h4>Software Developer</h4>
               <p class="lead">I am a senior computer science student from Mobile, Alabama. I graduate in May 2019 where
                 I will move back home to Mobile and work. Although I have some minor experience in web development,
                 this will be my first time creating an application using the Android Development Kit. Im looking forward
