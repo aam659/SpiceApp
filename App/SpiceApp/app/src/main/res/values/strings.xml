@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SpiceApp</string>
     <string name="btnSIU">Spice It Up</string>
+    <string name="strProfile">Profile</string>
+    <string name="strSpice" />
+    <string name="strLogin">Login</string>
+    <string name="strSocial">Social</string>
+    <string name="picChilli" />
 </resources>

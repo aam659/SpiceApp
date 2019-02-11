@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".spiceItUp"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".SpiceItUp"></activity>
+        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomePage$HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
