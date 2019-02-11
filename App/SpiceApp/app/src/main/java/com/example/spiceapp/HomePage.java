@@ -37,8 +37,8 @@ public class HomePage extends AppCompatActivity {
             btnSpiceItUp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("siu clicked");
-                    Toast.makeText(v.getContext(), "SIU BUTTON CLICKED", Toast.LENGTH_LONG).show();
+//                    System.out.println("siu clicked");
+                    Toast.makeText(v.getContext(), "SIU BUTTON CLICKED", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent(v.getContext(), SpiceItUp.class);
                     startActivityForResult(nextScreen, 0);
                 }
@@ -47,8 +47,9 @@ public class HomePage extends AppCompatActivity {
             btnSocial.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "SOCIAL BUTTON CLICKED", Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(v.getContext(), "SOCIAL BUTTON CLICKED", Toast.LENGTH_SHORT).show();
+                    Intent nextScreen = new Intent(v.getContext(), SocialPage.class);
+                    startActivityForResult(nextScreen, 0);                }
             });
 
             btnProfile.setOnClickListener(new View.OnClickListener() {

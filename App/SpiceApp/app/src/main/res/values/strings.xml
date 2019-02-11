@@ -6,4 +6,5 @@
     <string name="strLogin">Login</string>
     <string name="strSocial">Social</string>
     <string name="picChilli" />
+    <string name="title_activity_social_page">SocialPage</string>
 </resources>
