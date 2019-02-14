@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpiceApp</string>
+    <string name="app_name">Spice</string>
     <string name="btnSIU">Spice It Up</string>
     <string name="strProfile">Profile</string>
     <string name="strSpice" />
