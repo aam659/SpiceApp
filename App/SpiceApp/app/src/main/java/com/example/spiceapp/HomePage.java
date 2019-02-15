@@ -19,7 +19,7 @@ public class HomePage extends AppCompatActivity {
         //If you put the api key in here, make sure you delete it before you push
         //If you accidentally push the api key, tell Ryan so he can regenerate the key
         //and redistribute it
-        Places.initialize(getApplicationContext(),"API_KEY_PLACEHOLDER");
+        Places.initialize(getApplicationContext(),"");
     }
 
     public static class HomePageActivity extends AppCompatActivity{
