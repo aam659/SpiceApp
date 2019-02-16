@@ -18,35 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomePage extends AppCompatActivity {
-//    private PlacesClient placesClient;
 
-    @Override
+    @Override   //this constructor never gets called. I tested by placing a toast in it     - logan
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-        /*//If you put the api key in here, make sure you delete it before you push
-        //If you accidentally push the api key, tell Ryan so he can regenerate the key
-        //and redistribute it
-        String apiKey = "";
-        Toast.makeText(this, "in create", Toast.LENGTH_LONG).show();
-
-
-        if (apiKey.equals("")) {
-            Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // Setup Places Client
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), apiKey);
-            placesClient = Places.createClient(this);
-        }*/
     }
 
     public static class HomePageActivity extends AppCompatActivity{
-        private PlacesClient placesClient;
-
 
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
@@ -65,29 +44,8 @@ public class HomePage extends AppCompatActivity {
             // Setup Places Client
             if (!Places.isInitialized()) {
                 Places.initialize(getApplicationContext(), apiKey);
-                placesClient = Places.createClient(this);
             }
 
-            // Define a Place ID.
-            String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-
-            // Specify the fields to return (in this example all fields are returned).
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
-
-            // Construct a request object, passing the place ID and fields array.
-            FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
-
-            placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-                Place place = response.getPlace();
-                Toast.makeText(this, place.getName(), Toast.LENGTH_LONG).show();
-            }).addOnFailureListener((exception) -> {
-                if (exception instanceof ApiException) {
-                    ApiException apiException = (ApiException) exception;
-                    int statusCode = apiException.getStatusCode();
-                    // Handle error with given status code.
-                    Toast.makeText(this, "failed", Toast.LENGTH_LONG).show();
-                }
-            });
 
             final Button btnLogin =(Button) findViewById(R.id.btnLogin);
             final Button btnSpiceItUp =(Button) findViewById(R.id.btnSpice);
