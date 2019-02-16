@@ -8,17 +8,10 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 public class SpiceItUp extends AppCompatActivity {
 
-    private PlacesClient placesClient;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
-
-        placesClient = Places.createClient(this);
-
     }
-
 
 }
