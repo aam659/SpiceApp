@@ -28,7 +28,7 @@ public class HomePage extends AppCompatActivity {
         /*//If you put the api key in here, make sure you delete it before you push
         //If you accidentally push the api key, tell Ryan so he can regenerate the key
         //and redistribute it
-        String apiKey = "AIzaSyDcNwFNunrrjSZQ5HMUhdJKHAVk9CdW59I";
+        String apiKey = "";
         Toast.makeText(this, "in create", Toast.LENGTH_LONG).show();
 
 
