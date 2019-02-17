@@ -7,4 +7,6 @@
     <string name="strSocial">Social</string>
     <string name="picChilli" />
     <string name="title_activity_social_page">SocialPage</string>
+    <string name="restuarant_name">Restuarant Name</string>
+    <string name="imgRestuarant">Restuarant</string>
 </resources>
