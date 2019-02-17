@@ -28,15 +28,9 @@ public class SpiceItUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
 
-        //initialize toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Spice It Up");
+        initializeToolbar();
 
-        // Set up view objects
-        txtName = findViewById(R.id.txtName);
-        imgRestuarant = findViewById(R.id.imgRestuarant);
+        initializeViews();
 
         // Create client object
         //placesClient = Places.createClient(this); //causes crash for some reason
@@ -46,6 +40,18 @@ public class SpiceItUp extends AppCompatActivity {
 
         // Set listeners for programmatic spiceItUp()
         findViewById(R.id.btnSIU).setOnClickListener(view -> spiceItUp());
+    }
+
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Spice It Up");
+    }
+
+    private void initializeViews(){
+        txtName = findViewById(R.id.txtName);
+        imgRestuarant = findViewById(R.id.imgRestuarant);
     }
 
     private void spiceItUp(){

@@ -33,26 +33,12 @@ public class HomePage extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home_page);
 
-            //initialize toolbar
-            Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(myToolbar);
-            ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("Home");
+            initializeToolbar();
 
             //If you put the api key in here, make sure you delete it before you push
             //If you accidentally push the api key, tell Ryan so he can regenerate the key
             //and redistribute it
-            String apiKey = "";
-
-            /*if (apiKey.equals("")) {
-                Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            // Setup Places Client
-            if (!Places.isInitialized()) {
-                Places.initialize(getApplicationContext(), apiKey);
-            }*/
+            //initializePlaces();
 
 
             final Button btnLogin =(Button) findViewById(R.id.btnLogin);
@@ -94,6 +80,27 @@ public class HomePage extends AppCompatActivity {
 
 
 
+        }
+
+        private void initializeToolbar(){
+            Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(myToolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("Home");
+        }
+
+        private void initializePlaces(){
+            String apiKey = "";
+
+            if (apiKey.equals("")) {
+                Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // Setup Places Client
+            if (!Places.isInitialized()) {
+                Places.initialize(getApplicationContext(), apiKey);
+            }
         }
 
 

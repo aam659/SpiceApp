@@ -15,13 +15,7 @@ public class SocialPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_page);
 
-        //initialize toolbar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Social");
-
-
+        initializeToolbar();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +25,13 @@ public class SocialPage extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Social");
     }
 
 }
