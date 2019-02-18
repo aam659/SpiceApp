@@ -38,7 +38,7 @@ public class HomePage extends AppCompatActivity {
             //If you put the api key in here, make sure you delete it before you push
             //If you accidentally push the api key, tell Ryan so he can regenerate the key
             //and redistribute it
-            //initializePlaces();
+            initializePlaces();
 
 
             final Button btnLogin =(Button) findViewById(R.id.btnLogin);
@@ -100,6 +100,9 @@ public class HomePage extends AppCompatActivity {
             // Setup Places Client
             if (!Places.isInitialized()) {
                 Places.initialize(getApplicationContext(), apiKey);
+            }
+            if (!Places.isInitialized()) {
+                Toast.makeText(this, "Places not initialized", Toast.LENGTH_LONG).show();
             }
         }
 
