@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class HomePage extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), "LOGIN BUTTON CLICKED", Toast.LENGTH_LONG).show();
+                    Intent nextScreen = new Intent(v.getContext(), LoginPage.class);
+                    startActivityForResult(nextScreen, 0);
                 }
             });
 
@@ -80,23 +83,36 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            Intent nextScreen;
+            switch (item.getItemId()) {
+                case R.id.tlbLogin:
+                    nextScreen = new Intent(HomePageActivity.this, LoginPage.class);
+                    startActivityForResult(nextScreen, 0);
+                    return true;
 
+                case R.id.tlbSIU:
+                    nextScreen = new Intent(HomePageActivity.this, SpiceItUp.class);
+                    startActivityForResult(nextScreen, 0);
+                    return true;
+
+                case R.id.tlbProfile:
+                    // User chose the "Favorite" action, mark the current item
+                    // as a favorite...
+                    return true;
+
+                case R.id.tlbSocial:
+                    nextScreen = new Intent(HomePageActivity.this, SocialPage.class);
+                    startActivityForResult(nextScreen, 0);
+                    return true;
+
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return super.onOptionsItemSelected(item);
+
+            }
+        }
 
 }
-
-/*private void initializePlaces(){
-            String apiKey = "";
-
-            if (apiKey.equals("")) {
-                Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            // Setup Places Client
-            if (!Places.isInitialized()) {
-                Places.initialize(getApplicationContext(), apiKey);
-            }
-            if (!Places.isInitialized()) {
-                Toast.makeText(this, "Places not initialized", Toast.LENGTH_LONG).show();
-            }
-        }*/

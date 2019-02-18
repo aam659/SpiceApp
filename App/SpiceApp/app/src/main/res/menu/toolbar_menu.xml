@@ -21,4 +21,10 @@
         android:icon="@drawable/social"
         android:title="@string/strSocial"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/tlbHome"
+        android:icon="@drawable/home"
+        android:title="@string/strHome"
+        app:showAsAction="always" />
 </menu>
