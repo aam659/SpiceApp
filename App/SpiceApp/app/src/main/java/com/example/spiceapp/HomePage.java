@@ -35,10 +35,10 @@ public class HomePage extends AppCompatActivity {
 //            initializePlaces();
 
 
-            final Button btnLogin =(Button) findViewById(R.id.tlbLogin);
-            final Button btnSpiceItUp =(Button) findViewById(R.id.tlbSIU);
-            final Button btnSocial = (Button) findViewById(R.id.tlbSocial);
-            final Button btnProfile = (Button) findViewById(R.id.tlbProfile);
+            final Button btnLogin =(Button) findViewById(R.id.btnLogin);
+            final Button btnSpiceItUp =(Button) findViewById(R.id.btnSpice);
+            final Button btnSocial = (Button) findViewById(R.id.btnSocial);
+            final Button btnProfile = (Button) findViewById(R.id.btnProfile);
 
             btnLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
