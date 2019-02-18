@@ -62,7 +62,7 @@ public class SocialPage extends AppCompatActivity {
                 return true;
 
             case R.id.tlbHome:
-                nextScreen = new Intent(SocialPage.this, HomePage.class);
+                nextScreen = new Intent(SocialPage.this, HomePage.HomePageActivity.class);
                 startActivityForResult(nextScreen, 0);
                 return true;
 
