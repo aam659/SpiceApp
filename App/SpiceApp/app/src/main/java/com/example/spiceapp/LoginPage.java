@@ -27,8 +27,8 @@ public class LoginPage extends AppCompatActivity {
                 String password = txtLogin.getText().toString();
 
 //              Check for username/password combo and login
-                if (username.equals("aamanning@crimson.ua.edu")) {
-                    if (password.equals("Mb56dhp8682184grt")) {
+                if (username.equals("user")) {
+                    if (password.equals("passw0rd")) {
                         Intent nextScreen = new Intent(view.getContext(), HomePage.class);
                         startActivityForResult(nextScreen, 0);
                     }

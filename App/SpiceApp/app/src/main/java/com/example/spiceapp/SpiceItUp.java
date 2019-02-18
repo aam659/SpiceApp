@@ -38,10 +38,10 @@ public class SpiceItUp extends AppCompatActivity {
         placesClient = Places.createClient(this);
 
         //find a random restuarant and update values
-        spiceItUp1();
+        // spiceItUp1();
 
         // Set listeners for programmatic spiceItUp()
-        findViewById(R.id.btnSIU).setOnClickListener(view -> spiceItUp1());
+        // findViewById(R.id.btnSIU).setOnClickListener(view -> spiceItUp1());
     }
 
     private void initializeToolbar(){
@@ -56,56 +56,56 @@ public class SpiceItUp extends AppCompatActivity {
         imgRestuarant = findViewById(R.id.imgRestuarant);
     }
 
-    private void spiceItUp(){
-        // Define a Place ID.
-        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
+//    private void spiceItUp(){
+//        // Define a Place ID.
+//        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
+//
+//        // Specify the fields to return (in this example all fields are returned).
+//        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
+//
+//
+//        // Construct a request object, passing the place ID and fields array.
+//        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
+//
+//        Task<FetchPlaceResponse> placeTask = placesClient.fetchPlace(request);
+//
+//        placeTask.addOnSuccessListener(
+//                (response) -> {
+//                    Place place = response.getPlace();
+//                    txtName.setText(place.getName());
+//                });
+//
+//        placeTask.addOnFailureListener(
+//                (exception) -> {
+//                    exception.printStackTrace();
+//                    txtName.setText("Failed to get the Place object");
+//                    Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
+//                });
+//    }
 
-        // Specify the fields to return (in this example all fields are returned).
-        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
-
-
-        // Construct a request object, passing the place ID and fields array.
-        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
-
-        Task<FetchPlaceResponse> placeTask = placesClient.fetchPlace(request);
-
-        placeTask.addOnSuccessListener(
-                (response) -> {
-                    Place place = response.getPlace();
-                    txtName.setText(place.getName());
-                });
-
-        placeTask.addOnFailureListener(
-                (exception) -> {
-                    exception.printStackTrace();
-                    txtName.setText("Failed to get the Place object");
-                    Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
-                });
-    }
-
-    private void spiceItUp1(){
-        // Define a Place ID.
-        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-
-        // Specify the fields to return (in this example all fields are returned).
-        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
-
-        // Construct a request object, passing the place ID and fields array.
-        FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
-
-        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-            Place place = response.getPlace();
-            txtName.setText(place.getName());
-        }).addOnFailureListener((exception) -> {
-            if (exception instanceof ApiException) {
-                ApiException apiException = (ApiException) exception;
-                int statusCode = apiException.getStatusCode();
-                // Handle error with given status code.
-                txtName.setText("Failed to get the Place object");
-                Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+//    private void spiceItUp1(){
+//        // Define a Place ID.
+//        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
+//
+//        // Specify the fields to return (in this example all fields are returned).
+//        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
+//
+//        // Construct a request object, passing the place ID and fields array.
+//        FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
+//
+//        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
+//            Place place = response.getPlace();
+//            txtName.setText(place.getName());
+//        }).addOnFailureListener((exception) -> {
+//            if (exception instanceof ApiException) {
+//                ApiException apiException = (ApiException) exception;
+//                int statusCode = apiException.getStatusCode();
+//                // Handle error with given status code.
+//                txtName.setText("Failed to get the Place object");
+//                Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//    }
 
     private void updateImage(/*I think parameter will be PhotoMetadata*/){
         //update image view with new restaurant result
