@@ -22,4 +22,5 @@
     <string name="age">age</string>
     <string name="address">address</string>
     <string name="signup">signup</string>
+    <string name="strHome">Home</string>
 </resources>
