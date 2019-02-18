@@ -90,7 +90,7 @@ public class HomePage extends AppCompatActivity {
         }
 
         private void initializePlaces(){
-            String apiKey = "";
+            String apiKey = "AIzaSyA1msmRX58N7mqgmJlPXiU1EKK_pa2X4gQ";
 
             if (apiKey.equals("")) {
                 Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
