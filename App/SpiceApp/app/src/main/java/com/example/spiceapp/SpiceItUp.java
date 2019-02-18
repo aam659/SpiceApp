@@ -1,27 +1,14 @@
 package com.example.spiceapp;
 
 
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
-import com.google.android.libraries.places.api.net.PlacesClient;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class SpiceItUp extends AppCompatActivity {
-    private PlacesClient placesClient;
     private TextView txtName;
     private ImageView imgRestuarant;
 
@@ -34,14 +21,8 @@ public class SpiceItUp extends AppCompatActivity {
 
         initializeViews();
 
-        // Create client object
-        placesClient = Places.createClient(this);
-
-        //find a random restuarant and update values
-        // spiceItUp1();
-
         // Set listeners for programmatic spiceItUp()
-        // findViewById(R.id.btnSIU).setOnClickListener(view -> spiceItUp1());
+        // findViewById(R.id.btnSIU).setOnClickListener(view -> hereAPI());
     }
 
     private void initializeToolbar(){
@@ -55,6 +36,17 @@ public class SpiceItUp extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         imgRestuarant = findViewById(R.id.imgRestuarant);
     }
+
+    private void hereAPI(){
+        //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
+    }
+
+    private void updateImage(/*I think parameter will be PhotoMetadata*/){
+        //update image view with new restaurant result
+    }
+
+}
+
 
 //    private void spiceItUp(){
 //        // Define a Place ID.
@@ -106,9 +98,3 @@ public class SpiceItUp extends AppCompatActivity {
 //            }
 //        });
 //    }
-
-    private void updateImage(/*I think parameter will be PhotoMetadata*/){
-        //update image view with new restaurant result
-    }
-
-}

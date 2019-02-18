@@ -1,16 +1,14 @@
 package com.example.spiceapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.libraries.places.api.Places; //Added by Ryan, Google Places API
 
 
 public class HomePage extends AppCompatActivity {
@@ -28,12 +26,6 @@ public class HomePage extends AppCompatActivity {
             setContentView(R.layout.activity_home_page);
 
             initializeToolbar();
-
-            //If you put the api key in here, make sure you delete it before you push
-            //If you accidentally push the api key, tell Ryan so he can regenerate the key
-            //and redistribute it
-//            initializePlaces();
-
 
             final Button btnLogin =(Button) findViewById(R.id.btnLogin);
             final Button btnSpiceItUp =(Button) findViewById(R.id.btnSpice);
@@ -86,9 +78,14 @@ public class HomePage extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.toolbar_menu, menu);
             return true;
         }
+    }
 
-        private void initializePlaces(){
-            String apiKey = "AIzaSyA1msmRX58N7mqgmJlPXiU1EKK_pa2X4gQ";
+
+
+}
+
+/*private void initializePlaces(){
+            String apiKey = "";
 
             if (apiKey.equals("")) {
                 Toast.makeText(this, "error with api key", Toast.LENGTH_LONG).show();
@@ -102,11 +99,4 @@ public class HomePage extends AppCompatActivity {
             if (!Places.isInitialized()) {
                 Toast.makeText(this, "Places not initialized", Toast.LENGTH_LONG).show();
             }
-        }
-
-
-    }
-
-
-
-}
+        }*/
