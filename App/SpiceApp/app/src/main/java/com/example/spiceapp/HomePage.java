@@ -5,19 +5,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.libraries.places.api.Places; //Added by Ryan, Google Places API
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.PlacesClient; //Added by Ryan, Google Places API
 
-import java.util.Arrays;
-import java.util.List;
 
 public class HomePage extends AppCompatActivity {
 
@@ -86,7 +80,11 @@ public class HomePage extends AppCompatActivity {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(myToolbar);
             ActionBar actionBar = getSupportActionBar();
-            actionBar.setTitle("Home");
+        }
+
+        public boolean onCreateOptionsMenu(Menu menu){
+            getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+            return true;
         }
 
         private void initializePlaces(){
