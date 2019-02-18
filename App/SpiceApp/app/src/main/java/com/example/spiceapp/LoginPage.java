@@ -1,8 +1,10 @@
 package com.example.spiceapp;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+
+        initializeToolbar();
 
         final TextView txtUsername = (TextView) findViewById(R.id.etUsername);
         final TextView txtLogin = (TextView) findViewById(R.id.etPassword);
@@ -48,6 +52,8 @@ public class LoginPage extends AppCompatActivity {
                 txtUsername.setText("");
                 txtLogin.setText("");
             }
+
+
         });
 
 //        btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -61,5 +67,12 @@ public class LoginPage extends AppCompatActivity {
 //                startActivityForResult(toRegisterScreen, 0);
 //            }
 //        });
+    }
+
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Login");
     }
 }
