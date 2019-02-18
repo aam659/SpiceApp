@@ -20,16 +20,16 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
     }
 
-    public static class HomePageActivity extends AppCompatActivity{
+    public static class HomePageActivity extends AppCompatActivity {
 
-        protected void onCreate(Bundle savedInstanceState){
+        protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home_page);
 
             initializeToolbar();
 
-            final Button btnLogin =(Button) findViewById(R.id.btnLogin);
-            final Button btnSpiceItUp =(Button) findViewById(R.id.btnSpice);
+            final Button btnLogin = (Button) findViewById(R.id.btnLogin);
+            final Button btnSpiceItUp = (Button) findViewById(R.id.btnSpice);
             final Button btnSocial = (Button) findViewById(R.id.btnSocial);
             final Button btnProfile = (Button) findViewById(R.id.btnProfile);
 
@@ -57,7 +57,8 @@ public class HomePage extends AppCompatActivity {
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), "SOCIAL BUTTON CLICKED", Toast.LENGTH_SHORT).show();
                     Intent nextScreen = new Intent(v.getContext(), SocialPage.class);
-                    startActivityForResult(nextScreen, 0);                }
+                    startActivityForResult(nextScreen, 0);
+                }
             });
 
             btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -68,22 +69,20 @@ public class HomePage extends AppCompatActivity {
             });
 
 
-
         }
 
-        private void initializeToolbar(){
+        private void initializeToolbar() {
             Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(myToolbar);
             ActionBar actionBar = getSupportActionBar();
         }
 
-        public boolean onCreateOptionsMenu(Menu menu){
+        public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.toolbar_menu, menu);
             return true;
         }
-    }
 
-    @Override
+        @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             Intent nextScreen;
             switch (item.getItemId()) {
@@ -115,4 +114,5 @@ public class HomePage extends AppCompatActivity {
             }
         }
 
+    }
 }
