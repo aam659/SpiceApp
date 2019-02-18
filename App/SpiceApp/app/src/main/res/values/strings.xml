@@ -9,4 +9,17 @@
     <string name="title_activity_social_page">SocialPage</string>
     <string name="restuarant_name">Restuarant Name</string>
     <string name="imgRestuarant">Restuarant</string>
+    <string name="register">Register</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="forgot_password">forgot_password</string>
+    <string name="username_email">username_email</string>
+    <string name="retype_password">retype_password</string>
+    <string name="email">email</string>
+    <string name="user_id">user_id</string>
+    <string name="name">name</string>
+    <string name="password_screen">password_screen</string>
+    <string name="age">age</string>
+    <string name="address">address</string>
+    <string name="signup">signup</string>
 </resources>
