@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/new_game"
+    <item
+        android:id="@+id/tlbSIU"
         android:icon="@drawable/chilli"
-        android:title="Hello"
+        android:title="@string/strSpice"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/tlbLogin"
+        android:icon="@drawable/credential"
+        android:title="@string/strLogin"
         app:showAsAction="ifRoom" />
-    <item android:id="@+id/help"
-        android:icon="@drawable/questionmark"
-        android:title="World"
-        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/tlbProfile"
+        android:icon="@drawable/profile"
+        android:title="@string/strProfile"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/tlbSocial"
+        android:icon="@drawable/social"
+        android:title="@string/strSocial"
+        app:showAsAction="always" />
 </menu>
