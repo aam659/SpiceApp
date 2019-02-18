@@ -9,14 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RegisterPage"></activity>
+        <activity android:name=".LoginPage" />
         <activity
             android:name=".SocialPage"
-            android:parentActivityName=".HomePage$HomePageActivity"
             android:label="@string/title_activity_social_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName=".HomePage$HomePageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SpiceItUp"
-            android:parentActivityName=".HomePage$HomePageActivity"/>
+            android:parentActivityName=".HomePage$HomePageActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".HomePage$HomePageActivity">
             <intent-filter>
