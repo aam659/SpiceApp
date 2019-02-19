@@ -18,6 +18,15 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:layout_editor_absoluteX="0dp" />
 
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:app="http://schema.android.com/apk/res/res-auto"-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="56dp"-->
+        <!--android:layout_gravity="start"-->
+        <!--app:menu="@menu/my_navigation_items" />-->
+
     <include
         android:id="@+id/include"
         layout="@layout/content_social_page" />
