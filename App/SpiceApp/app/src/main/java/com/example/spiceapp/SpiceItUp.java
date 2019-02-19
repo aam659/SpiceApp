@@ -1,14 +1,17 @@
 package com.example.spiceapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
@@ -36,6 +39,41 @@ public class SpiceItUp extends AppCompatActivity {
 
         // Set listeners for programmatic spiceItUp()
         // findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                Intent nextScreen;
+                switch (item.getItemId()) {
+                    case R.id.tlbLogin:
+                        nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+
+                    case R.id.tlbSocial:
+                        nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+
+                    case R.id.tlbProfile:
+                        // User chose the "Favorite" action, mark the current item
+                        // as a favorite...
+                        return true;
+
+                    case R.id.tlbHome:
+                        nextScreen = new Intent(SpiceItUp.this, HomePage.HomePageActivity.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+                    case R.id.tlbSIU:
+                        return true;
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        //Do nothing
+                        return false;
+                }
+            }
+        });
     }
 
     private void initializeToolbar(){

@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class SocialPage extends AppCompatActivity {
 
     @Override
@@ -18,14 +20,42 @@ public class SocialPage extends AppCompatActivity {
 
         initializeToolbar();
 
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                Intent nextScreen;
+                switch (item.getItemId()) {
+                    case R.id.tlbLogin:
+                        nextScreen = new Intent(SocialPage.this, LoginPage.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+
+                    case R.id.tlbSIU:
+                        nextScreen = new Intent(SocialPage.this, SpiceItUp.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+
+                    case R.id.tlbProfile:
+                        // User chose the "Favorite" action, mark the current item
+                        // as a favorite...
+                        return true;
+
+                    case R.id.tlbHome:
+                        nextScreen = new Intent(SocialPage.this, HomePage.HomePageActivity.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+                    case R.id.tlbSocial:
+                        return true;
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        //Do nothing
+                        return false;
+                }
+            }
+        });
+
+
     }
 
     private void initializeToolbar(){
@@ -62,6 +92,9 @@ public class SocialPage extends AppCompatActivity {
             case R.id.tlbHome:
                 nextScreen = new Intent(SocialPage.this, HomePage.HomePageActivity.class);
                 startActivityForResult(nextScreen, 0);
+                return true;
+
+            case R.id.tlbSocial:
                 return true;
 
             default:
