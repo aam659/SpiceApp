@@ -85,8 +85,8 @@ public class HomePage extends AppCompatActivity {
                             return true;
 
                         case R.id.tlbProfile:
-                            // User chose the "Favorite" action, mark the current item
-                            // as a favorite...
+                            nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
+                            startActivityForResult(nextScreen, 0);
                             return true;
 
                         case R.id.tlbSocial:
