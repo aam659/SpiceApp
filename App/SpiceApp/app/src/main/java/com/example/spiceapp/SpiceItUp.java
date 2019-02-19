@@ -32,7 +32,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         initializeViews();
 
-        findPlace();
+//        findPlace();
 
         // Set listeners for programmatic spiceItUp()
         // findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());

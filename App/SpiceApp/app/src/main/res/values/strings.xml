@@ -23,4 +23,6 @@
     <string name="address">address</string>
     <string name="signup">signup</string>
     <string name="strHome">Home</string>
+    <string name="strMainNotLogged">Login</string>
+    <string name="strMainIsLogged">Hi Alan, feeling Spicy?</string>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/tlbSIU"
-        android:icon="@drawable/chilli"
+        android:icon="@drawable/spiceitup"
         android:title="@string/strSpice"
         app:showAsAction="always" />
     <item
@@ -11,6 +11,11 @@
         android:icon="@drawable/credential"
         android:title="@string/strLogin"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tlbHome"
+        android:icon="@drawable/home"
+        android:title="@string/strHome"
+        app:showAsAction="always" />
     <item
         android:id="@+id/tlbProfile"
         android:icon="@drawable/profile"
@@ -22,9 +27,5 @@
         android:title="@string/strSocial"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/tlbHome"
-        android:icon="@drawable/home"
-        android:title="@string/strHome"
-        app:showAsAction="always" />
+
 </menu>
