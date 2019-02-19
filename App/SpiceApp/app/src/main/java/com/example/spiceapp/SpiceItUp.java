@@ -2,15 +2,26 @@ package com.example.spiceapp;
 
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.here.android.mpa.common.GeoCoordinate;
+import com.here.android.mpa.search.DiscoveryResult;
+import com.here.android.mpa.search.DiscoveryResultPage;
+import com.here.android.mpa.search.ErrorCode;
+import com.here.android.mpa.search.ResultListener;
+import com.here.android.mpa.search.SearchRequest;
+
+import java.util.List;
 
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
     private ImageView imgRestuarant;
+    public static List<DiscoveryResult> s_ResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +32,10 @@ public class SpiceItUp extends AppCompatActivity {
 
         initializeViews();
 
+        findPlace();
+
         // Set listeners for programmatic spiceItUp()
-        // findViewById(R.id.btnSIU).setOnClickListener(view -> hereAPI());
+        // findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
     }
 
     private void initializeToolbar(){
@@ -37,9 +50,46 @@ public class SpiceItUp extends AppCompatActivity {
         imgRestuarant = findViewById(R.id.imgRestuarant);
     }
 
-    private void hereAPI(){
+    private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Request");
+        SearchRequest searchRequest = new SearchRequest("Hotel");
+        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,87.5391));
+        searchRequest.execute(discoveryResultPageListener);
     }
+
+    private ResultListener<DiscoveryResultPage> discoveryResultPageListener = new ResultListener<DiscoveryResultPage>() {
+        @Override
+        public void onCompleted(DiscoveryResultPage discoveryResultPage, ErrorCode errorCode) {
+            if (errorCode == ErrorCode.NONE) {
+                /* No error returned,let's handle the results */
+
+                /*
+                 * The result is a DiscoveryResultPage object which represents a paginated
+                 * collection of items.The items can be either a PlaceLink or DiscoveryLink.The
+                 * PlaceLink can be used to retrieve place details by firing another
+                 * PlaceRequest,while the DiscoveryLink is designed to be used to fire another
+                 * DiscoveryRequest to obtain more refined results.
+                 */
+                s_ResultList = discoveryResultPage.getItems();
+                for (DiscoveryResult item : s_ResultList) {
+                    /*
+                     * Add a marker for each result of PlaceLink type.For best usability, map can be
+                     * also adjusted to display all markers.This can be done by merging the bounding
+                     * box of each result and then zoom the map to the merged one.
+                     */
+                    if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
+                        ActionBar actionBar = getSupportActionBar();
+                        actionBar.setTitle("SPICY");
+                    }
+                }
+            } else {
+                ActionBar actionBar = getSupportActionBar();
+                actionBar.setTitle("Not spicy");
+            }
+        }
+    };
 
     private void updateImage(/*I think parameter will be PhotoMetadata*/){
         //update image view with new restaurant result
