@@ -20,67 +20,15 @@
         android:id="@+id/bottom_navigation"
         style="@style/AppTheme.NoActionBar"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="75dp"
         android:layout_gravity="bottom"
-<<<<<<< HEAD
-        android:background="@color/colorPrimary"
-        app:itemIconTint="@color/colorPrimary"
-        app:itemTextColor="@color/colorPrimary"
-=======
         android:background="#d50000"
         app:itemIconTint="#fafafa"
         app:itemTextColor="#fafafa"
->>>>>>> a26a6d3... Recovered previous changes.
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
         tools:layout_editor_absoluteX="0dp" />
 
-<<<<<<< HEAD
-    <Button
-        android:id="@+id/btnSpice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="144dp"
-        android:text="@string/btnSIU"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Spice It Up" />
-
-    <Button
-        android:id="@+id/btnProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:text="@string/strProfile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginBottom="160dp"
-        android:text="@string/strLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnSocial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="160dp"
-        android:text="@string/strSocial"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-=======
     <!--<Button-->
     <!--android:id="@+id/btnSpice"-->
     <!--android:layout_width="wrap_content"-->
@@ -125,7 +73,6 @@
     <!--android:text="@string/strSocial"-->
     <!--app:layout_constraintBottom_toBottomOf="parent"-->
     <!--app:layout_constraintEnd_toEndOf="parent" />-->
->>>>>>> a26a6d3... Recovered previous changes.
 
     <ImageView
         android:id="@+id/imageView3"

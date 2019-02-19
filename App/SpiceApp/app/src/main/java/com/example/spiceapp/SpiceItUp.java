@@ -1,13 +1,11 @@
 package com.example.spiceapp;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-<<<<<<< HEAD
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +17,6 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.SearchRequest;
 
 import java.util.List;
-=======
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
->>>>>>> a26a6d3... Recovered previous changes.
 
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
@@ -37,55 +28,22 @@ public class SpiceItUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
 
+        initializeToolbar();
 
         initializeViews();
 
-        findPlace();
+//        findPlace();
 
         // Set listeners for programmatic spiceItUp()
-<<<<<<< HEAD
         // findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
     }
-=======
-        // findViewById(R.id.btnSIU).setOnClickListener(view -> hereAPI());
->>>>>>> a26a6d3... Recovered previous changes.
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                Intent nextScreen;
-                switch (item.getItemId()) {
-                    case R.id.tlbLogin:
-                        nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
-
-                    case R.id.tlbSocial:
-                        nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
-
-                    case R.id.tlbProfile:
-                        // User chose the "Favorite" action, mark the current item
-                        // as a favorite...
-                        return true;
-
-                    case R.id.tlbHome:
-                        nextScreen = new Intent(SpiceItUp.this, HomePage.HomePageActivity.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
-                    case R.id.tlbSIU:
-                        return true;
-                    default:
-                        // If we got here, the user's action was not recognized.
-                        //Do nothing
-                        return false;
-                }
-            }
-        });
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Spice It Up");
     }
-
 
     private void initializeViews(){
         txtName = findViewById(R.id.txtName);
