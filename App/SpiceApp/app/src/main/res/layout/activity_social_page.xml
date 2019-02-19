@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SocialPage">
 
+<<<<<<< HEAD
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -16,6 +17,31 @@
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+=======
+    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--android:id="@+id/bottom_navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:itemIconTint="@color/colorPrimaryDark"-->
+        <!--app:itemTextColor="@color/colorPrimaryDark"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:menu="@menu/toolbar_menu"-->
+        <!--tools:layout_editor_absoluteX="0dp" />-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/AppTheme.NoActionBar"
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom"
+        android:background="#d50000"
+        app:itemIconTint="#fafafa"
+        app:itemTextColor="#fafafa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/toolbar_menu"
+>>>>>>> a26a6d3... Recovered previous changes.
         tools:layout_editor_absoluteX="0dp" />
 
     <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
