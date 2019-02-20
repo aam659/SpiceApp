@@ -8,13 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,8 +46,6 @@ public class HomePage extends AppCompatActivity {
             String btnText;
             boolean isLogged = isLoggedIn();
             final Button btnMainAction = (Button)findViewById(R.id.btnMainAct);
-            final Button btnLogOut = (Button)findViewById(R.id.btnLogO);
-
             if(isLogged){
 
                 btnText = getResources().getString(R.string.strMainIsLogged);
@@ -62,20 +56,6 @@ public class HomePage extends AppCompatActivity {
                 btnMainAction.setText(btnText);
             }
 
-            btnLogOut.setOnClickListener(new View.OnClickListener() {
-                String Logged = "loginKey";
-                @Override
-                public void onClick(View v) {
-                    if(isLogged){
-                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(Logged, false);
-                        editor.apply();
-                        Intent nextScreen = new Intent(v.getContext(), HomePageActivity.class);
-                        startActivityForResult(nextScreen, 0);
-                    }
-                }
-            });
 
 
             btnMainAction.setOnClickListener(new View.OnClickListener() {
@@ -110,8 +90,12 @@ public class HomePage extends AppCompatActivity {
                             return true;
 
                         case R.id.tlbProfile:
-                            nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
-                            startActivityForResult(nextScreen, 0);
+                            if(isLogged) {
+                                nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
+                                startActivityForResult(nextScreen, 0);
+                            }
+                            else
+                                Toast.makeText(HomePageActivity.this, "Not Logged In", Toast.LENGTH_LONG).show();
                             return true;
 
                         case R.id.tlbSocial:

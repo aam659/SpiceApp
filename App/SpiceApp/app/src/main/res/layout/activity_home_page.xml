@@ -16,7 +16,8 @@
     <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
     <!--tools:layout_editor_absoluteX="0dp" />-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <include android:id="@+id/bottom_navigation" layout="@layout/nav_layout"/>
+   <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         style="@style/AppTheme.NoActionBar"
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
         app:itemTextColor="#fafafa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp" /> -->
 
     <!--<Button-->
     <!--android:id="@+id/btnSpice"-->
@@ -100,17 +101,5 @@
         android:text="@string/strMainIsLogged"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnLogO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginLeft="161dp"
-        android:layout_marginTop="424dp"
-        android:text="Logout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="LogOut" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
