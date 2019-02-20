@@ -160,7 +160,7 @@ public class HomePage extends AppCompatActivity {
             }
         }
 
-        boolean isLoggedIn(){
+        public boolean isLoggedIn(){
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
             return sharedPreferences.getBoolean("loginKey", false);
         }

@@ -1,7 +1,9 @@
 package com.example.spiceapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
@@ -30,6 +33,8 @@ public class SpiceItUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+
+       boolean isLogged = isLoggedIn();
 
         initializeToolbar();
 
@@ -57,8 +62,12 @@ public class SpiceItUp extends AppCompatActivity {
                         return true;
 
                     case R.id.tlbProfile:
-                        // User chose the "Favorite" action, mark the current item
-                        // as a favorite...
+                        if(isLogged) {
+                            nextScreen = new Intent(SpiceItUp.this, ProfilePage.class);
+                            startActivityForResult(nextScreen, 0);
+                        }
+                        else
+                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
                         return true;
 
                     case R.id.tlbHome:
@@ -128,6 +137,12 @@ public class SpiceItUp extends AppCompatActivity {
             }
         }
     };
+
+    public boolean isLoggedIn(){
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("loginKey", false);
+    }
+
 
     private void updateImage(/*I think parameter will be PhotoMetadata*/){
         //update image view with new restaurant result
