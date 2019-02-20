@@ -2,7 +2,7 @@
     <string name="app_name">Spice</string>
     <string name="btnSIU">Spice It Up</string>
     <string name="strProfile">Profile</string>
-    <string name="strSpice" >Spice It Up</string>
+    <string name="strSpice">Spice It Up</string>
     <string name="strLogin">Login</string>
     <string name="strSocial">Social</string>
     <string name="picChilli" />
@@ -25,4 +25,7 @@
     <string name="strHome">Home</string>
     <string name="strMainNotLogged">Login</string>
     <string name="strMainIsLogged">Hi Alan, feeling Spicy?</string>
+    <string name="title_activity_profile_page">ProfilePage</string>
+    <string name="strLogout">Logout</string>
+    <string name="strMoodsNav">Moods</string>
 </resources>
