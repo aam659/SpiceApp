@@ -7,8 +7,8 @@
     <string name="strSocial">Social</string>
     <string name="picChilli" />
     <string name="title_activity_social_page">SocialPage</string>
-    <string name="restuarant_name">Restuarant Name</string>
-    <string name="imgRestuarant">Restuarant</string>
+    <string name="restaurant_name" translatable="false">Restaurant Name</string>
+    <string name="imgRestaurant" translatable="false">Restaurant</string>
     <string name="register">Register</string>
     <string name="password">password</string>
     <string name="login">login</string>
@@ -28,4 +28,5 @@
     <string name="title_activity_profile_page">ProfilePage</string>
     <string name="strLogout">Logout</string>
     <string name="strMoodsNav">Moods</string>
+    <string name="txtLocation">Restaurant Location</string>
 </resources>
