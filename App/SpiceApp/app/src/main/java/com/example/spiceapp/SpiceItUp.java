@@ -18,34 +18,30 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
-import com.here.android.mpa.common.Image;
+import com.here.android.mpa.common.MapEngine;
 import com.here.android.mpa.common.OnEngineInitListener;
-import com.here.android.mpa.mapping.Map;
-import com.here.android.mpa.mapping.MapMarker;
-import com.here.android.mpa.mapping.MapObject;
-import com.here.android.mpa.mapping.SupportMapFragment;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
+import com.here.android.mpa.search.Media;
+import com.here.android.mpa.search.MediaCollectionPage;
+import com.here.android.mpa.search.Place;
 import com.here.android.mpa.search.PlaceLink;
+import com.here.android.mpa.search.PlaceRequest;
 import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.SearchRequest;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
+    private TextView txtLocation;
+    private TextView txtUrl;
     private ImageView imgRestuarant;
     public static List<DiscoveryResult> s_ResultList;
     public static DiscoveryResult s_ResultListItem;
-    // map embedded in the map fragment
-    private Map map = null;
-    // map fragment embedded in this activity
-    private SupportMapFragment mapFragment= null;
-    private List<MapObject> m_mapObjectList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +54,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         initializeViews();
 
-        initializeMap();
-
+        initMapEngine();
         findPlace();
 
         // Set listeners for programmatic spiceItUp()
@@ -105,6 +100,11 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 
+    public boolean isLoggedIn(){
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("loginKey", false);
+    }
+
     private void initializeToolbar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -115,32 +115,26 @@ public class SpiceItUp extends AppCompatActivity {
     private void initializeViews(){
         txtName = findViewById(R.id.txtName);
         imgRestuarant = findViewById(R.id.imgRestuarant);
+        txtLocation = findViewById(R.id.txtLocation);
+        txtUrl = findViewById(R.id.txtUrl);
     }
 
-    private void initializeMap() {
-        // Search for the map fragment to finish setup by calling init().
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
-        mapFragment.init(new OnEngineInitListener() {
+    private void initMapEngine(){
+        MapEngine mapEngine = MapEngine.getInstance();
+        mapEngine.init(this, new OnEngineInitListener() {
             @Override
-            public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
+            public void onEngineInitializationCompleted(Error error) {
                 if (error == OnEngineInitListener.Error.NONE) {
-                    // retrieve a reference of the map from the map fragment
-                    map = mapFragment.getMap();
-                    // Set the map center to the Vancouver region (no animation)
-                    map.setCenter(new GeoCoordinate(33.2098, -87.56592, 0.0),
-                            Map.Animation.NONE);
-                    // Set the zoom level to the average between min and max
-                    map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
+                    // Post initialization code goes here
                 } else {
-                    System.out.println("ERROR: Cannot initialize Map Fragment");
-                }
-            }
+                    // handle factory initialization failure
+                    System.out.println("ERROR: Cannot initialize Map Engine");
+                }}
         });
     }
 
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
-        cleanMap();
         SearchRequest searchRequest = new SearchRequest("Restaurant");
         searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
         searchRequest.execute(discoveryResultPageListener);
@@ -151,7 +145,6 @@ public class SpiceItUp extends AppCompatActivity {
         public void onCompleted(DiscoveryResultPage discoveryResultPage, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
                 /* No error returned,let's handle the results */
-                //m_placeDetailButton.setVisibility(View.VISIBLE);
 
                 /*
                  * The result is a DiscoveryResultPage object which represents a paginated
@@ -171,99 +164,39 @@ public class SpiceItUp extends AppCompatActivity {
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
                         s_ResultListItem = item;
-                        ActionBar actionBar = getSupportActionBar();
-                        actionBar.setTitle(item.getTitle());
-                        addMarkerAtPlace(placeLink);
+                        PlaceRequest placeRequest = placeLink.getDetailsRequest();
+                        placeRequest.execute(m_placeResultListener);
+                        txtName.setText(item.getTitle());
                         return;
                     }
                 }
 
 
             } else {
-                ActionBar actionBar = getSupportActionBar();
-                actionBar.setTitle("Ooof");
+                System.out.println("Failed Search Request");
             }
         }
     };
 
-    public boolean isLoggedIn(){
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("loginKey", false);
-    }
-
-
-    private void addMarkerAtPlace(PlaceLink placeLink) {
-        Image img = new Image();
-        try {
-            img.setImageResource(R.drawable.marker);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private ResultListener<Place> m_placeResultListener = new ResultListener<Place>() {
+        @Override
+        public void onCompleted(Place place, ErrorCode errorCode) {
+            if (errorCode == ErrorCode.NONE) {
+                /*
+                 * No error returned,let's show the name and location of the place that just being
+                 * selected.Additional place details info can be retrieved at this moment as well,
+                 * please refer to the HERE Android SDK API doc for details.
+                 */
+                txtName.setText(place.getName());
+                GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
+                txtLocation.setText(geoCoordinate.toString());
+                txtUrl.setText(place.getIconUrl());
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
+                        .show();
+            }
         }
-
-        MapMarker mapMarker = new MapMarker();
-        mapMarker.setIcon(img);
-        mapMarker.setCoordinate(new GeoCoordinate(placeLink.getPosition()));
-        map.addMapObject(mapMarker);
-        m_mapObjectList.add(mapMarker);
-    }
-
-    private void cleanMap() {
-        if (!m_mapObjectList.isEmpty()) {
-            map.removeMapObjects(m_mapObjectList);
-            m_mapObjectList.clear();
-        }
-    }
-
+    };
 }
 
-
-//    private void spiceItUp(){
-//        // Define a Place ID.
-//        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-//
-//        // Specify the fields to return (in this example all fields are returned).
-//        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
-//
-//
-//        // Construct a request object, passing the place ID and fields array.
-//        FetchPlaceRequest request = FetchPlaceRequest.newInstance(placeId, placeFields);
-//
-//        Task<FetchPlaceResponse> placeTask = placesClient.fetchPlace(request);
-//
-//        placeTask.addOnSuccessListener(
-//                (response) -> {
-//                    Place place = response.getPlace();
-//                    txtName.setText(place.getName());
-//                });
-//
-//        placeTask.addOnFailureListener(
-//                (exception) -> {
-//                    exception.printStackTrace();
-//                    txtName.setText("Failed to get the Place object");
-//                    Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
-//                });
-//    }
-
-//    private void spiceItUp1(){
-//        // Define a Place ID.
-//        String placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4";
-//
-//        // Specify the fields to return (in this example all fields are returned).
-//        List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME);
-//
-//        // Construct a request object, passing the place ID and fields array.
-//        FetchPlaceRequest request = FetchPlaceRequest.builder(placeId, placeFields).build();
-//
-//        placesClient.fetchPlace(request).addOnSuccessListener((response) -> {
-//            Place place = response.getPlace();
-//            txtName.setText(place.getName());
-//        }).addOnFailureListener((exception) -> {
-//            if (exception instanceof ApiException) {
-//                ApiException apiException = (ApiException) exception;
-//                int statusCode = apiException.getStatusCode();
-//                // Handle error with given status code.
-//                txtName.setText("Failed to get the Place object");
-//                Toast.makeText(this, "Not Spicy", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }

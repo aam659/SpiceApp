@@ -43,7 +43,7 @@
         android:layout_width="407dp"
         android:layout_height="282dp"
         android:layout_marginTop="68dp"
-        android:contentDescription="@string/imgRestuarant"
+        android:contentDescription="@string/imgRestaurant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,21 +56,52 @@
         android:layout_height="48dp"
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="384dp"
         android:layout_marginEnd="7dp"
         android:layout_marginRight="7dp"
-        android:contentDescription="@string/restuarant_name"
+        android:contentDescription="@string/restaurant_name"
         android:gravity="center"
-        android:text="@string/restuarant_name"
+        android:text="@string/restaurant_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="377dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="447dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="@string/txtLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtUrl"
+        android:layout_width="378dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="498dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="Restaurant Url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Map Fragment embedded with the map object -->
-    <fragment
+    <!-- <fragment
         android:id="@+id/mapfragment"
         class="com.here.android.mpa.mapping.SupportMapFragment"
         android:layout_width="match_parent"
@@ -78,5 +109,5 @@
         android:layout_marginTop="378dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" /> -->
 </androidx.constraintlayout.widget.ConstraintLayout>
