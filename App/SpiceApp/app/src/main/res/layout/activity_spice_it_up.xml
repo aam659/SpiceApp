@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".SpiceItUp">
 
-    <include android:id="@+id/toolbar" layout="@layout/toolbar_layout"/>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        style="@style/AppTheme.NoActionBar"
+    <include
         android:id="@+id/bottom_navigation"
+        layout="@layout/nav_layout" />  <!-- Bottom Nav -->
+
+    <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/AppTheme.NoActionBar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_gravity="bottom"
@@ -19,15 +25,15 @@
         app:itemTextColor="#fafafa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp" /> -->
 
     <Button
         android:id="@+id/btnSIU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="155dp"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="529dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginTop="592dp"
         android:text="@string/btnSIU"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,9 +41,9 @@
     <ImageView
         android:id="@+id/imgRestuarant"
         android:layout_width="407dp"
-        android:layout_height="363dp"
+        android:layout_height="282dp"
         android:layout_marginTop="68dp"
-        android:contentDescription="@string/imgRestuarant"
+        android:contentDescription="@string/imgRestaurant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,16 +56,58 @@
         android:layout_height="48dp"
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="384dp"
         android:layout_marginEnd="7dp"
         android:layout_marginRight="7dp"
-        android:contentDescription="@string/restuarant_name"
+        android:contentDescription="@string/restaurant_name"
         android:gravity="center"
-        android:text="@string/restuarant_name"
+        android:text="@string/restaurant_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="377dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="447dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center"
+        android:text="@string/txtLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtUrl"
+        android:layout_width="378dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="498dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:text="Restaurant Url"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Map Fragment embedded with the map object -->
+    <!-- <fragment
+        android:id="@+id/mapfragment"
+        class="com.here.android.mpa.mapping.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="204dp"
+        android:layout_marginTop="378dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" /> -->
 </androidx.constraintlayout.widget.ConstraintLayout>
