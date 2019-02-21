@@ -18,11 +18,13 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
+import com.here.android.mpa.common.Image;
 import com.here.android.mpa.common.MapEngine;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
+import com.here.android.mpa.search.ImageMedia;
 import com.here.android.mpa.search.Media;
 import com.here.android.mpa.search.MediaCollectionPage;
 import com.here.android.mpa.search.Place;
@@ -37,10 +39,10 @@ import java.util.List;
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
     private TextView txtLocation;
-    private TextView txtUrl;
     private ImageView imgRestuarant;
     public static List<DiscoveryResult> s_ResultList;
     public static DiscoveryResult s_ResultListItem;
+    public static PlaceLink result;
 
 
     @Override
@@ -59,6 +61,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         // Set listeners for programmatic spiceItUp()
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -100,6 +103,11 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 
+    private void launchMap(){
+        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
+        startActivityForResult(nextScreen, 0);
+    }
+
     public boolean isLoggedIn(){
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("loginKey", false);
@@ -116,7 +124,6 @@ public class SpiceItUp extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         imgRestuarant = findViewById(R.id.imgRestuarant);
         txtLocation = findViewById(R.id.txtLocation);
-        txtUrl = findViewById(R.id.txtUrl);
     }
 
     private void initMapEngine(){
@@ -128,8 +135,10 @@ public class SpiceItUp extends AppCompatActivity {
                     // Post initialization code goes here
                 } else {
                     // handle factory initialization failure
-                    System.out.println("ERROR: Cannot initialize Map Engine");
-                }}
+                    Toast.makeText(getApplicationContext(),
+                            "ERROR:Failed to initialize Map Engine", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 
@@ -163,11 +172,11 @@ public class SpiceItUp extends AppCompatActivity {
                      */
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
+                        result = placeLink;
                         s_ResultListItem = item;
                         PlaceRequest placeRequest = placeLink.getDetailsRequest();
                         placeRequest.execute(m_placeResultListener);
-                        txtName.setText(item.getTitle());
-                        return;
+                        break;
                     }
                 }
 
@@ -190,7 +199,6 @@ public class SpiceItUp extends AppCompatActivity {
                 txtName.setText(place.getName());
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
                 txtLocation.setText(geoCoordinate.toString());
-                txtUrl.setText(place.getIconUrl());
             } else {
                 Toast.makeText(getApplicationContext(),
                         "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)

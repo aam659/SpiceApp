@@ -14,27 +14,17 @@
         android:id="@+id/bottom_navigation"
         layout="@layout/nav_layout" />  <!-- Bottom Nav -->
 
-    <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        style="@style/AppTheme.NoActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_gravity="bottom"
-        android:background="#d50000"
-        app:itemIconTint="#fafafa"
-        app:itemTextColor="#fafafa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/toolbar_menu"
-        tools:layout_editor_absoluteX="0dp" /> -->
-
     <Button
         android:id="@+id/btnSIU"
-        android:layout_width="wrap_content"
+        android:layout_width="173dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginLeft="152dp"
-        android:layout_marginTop="592dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="572dp"
+        android:layout_marginEnd="227dp"
+        android:layout_marginRight="227dp"
         android:text="@string/btnSIU"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,29 +75,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtUrl"
-        android:layout_width="378dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="498dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:gravity="center"
-        android:text="Restaurant Url"
+    <Button
+        android:id="@+id/btnAccept"
+        android:layout_width="163dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="242dp"
+        android:layout_marginLeft="242dp"
+        android:layout_marginTop="567dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:text="@string/btnAccept"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Map Fragment embedded with the map object -->
-    <!-- <fragment
-        android:id="@+id/mapfragment"
-        class="com.here.android.mpa.mapping.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="204dp"
-        android:layout_marginTop="378dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /> -->
 </androidx.constraintlayout.widget.ConstraintLayout>

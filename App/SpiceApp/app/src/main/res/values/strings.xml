@@ -29,4 +29,5 @@
     <string name="strLogout">Logout</string>
     <string name="strMoodsNav">Moods</string>
     <string name="txtLocation">Restaurant Location</string>
+    <string name="btnAccept">Accept</string>
 </resources>
