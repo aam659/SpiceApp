@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "120936090454",
+    "firebase_url": "https://spice-e9231.firebaseio.com",
+    "project_id": "spice-e9231",
+    "storage_bucket": "spice-e9231.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120936090454:android:56eacbc9306c0d2d",
+        "android_client_info": {
+          "package_name": "com.example.spiceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120936090454-pcr8m9d76l80pcccnvun6m73g4gl759l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spiceapp",
+            "certificate_hash": "e8db6a71cc22bd936384b8c4cdccf8a13e577141"
+          }
+        },
+        {
+          "client_id": "120936090454-mk1biuupg9iv4i4bhgni911486uoguua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJHoKAJX_tbKbrSa7JK0jLPpXI8iVLPzs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120936090454-mk1biuupg9iv4i4bhgni911486uoguua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
