@@ -39,6 +39,7 @@ import java.util.List;
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
     private TextView txtLocation;
+    private TextView txtURL;
     private ImageView imgRestuarant;
     public static List<DiscoveryResult> s_ResultList;
     public static PlaceLink result;
@@ -205,8 +206,9 @@ public class SpiceItUp extends AppCompatActivity {
 
                 if (images != null) {
                     Toast.makeText(getApplicationContext(), "Testing", Toast.LENGTH_SHORT).show();
-//                    ImageMedia placeImage = (ImageMedia) images.getItems().get(0);
-//                    imgURL = placeImage.getUrl();
+                    ImageMedia placeImage = (ImageMedia) images.getItems().get(0);
+                    imgURL = placeImage.getUrl();
+                    Toast.makeText(getApplicationContext(), imgURL, Toast.LENGTH_SHORT).show();
 ////                    int imageResource = getResources().getIdentifier(imgURL, null, "com.example.spiceapp");
 ////                    findViewById(R.id.imgRestuarant) =
 //                    int imageResource = Integer.parseInt(placeImage.getId());
