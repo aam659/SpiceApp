@@ -204,15 +204,16 @@ public class SpiceItUp extends AppCompatActivity {
                 // Displays image for location
                 MediaCollectionPage<ImageMedia> images = place.getImages();
 
-                if (images != null) {
+                if (images.getAvailable() != 0) {
+                    System.out.println(images.getAvailable());
                     Toast.makeText(getApplicationContext(), "Testing", Toast.LENGTH_SHORT).show();
                     ImageMedia placeImage = (ImageMedia) images.getItems().get(0);
                     imgURL = placeImage.getUrl();
                     Toast.makeText(getApplicationContext(), imgURL, Toast.LENGTH_SHORT).show();
-////                    int imageResource = getResources().getIdentifier(imgURL, null, "com.example.spiceapp");
-////                    findViewById(R.id.imgRestuarant) =
-//                    int imageResource = Integer.parseInt(placeImage.getId());
-//                    imgRestuarant.setImageResource(imageResource);
+//                    int imageResource = getResources().getIdentifier(imgURL, null, "com.example.spiceapp");
+//                    findViewById(R.id.imgRestuarant) =
+                    int imageResource = Integer.parseInt(placeImage.getId());
+                    imgRestuarant.setImageResource(imageResource);
                 }
 
                 else {
