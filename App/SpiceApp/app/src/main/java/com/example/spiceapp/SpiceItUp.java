@@ -41,8 +41,8 @@ public class SpiceItUp extends AppCompatActivity {
     private TextView txtLocation;
     private ImageView imgRestuarant;
     public static List<DiscoveryResult> s_ResultList;
-    public static DiscoveryResult s_ResultListItem;
     public static PlaceLink result;
+    public static String imgURL = "";
 
 
     @Override
@@ -62,6 +62,8 @@ public class SpiceItUp extends AppCompatActivity {
         // Set listeners for programmatic spiceItUp()
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+
+        // Updates imgRestaurant
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -173,7 +175,6 @@ public class SpiceItUp extends AppCompatActivity {
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
                         result = placeLink;
-                        s_ResultListItem = item;
                         PlaceRequest placeRequest = placeLink.getDetailsRequest();
                         placeRequest.execute(m_placeResultListener);
                         break;
@@ -192,13 +193,32 @@ public class SpiceItUp extends AppCompatActivity {
         public void onCompleted(Place place, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
                 /*
-                 * No error returned,let's show the name and location of the place that just being
+                 * No error returned,let's show the name, image, and location of the place that was
                  * selected.Additional place details info can be retrieved at this moment as well,
                  * please refer to the HERE Android SDK API doc for details.
                  */
                 txtName.setText(place.getName());
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
                 txtLocation.setText(geoCoordinate.toString());
+                // Displays image for location
+                MediaCollectionPage<ImageMedia> images = place.getImages();
+
+                if (images != null) {
+                    Toast.makeText(getApplicationContext(), "Testing", Toast.LENGTH_SHORT).show();
+//                    ImageMedia placeImage = (ImageMedia) images.getItems().get(0);
+//                    imgURL = placeImage.getUrl();
+////                    int imageResource = getResources().getIdentifier(imgURL, null, "com.example.spiceapp");
+////                    findViewById(R.id.imgRestuarant) =
+//                    int imageResource = Integer.parseInt(placeImage.getId());
+//                    imgRestuarant.setImageResource(imageResource);
+                }
+
+                else {
+                    Toast.makeText(getApplicationContext(),
+                            "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
+                            .show();
+                }
+
             } else {
                 Toast.makeText(getApplicationContext(),
                         "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
