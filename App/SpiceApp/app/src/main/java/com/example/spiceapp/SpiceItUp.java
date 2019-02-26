@@ -21,6 +21,7 @@ import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.Image;
 import com.here.android.mpa.common.MapEngine;
 import com.here.android.mpa.common.OnEngineInitListener;
+import com.here.android.mpa.search.Address;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
@@ -31,6 +32,7 @@ import com.here.android.mpa.search.Place;
 import com.here.android.mpa.search.PlaceLink;
 import com.here.android.mpa.search.PlaceRequest;
 import com.here.android.mpa.search.ResultListener;
+import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
 import java.util.Collections;
@@ -193,41 +195,32 @@ public class SpiceItUp extends AppCompatActivity {
         @Override
         public void onCompleted(Place place, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
-                /*
-                 * No error returned,let's show the name, image, and location of the place that was
-                 * selected.Additional place details info can be retrieved at this moment as well,
-                 * please refer to the HERE Android SDK API doc for details.
-                 */
                 txtName.setText(place.getName());
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
-                txtLocation.setText(geoCoordinate.toString());
-                // Displays image for location
-                MediaCollectionPage<ImageMedia> images = place.getImages();
-
-                if (images.getAvailable() != 0) {
-                    System.out.println(images.getAvailable());
-                    Toast.makeText(getApplicationContext(), "Testing", Toast.LENGTH_SHORT).show();
-                    ImageMedia placeImage = (ImageMedia) images.getItems().get(0);
-                    imgURL = placeImage.getUrl();
-                    Toast.makeText(getApplicationContext(), imgURL, Toast.LENGTH_SHORT).show();
-//                    int imageResource = getResources().getIdentifier(imgURL, null, "com.example.spiceapp");
-//                    findViewById(R.id.imgRestuarant) =
-                    int imageResource = Integer.parseInt(placeImage.getId());
-                    imgRestuarant.setImageResource(imageResource);
-                }
-
-                else {
-                    Toast.makeText(getApplicationContext(),
-                            "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
-                            .show();
-                }
-
-            } else {
+                getHereAddress(geoCoordinate);
+            }
+            else {
                 Toast.makeText(getApplicationContext(),
                         "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
                         .show();
             }
         }
     };
+
+    private void getHereAddress(GeoCoordinate geoCoordinate){
+        ReverseGeocodeRequest revGeo = new ReverseGeocodeRequest(geoCoordinate);
+        revGeo.execute((new ResultListener<Address>() {
+            @Override
+            public void onCompleted(Address address, ErrorCode errorCode) {
+                if(errorCode == ErrorCode.NONE){
+                    String temp = address.getText();
+                    txtLocation.setText(temp);
+                }
+                else{
+                    System.out.println("Failed");
+                }
+            }
+        }));
+    }
 }
 
