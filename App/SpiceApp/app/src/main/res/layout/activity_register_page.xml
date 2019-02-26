@@ -50,7 +50,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edtPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtLogin"
@@ -68,10 +68,10 @@
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/editRetype"
+        android:id="@+id/edtRetype"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/edtPassword"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
@@ -86,7 +86,7 @@
         android:inputType="textPassword" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardLogin"
+        android:id="@+id/cardCreate"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"

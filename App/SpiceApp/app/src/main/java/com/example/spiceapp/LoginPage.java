@@ -14,6 +14,7 @@ import androidx.core.app.ActivityOptionsCompat;
 
 import android.transition.Explode;
 import android.transition.Fade;
+import android.transition.Slide;
 import android.transition.Transition;
 import android.view.View;
 import android.view.Window;
@@ -31,13 +32,15 @@ public class LoginPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        getWindow().setSharedElementExitTransition(new Fade());
+
+        getWindow().setExitTransition(new Fade());
+
         setContentView(R.layout.activity_login_page);
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         final CardView btnLogin = (CardView) findViewById(R.id.cardLogin);
         final CardView btnRegister = (CardView) findViewById(R.id.cardRegister);
+        final
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +54,9 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final View img = findViewById(R.id.imageView3);
-                Intent nextScreen;
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(LoginPage.this, img, "regUser");
-                nextScreen = new Intent(v.getContext(), RegisterPage.class);
-                startActivity(nextScreen, options.toBundle());
+                Intent nextScreen = new Intent(v.getContext(), RegisterPage.class);
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginPage.this, img, "regUser");
+                startActivityForResult(nextScreen, 0);
             }
         });
     }
