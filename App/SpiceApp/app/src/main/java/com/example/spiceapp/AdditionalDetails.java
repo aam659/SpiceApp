@@ -37,6 +37,7 @@ public class AdditionalDetails extends AppCompatActivity {
                 String newUserLName = lName.getText().toString();
                 if(!userPhoneNumber.isEmpty())
                 addDetails(newUserName, userPhoneNumber, newUserLName, user);
+                startActivityForResult(new Intent(AdditionalDetails.this, HomePage.HomePageActivity.class), 0);
             }
         });
 

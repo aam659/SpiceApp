@@ -12,17 +12,21 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfilePage extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        final String Logged = "loginKey";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mAuth = FirebaseManager.getAuth();
 
         final Button btnMoods = (Button)findViewById(R.id.btnMoods);
         final Button btnLogout = (Button)findViewById(R.id.btnLogout);
@@ -37,10 +41,7 @@ public class ProfilePage extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(Logged, false);
-                editor.apply();
+                FirebaseAuth.getInstance().signOut();
                 Intent nextScreen = new Intent(v.getContext(), HomePage.HomePageActivity.class);
                 startActivityForResult(nextScreen, 0);
             }

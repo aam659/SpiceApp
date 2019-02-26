@@ -31,7 +31,7 @@ public class HomePage extends AppCompatActivity {
 
         private FirebaseUser user;
         private DatabaseReference database;
-        private String userName;
+        private String userName = null;
 
         private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
         private static final String[] RUNTIME_PERMISSIONS = {
@@ -59,28 +59,28 @@ public class HomePage extends AppCompatActivity {
 
             final Button btnMainAction = (Button)findViewById(R.id.btnMainAct);
 
-            Query query = FirebaseManager.getFirstNameReference();
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    userName = dataSnapshot.getValue(String.class);
-//                    System.out.println("userName in listener: " + userName);
-                    updateButton(dataSnapshot.getValue(String.class), btnMainAction);
+            if(FirebaseManager.isLoggedIn()) {
+                Query query = FirebaseManager.getFirstNameReference();
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        userName = dataSnapshot.getValue(String.class);
+                        System.out.println("userName in listener: " + userName);
+                        updateButton(dataSnapshot.getValue(String.class), btnMainAction);
 
-                }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
+                    }
+                });
+            }
 
 
             btnMainAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isLoggedIn()){
+                    if(FirebaseManager.isLoggedIn()){
                         Intent nextScreen = new Intent(v.getContext(), SpiceItUp.class);
                         startActivityForResult(nextScreen, 0);
                     }
@@ -110,7 +110,7 @@ public class HomePage extends AppCompatActivity {
                             return true;
 
                         case R.id.tlbProfile:
-                            if(isLoggedIn()) {
+                            if(FirebaseManager.isLoggedIn()) {
                                 nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
                                 startActivityForResult(nextScreen, 0);
                             }
@@ -137,14 +137,13 @@ public class HomePage extends AppCompatActivity {
 
         private void updateButton(String value, Button btnMainAction) {
             String btnText;
-            boolean isLogged = isLoggedIn();
-            if(isLogged){
+            if(FirebaseManager.isLoggedIn()){
                 System.out.println("CURRENT USER NAME " + userName);
                 btnText = "Hi " + userName + ", feeling spicy?";
                 btnMainAction.setText(btnText);
             }
             else{
-                btnText = getResources().getString(R.string.strMainNotLogged);
+                btnText = "Looks like you're not signed in. Login?";
                 btnMainAction.setText(btnText);
             }
         }
@@ -193,11 +192,5 @@ public class HomePage extends AppCompatActivity {
                     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
-
-        public boolean isLoggedIn(){
-            return !user.isAnonymous();
-        }
-
-
     }
 }
