@@ -17,20 +17,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseManager.getAuth();
+
         final TextView email = (TextView) findViewById(R.id.edtNewUser);
         final TextView password = (TextView) findViewById(R.id.edtNewUserPassword);
         final TextView retype = (TextView) findViewById(R.id.edtRetype);

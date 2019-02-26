@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class AdditionalDetails extends AppCompatActivity {
 
@@ -23,8 +21,6 @@ public class AdditionalDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtional_details);
 
-        FirebaseManager.initializeAuthentication();
-        FirebaseManager.initializeDatabase();
         FirebaseUser user = FirebaseManager.getCurrentUser();
         database = FirebaseManager.getDatabaseReference();
 

@@ -17,13 +17,21 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class HomePage extends AppCompatActivity {
 
     public static class HomePageActivity extends AppCompatActivity {
+
+        private FirebaseUser user;
+        private DatabaseReference database;
+        private String userName;
 
         private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
         private static final String[] RUNTIME_PERMISSIONS = {
@@ -37,6 +45,8 @@ public class HomePage extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home_page);
+            FirebaseManager.initialize();
+            user = FirebaseManager.getCurrentUser();
 
             if (hasPermissions(this, RUNTIME_PERMISSIONS)) {
                 //setupMapFragmentView();
@@ -47,31 +57,30 @@ public class HomePage extends AppCompatActivity {
             }
 
 
-//            FirebaseApp.initializeApp(this);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("message");
-
-            myRef.setValue("Hello, World!");
-
-            String btnText;
-            boolean isLogged = isLoggedIn();
             final Button btnMainAction = (Button)findViewById(R.id.btnMainAct);
-            if(isLogged){
 
-                btnText = getResources().getString(R.string.strMainIsLogged);
-                btnMainAction.setText(btnText);
-            }
-            else{
-                btnText = getResources().getString(R.string.strMainNotLogged);
-                btnMainAction.setText(btnText);
-            }
+            Query query = FirebaseManager.getFirstNameReference();
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    userName = dataSnapshot.getValue(String.class);
+//                    System.out.println("userName in listener: " + userName);
+                    updateButton(dataSnapshot.getValue(String.class), btnMainAction);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
 
             btnMainAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(isLogged){
+                    if(isLoggedIn()){
                         Intent nextScreen = new Intent(v.getContext(), SpiceItUp.class);
                         startActivityForResult(nextScreen, 0);
                     }
@@ -90,6 +99,7 @@ public class HomePage extends AppCompatActivity {
                     Intent nextScreen;
                     switch (item.getItemId()) {
                         case R.id.tlbLogin:
+                            System.out.println("userName when login: " + userName);
                             nextScreen = new Intent(HomePageActivity.this, LoginPage.class);
                             startActivityForResult(nextScreen, 0);
                             return true;
@@ -100,7 +110,7 @@ public class HomePage extends AppCompatActivity {
                             return true;
 
                         case R.id.tlbProfile:
-                            if(isLogged) {
+                            if(isLoggedIn()) {
                                 nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
                                 startActivityForResult(nextScreen, 0);
                             }
@@ -123,6 +133,20 @@ public class HomePage extends AppCompatActivity {
             });
 
 
+        }
+
+        private void updateButton(String value, Button btnMainAction) {
+            String btnText;
+            boolean isLogged = isLoggedIn();
+            if(isLogged){
+                System.out.println("CURRENT USER NAME " + userName);
+                btnText = "Hi " + userName + ", feeling spicy?";
+                btnMainAction.setText(btnText);
+            }
+            else{
+                btnText = getResources().getString(R.string.strMainNotLogged);
+                btnMainAction.setText(btnText);
+            }
         }
 
         private static boolean hasPermissions(Context context, String... permissions) {
@@ -171,8 +195,7 @@ public class HomePage extends AppCompatActivity {
         }
 
         public boolean isLoggedIn(){
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-            return sharedPreferences.getBoolean("loginKey", false);
+            return !user.isAnonymous();
         }
 
 
