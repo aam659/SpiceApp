@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "120936090454-76fnlbeqiuur7t36ffeqlpkvvbur2vg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spiceapp",
+            "certificate_hash": "866402a30f3a4cff70848e8c0fff24a92a28503c"
+          }
+        },
+        {
           "client_id": "120936090454-mk1biuupg9iv4i4bhgni911486uoguua.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -40,7 +40,6 @@ public class LoginPage extends AppCompatActivity {
 
         final CardView btnLogin = (CardView) findViewById(R.id.cardLogin);
         final CardView btnRegister = (CardView) findViewById(R.id.cardRegister);
-        final
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
