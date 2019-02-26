@@ -32,28 +32,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtNewUser"
-        android:layout_width="290dp"
+        android:id="@+id/edtName"
+        android:layout_width="97dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="55dp"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="327dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginRight="55dp"
+        android:layout_marginRight="259dp"
         android:ems="10"
-        android:hint="@string/strLoginField"
+        android:hint="@string/strFName"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/edtNewUserPassword"
+        android:id="@+id/edtLName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="212dp"
+        android:layout_marginTop="328dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginRight="30dp"
+        android:layout_toEndOf="@+id/edtName"
+        android:ems="10"
+        android:hint="@string/strLName"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edtPhone"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtNewUser"
+        android:layout_below="@+id/edtName"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
@@ -64,14 +80,14 @@
         android:layout_marginEnd="55dp"
         android:layout_marginRight="96dp"
         android:ems="10"
-        android:hint="@string/password_screen"
+        android:hint="@string/strPhone"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/edtRetype"
+        android:id="@+id/edtMoods"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtNewUserPassword"
+        android:layout_below="@+id/edtPhone"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
@@ -82,14 +98,14 @@
         android:layout_marginEnd="55dp"
         android:layout_marginRight="91dp"
         android:ems="10"
-        android:hint="@string/strRetype"
+        android:hint="PlaceHolderForMoods DOES NOTHING"
         android:inputType="textPassword" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardCreate"
+        android:id="@+id/cardFinish"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edtRetype"
+        android:layout_below="@+id/edtMoods"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
@@ -113,8 +129,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp"
-                android:text="@string/strCreateAccount"
-                android:textSize="18sp" />
+                android:text="@string/strFinish"
+                android:textSize="18sp"
+                tools:text="@string/strFinish" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

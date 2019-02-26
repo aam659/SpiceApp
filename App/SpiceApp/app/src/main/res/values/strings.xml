@@ -34,4 +34,10 @@
     <string name="title_activity_register_page">RegisterPage</string>
     <string name="strRetype">Retype Password</string>
     <string name="strCreateAccount">Create Account</string>
+    <string name="strFinishAccount" />
+    <string name="strNewName">What\'s your name?</string>
+    <string name="strPhone">Can we get your number?</string>
+    <string name="strFName">First Name</string>
+    <string name="strLName">Last Name</string>
+    <string name="strFinish">Finish</string>
 </resources>
