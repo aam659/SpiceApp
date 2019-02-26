@@ -14,11 +14,10 @@
     <string name="login">login</string>
     <string name="forgot_password">forgot_password</string>
     <string name="username_email">username_email</string>
-    <string name="retype_password">retype_password</string>
-    <string name="email">email</string>
-    <string name="user_id">user_id</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="email">Email</string>
     <string name="name">name</string>
-    <string name="password_screen">password_screen</string>
+    <string name="password_screen">Password</string>
     <string name="age">age</string>
     <string name="address">address</string>
     <string name="signup">signup</string>
@@ -30,4 +29,15 @@
     <string name="strMoodsNav">Moods</string>
     <string name="txtLocation">Restaurant Location</string>
     <string name="btnAccept">Accept</string>
+    <string name="strLoginField">Email</string>
+    <string name="strRegister">strRegister</string>
+    <string name="title_activity_register_page">RegisterPage</string>
+    <string name="strRetype">Retype Password</string>
+    <string name="strCreateAccount">Create Account</string>
+    <string name="strFinishAccount" />
+    <string name="strNewName">What\'s your name?</string>
+    <string name="strPhone">Can we get your number?</string>
+    <string name="strFName">First Name</string>
+    <string name="strLName">Last Name</string>
+    <string name="strFinish">Finish</string>
 </resources>

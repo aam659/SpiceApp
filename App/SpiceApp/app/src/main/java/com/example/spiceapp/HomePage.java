@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomePage extends AppCompatActivity {
 
@@ -42,6 +45,13 @@ public class HomePage extends AppCompatActivity {
                 ActivityCompat
                         .requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE_ASK_PERMISSIONS);
             }
+
+
+//            FirebaseApp.initializeApp(this);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("message");
+
+            myRef.setValue("Hello, World!");
 
             String btnText;
             boolean isLogged = isLoggedIn();
