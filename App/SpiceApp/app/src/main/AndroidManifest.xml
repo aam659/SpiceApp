@@ -16,12 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MapPage"></activity>
+        <activity
+            android:name=".RegisterPage"
+            android:label="@string/title_activity_register_page"
+            android:parentActivityName=".LoginPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.spiceapp.LoginPage" />
+        </activity>
+        <activity android:name=".MapPage" />
         <activity
             android:name=".ProfilePage"
             android:label="@string/title_activity_profile_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
         <activity
             android:name=".SocialPage"
@@ -35,7 +43,6 @@
         <activity android:name=".HomePage$HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

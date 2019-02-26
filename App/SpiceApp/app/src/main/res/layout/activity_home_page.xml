@@ -85,7 +85,7 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:contentDescription="@string/picChilli"
-        android:src="@drawable/chilli"
+        android:src="@drawable/chilli_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,9 +97,13 @@
         android:layout_height="51dp"
         android:layout_marginStart="92dp"
         android:layout_marginLeft="92dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="76dp"
         android:text="@string/strMainIsLogged"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
