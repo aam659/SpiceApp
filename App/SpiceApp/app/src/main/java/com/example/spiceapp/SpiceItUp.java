@@ -66,7 +66,7 @@ public class SpiceItUp extends AppCompatActivity {
         initMapEngine();
         findPlace();
 
-        Places.initialize(getApplicationContext(),"AIzaSyAQhlqcH4FDqC4l4mnviaVQ7o0rkevon6M");
+        Places.initialize(getApplicationContext(),"");
         placesClient = Places.createClient(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
