@@ -45,7 +45,6 @@ import java.util.List;
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
     private TextView txtLocation;
-    private TextView txtURL;
     private ImageView imgRestuarant;
     private static List<DiscoveryResult> s_ResultList;
     private static PlaceLink result;
@@ -65,9 +64,6 @@ public class SpiceItUp extends AppCompatActivity {
 
         initMapEngine();
         findPlace();
-
-        Places.initialize(getApplicationContext(),"");
-        placesClient = Places.createClient(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -229,17 +225,18 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
+        Places.initialize(getApplicationContext(),"");
+        placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
-
         RectangularBounds bounds = RectangularBounds.newInstance(
           new LatLng(33.191225,-87.601043),new LatLng(33.243540,-87.540054));
 
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                 // Call either setLocationBias() OR setLocationRestriction().
                 .setLocationBias(bounds)
-                .setLocationRestriction(bounds)
+//                .setLocationRestriction(bounds)
                 .setCountry("US")
-                //.setTypeFilter(TypeFilter.ESTABLISHMENT)
+//                .setTypeFilter(TypeFilter.ESTABLISHMENT)
                 .setSessionToken(token)
                 .setQuery(query)
                 .build();
