@@ -11,23 +11,27 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
-import com.here.android.mpa.common.Image;
 import com.here.android.mpa.common.MapEngine;
 import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.search.Address;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
-import com.here.android.mpa.search.ImageMedia;
-import com.here.android.mpa.search.Media;
-import com.here.android.mpa.search.MediaCollectionPage;
 import com.here.android.mpa.search.Place;
 import com.here.android.mpa.search.PlaceLink;
 import com.here.android.mpa.search.PlaceRequest;
@@ -43,9 +47,9 @@ public class SpiceItUp extends AppCompatActivity {
     private TextView txtLocation;
     private TextView txtURL;
     private ImageView imgRestuarant;
-    public static List<DiscoveryResult> s_ResultList;
-    public static PlaceLink result;
-    public static String imgURL = "";
+    private static List<DiscoveryResult> s_ResultList;
+    private static PlaceLink result;
+    private PlacesClient placesClient;
 
 
     @Override
@@ -53,7 +57,7 @@ public class SpiceItUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
 
-       boolean isLogged = isLoggedIn();
+        boolean isLogged = isLoggedIn();
 
         initializeToolbar();
 
@@ -62,11 +66,8 @@ public class SpiceItUp extends AppCompatActivity {
         initMapEngine();
         findPlace();
 
-        // Set listeners for programmatic spiceItUp()
-        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
-
-        // Updates imgRestaurant
+        Places.initialize(getApplicationContext(),"AIzaSyAQhlqcH4FDqC4l4mnviaVQ7o0rkevon6M");
+        placesClient = Places.createClient(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -129,6 +130,8 @@ public class SpiceItUp extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         imgRestuarant = findViewById(R.id.imgRestuarant);
         txtLocation = findViewById(R.id.txtLocation);
+        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
     }
 
     private void initMapEngine(){
@@ -198,6 +201,7 @@ public class SpiceItUp extends AppCompatActivity {
                 txtName.setText(place.getName());
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
                 getHereAddress(geoCoordinate);
+                autoComplete(place.getName());
             }
             else {
                 Toast.makeText(getApplicationContext(),
@@ -207,6 +211,7 @@ public class SpiceItUp extends AppCompatActivity {
         }
     };
 
+    //May be garbage since im querying based on the name
     private void getHereAddress(GeoCoordinate geoCoordinate){
         ReverseGeocodeRequest revGeo = new ReverseGeocodeRequest(geoCoordinate);
         revGeo.execute((new ResultListener<Address>() {
@@ -221,6 +226,35 @@ public class SpiceItUp extends AppCompatActivity {
                 }
             }
         }));
+    }
+
+    private void autoComplete(String query){
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+
+        RectangularBounds bounds = RectangularBounds.newInstance(
+          new LatLng(33.191225,-87.601043),new LatLng(33.243540,-87.540054));
+
+        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
+                // Call either setLocationBias() OR setLocationRestriction().
+                .setLocationBias(bounds)
+                .setLocationRestriction(bounds)
+                .setCountry("US")
+                //.setTypeFilter(TypeFilter.ESTABLISHMENT)
+                .setSessionToken(token)
+                .setQuery(query)
+                .build();
+
+        placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+                System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
+            }
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                System.out.println("Autocomplete prediction failed with code: " + apiException.getStatusCode());
+                System.out.println("***"+apiException.getMessage()+"***");
+            }
+        });
     }
 }
 
