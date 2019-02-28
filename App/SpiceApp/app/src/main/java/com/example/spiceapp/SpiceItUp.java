@@ -236,7 +236,7 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
-        Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
+        Places.initialize(getApplicationContext(),"");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         RectangularBounds bounds = RectangularBounds.newInstance(
@@ -257,7 +257,6 @@ public class SpiceItUp extends AppCompatActivity {
                 System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId());
-                break;
             }
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
