@@ -41,6 +41,8 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -236,7 +238,7 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
-        Places.initialize(getApplicationContext(),"");
+        Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         RectangularBounds bounds = RectangularBounds.newInstance(
@@ -257,6 +259,7 @@ public class SpiceItUp extends AppCompatActivity {
                 System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId());
+                return;
             }
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
@@ -280,28 +283,41 @@ public class SpiceItUp extends AppCompatActivity {
             com.google.android.libraries.places.api.model.Place place = response.getPlace();
 
             // Get the photo metadata.
-            com.google.android.libraries.places.api.model.PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
+            if (place.getPhotoMetadatas() != null) {
+                com.google.android.libraries.places.api.model.PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
 
-            // Get the attribution text.
-            String attributions = photoMetadata.getAttributions();
+                // Get the attribution text.
+                String attributions = photoMetadata.getAttributions();
 
-            // Create a FetchPhotoRequest.
-            com.google.android.libraries.places.api.net.FetchPhotoRequest photoRequest = com.google.android.libraries.places.api.net.FetchPhotoRequest.builder(photoMetadata)
-                    .setMaxWidth(500) // Optional.
-                    .setMaxHeight(300) // Optional.
-                    .build();
-            placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
-                android.graphics.Bitmap bitmap = fetchPhotoResponse.getBitmap();
-                resImage = (ImageView) findViewById(R.id.imgRestuarant);
-                resImage.setImageBitmap(bitmap);
-            }).addOnFailureListener((exception) -> {
-                if (exception instanceof ApiException) {
-                    ApiException apiException = (ApiException) exception;
-                    int statusCode = apiException.getStatusCode();
-                    // Handle error with given status code.
-                    Log.e(TAG, "Place not found: " + exception.getMessage());
-                }
-            });
+                // Create a FetchPhotoRequest.
+                com.google.android.libraries.places.api.net.FetchPhotoRequest photoRequest = com.google.android.libraries.places.api.net.FetchPhotoRequest.builder(photoMetadata)
+                        .setMaxWidth(500) // Optional.
+                        .setMaxHeight(300) // Optional.
+                        .build();
+                placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
+                    android.graphics.Bitmap bitmap = fetchPhotoResponse.getBitmap();
+                    resImage = (ImageView) findViewById(R.id.imgRestuarant);
+                    resImage.setImageBitmap(bitmap);
+                }).addOnFailureListener((exception) -> {
+                    if (exception instanceof ApiException) {
+                        ApiException apiException = (ApiException) exception;
+                        int statusCode = apiException.getStatusCode();
+                        // Handle error with given status code.
+                        Log.e(TAG, "Place not found: " + exception.getMessage());
+                    }
+                });
+            }
+
+            else {
+                resImage.setImageResource(R.drawable.notfound);
+            }
+        }).addOnFailureListener((exception) -> {
+            if (exception instanceof ApiException) {
+                ApiException apiException = (ApiException) exception;
+                int statusCode = apiException.getStatusCode();
+                // Handle error with given status code.
+                Log.e(TAG, "Place not found: " + exception.getMessage());
+            }
         });
     }
 }
