@@ -236,7 +236,7 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
-        Places.initialize(getApplicationContext(),"");
+        Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         RectangularBounds bounds = RectangularBounds.newInstance(
