@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,16 +41,20 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class SpiceItUp extends AppCompatActivity {
     private TextView txtName;
     private TextView txtLocation;
-    private ImageView imgRestuarant;
+    private ImageView resImage;
+    // private ImageView mImageView;
     private static List<DiscoveryResult> s_ResultList;
     private static PlaceLink result;
     private PlacesClient placesClient;
+    private static final String TAG = "SpiceItUp";
+    private static String ID;
 
 
     @Override
@@ -124,7 +130,7 @@ public class SpiceItUp extends AppCompatActivity {
 
     private void initializeViews(){
         txtName = findViewById(R.id.txtName);
-        imgRestuarant = findViewById(R.id.imgRestuarant);
+        // imgRestuarant = findViewById(R.id.imgRestuarant);
         txtLocation = findViewById(R.id.txtLocation);
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
@@ -197,7 +203,12 @@ public class SpiceItUp extends AppCompatActivity {
                 txtName.setText(place.getName());
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
                 getHereAddress(geoCoordinate);
+                // Use AutoComplete to return Place ID
                 autoComplete(place.getName());
+                // findPlaceByID("ChIJGbkDiaMChogR5tfPSCm50jM");
+                // fetchPlace request
+                // List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.PHOTO_METADATAS);
+                // FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(placeID, fields).build();
             }
             else {
                 Toast.makeText(getApplicationContext(),
@@ -244,6 +255,9 @@ public class SpiceItUp extends AppCompatActivity {
         placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
                 System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
+                // Returns Place ID
+                findPlaceByID(prediction.getPlaceId());
+                break;
             }
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
@@ -251,6 +265,44 @@ public class SpiceItUp extends AppCompatActivity {
                 System.out.println("Autocomplete prediction failed with code: " + apiException.getStatusCode());
                 System.out.println("***"+apiException.getMessage()+"***");
             }
+        });
+    }
+
+    private void findPlaceByID(String query) {
+        // Define a Place ID.
+
+// Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
+        List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.PHOTO_METADATAS);
+
+// Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
+        FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(query, fields).build();
+
+        placesClient.fetchPlace(placeRequest).addOnSuccessListener((response) -> {
+            com.google.android.libraries.places.api.model.Place place = response.getPlace();
+
+            // Get the photo metadata.
+            com.google.android.libraries.places.api.model.PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
+
+            // Get the attribution text.
+            String attributions = photoMetadata.getAttributions();
+
+            // Create a FetchPhotoRequest.
+            com.google.android.libraries.places.api.net.FetchPhotoRequest photoRequest = com.google.android.libraries.places.api.net.FetchPhotoRequest.builder(photoMetadata)
+                    .setMaxWidth(500) // Optional.
+                    .setMaxHeight(300) // Optional.
+                    .build();
+            placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
+                android.graphics.Bitmap bitmap = fetchPhotoResponse.getBitmap();
+                resImage = (ImageView) findViewById(R.id.imgRestuarant);
+                resImage.setImageBitmap(bitmap);
+            }).addOnFailureListener((exception) -> {
+                if (exception instanceof ApiException) {
+                    ApiException apiException = (ApiException) exception;
+                    int statusCode = apiException.getStatusCode();
+                    // Handle error with given status code.
+                    Log.e(TAG, "Place not found: " + exception.getMessage());
+                }
+            });
         });
     }
 }
