@@ -4,6 +4,7 @@ package com.example.spiceapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +23,10 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPhotoRequest;
+import com.google.android.libraries.places.api.model.Place.Field;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,23 +44,17 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class SpiceItUp extends AppCompatActivity {
-    private TextView txtName;
-    private TextView txtLocation;
-    private ImageView resImage;
-    // private ImageView mImageView;
+    private String name;
+    private String addr;
+    private Bitmap bitmap;
     private static List<DiscoveryResult> s_ResultList;
-    private static PlaceLink result;
     private PlacesClient placesClient;
-    private static final String TAG = "SpiceItUp";
-    private static String ID;
-
+    private int rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +65,8 @@ public class SpiceItUp extends AppCompatActivity {
 
         initializeToolbar();
 
-        initializeViews();
+        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
 
         initMapEngine();
         findPlace();
@@ -130,12 +128,13 @@ public class SpiceItUp extends AppCompatActivity {
         actionBar.setTitle("Spice It Up");
     }
 
-    private void initializeViews(){
-        txtName = findViewById(R.id.txtName);
-        // imgRestuarant = findViewById(R.id.imgRestuarant);
-        txtLocation = findViewById(R.id.txtLocation);
-        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+    private void updateViews(){
+        TextView txtName = (TextView) findViewById(R.id.txtName);
+        ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
+        TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
+        imgRestaurant.setImageBitmap(bitmap);
+        txtName.setText(name);
+        txtLocation.setText(addr);
     }
 
     private void initMapEngine(){
@@ -165,8 +164,6 @@ public class SpiceItUp extends AppCompatActivity {
         @Override
         public void onCompleted(DiscoveryResultPage discoveryResultPage, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
-                /* No error returned,let's handle the results */
-
                 /*
                  * The result is a DiscoveryResultPage object which represents a paginated
                  * collection of items.The items can be either a PlaceLink or DiscoveryLink.The
@@ -177,14 +174,8 @@ public class SpiceItUp extends AppCompatActivity {
                 s_ResultList = discoveryResultPage.getItems();
                 Collections.shuffle(s_ResultList);
                 for (DiscoveryResult item : s_ResultList) {
-                    /*
-                     * Add a marker for each result of PlaceLink type.For best usability, map can be
-                     * also adjusted to display all markers.This can be done by merging the bounding
-                     * box of each result and then zoom the map to the merged one.
-                     */
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
-                        result = placeLink;
                         PlaceRequest placeRequest = placeLink.getDetailsRequest();
                         placeRequest.execute(m_placeResultListener);
                         break;
@@ -202,15 +193,10 @@ public class SpiceItUp extends AppCompatActivity {
         @Override
         public void onCompleted(Place place, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
-                txtName.setText(place.getName());
+                name = place.getName();
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
                 getHereAddress(geoCoordinate);
-                // Use AutoComplete to return Place ID
                 autoComplete(place.getName());
-                // findPlaceByID("ChIJGbkDiaMChogR5tfPSCm50jM");
-                // fetchPlace request
-                // List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.PHOTO_METADATAS);
-                // FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(placeID, fields).build();
             }
             else {
                 Toast.makeText(getApplicationContext(),
@@ -227,8 +213,7 @@ public class SpiceItUp extends AppCompatActivity {
             @Override
             public void onCompleted(Address address, ErrorCode errorCode) {
                 if(errorCode == ErrorCode.NONE){
-                    String temp = address.getText();
-                    txtLocation.setText(temp);
+                    addr = address.getText();
                 }
                 else{
                     System.out.println("Failed");
@@ -256,7 +241,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
-                System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
+                //System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId());
                 return;
@@ -270,34 +255,33 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 
-    private void findPlaceByID(String query) {
-        // Define a Place ID.
-
+    private void findPlaceByID(String id) {
+        final String TAG = "SpiceItUp";
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
-        List<com.google.android.libraries.places.api.model.Place.Field> fields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.PHOTO_METADATAS);
+        List<Field> fields =
+                Arrays.asList(Field.PHOTO_METADATAS);
 
 // Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
-        FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(query, fields).build();
+        FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(id, fields).build();
 
         placesClient.fetchPlace(placeRequest).addOnSuccessListener((response) -> {
             com.google.android.libraries.places.api.model.Place place = response.getPlace();
 
             // Get the photo metadata.
             if (place.getPhotoMetadatas() != null) {
-                com.google.android.libraries.places.api.model.PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
+                PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
 
                 // Get the attribution text.
                 String attributions = photoMetadata.getAttributions();
 
                 // Create a FetchPhotoRequest.
-                com.google.android.libraries.places.api.net.FetchPhotoRequest photoRequest = com.google.android.libraries.places.api.net.FetchPhotoRequest.builder(photoMetadata)
+                FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
                         .setMaxWidth(500) // Optional.
                         .setMaxHeight(300) // Optional.
                         .build();
                 placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
-                    android.graphics.Bitmap bitmap = fetchPhotoResponse.getBitmap();
-                    resImage = (ImageView) findViewById(R.id.imgRestuarant);
-                    resImage.setImageBitmap(bitmap);
+                    bitmap = fetchPhotoResponse.getBitmap();
+                    updateViews();
                 }).addOnFailureListener((exception) -> {
                     if (exception instanceof ApiException) {
                         ApiException apiException = (ApiException) exception;
@@ -309,7 +293,8 @@ public class SpiceItUp extends AppCompatActivity {
             }
 
             else {
-                resImage.setImageResource(R.drawable.notfound);
+                ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
+                imgRestaurant.setImageResource(R.drawable.chilli_logo);
             }
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
@@ -322,3 +307,4 @@ public class SpiceItUp extends AppCompatActivity {
     }
 }
 
+//@todo get real time lat and lng to get local query results
