@@ -16,7 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MealTime"></activity>
+        <activity android:name=".NameMood"></activity>
+        <activity
+            android:name=".ListMoods"
+            android:label="@string/title_activity_list_moods"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MealTime" />
         <activity android:name=".AdditionalDetails" />
         <activity
             android:name=".RegisterPage"
@@ -56,6 +61,9 @@
         <meta-data
             android:name="com.here.android.maps.apptoken"
             android:value="QDCpvdviLtTQLSuJmfOLKA" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

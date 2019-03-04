@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 public class ProfilePage extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -34,7 +36,8 @@ public class ProfilePage extends AppCompatActivity {
         btnMoods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Coming Soon!", Toast.LENGTH_SHORT).show();
+                Intent nextScreen = new Intent(v.getContext(), ListMoods.class);
+                startActivityForResult(nextScreen, 0);
             }
         });
 

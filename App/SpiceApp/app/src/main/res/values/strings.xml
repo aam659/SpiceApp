@@ -40,4 +40,11 @@
     <string name="strFName">First Name</string>
     <string name="strLName">Last Name</string>
     <string name="strFinish">Finish</string>
+    <string name="strChooseAMeal">What Meal Are You In The Mood For?</string>
+    <string name="strBreakfast">Breakfast</string>
+    <string name="strLunch">Lunch</string>
+    <string name="strDinner">Dinner</string>
+    <string name="title_activity_list_moods">ListMoods</string>
+    <string name="strWhatIsYourMood">What Do You Wanna Call This Mood?</string>
+    <string name="strCreateMood">Create Mood</string>
 </resources>
