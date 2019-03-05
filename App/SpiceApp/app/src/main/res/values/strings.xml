@@ -66,4 +66,5 @@
     <string name="strSteakhouse">Steakhouse</string>
     <string name="strBar">Bar</string>
     <string name="strChooseACategory">What Kind Of Food Do You Want?</string>
+    <string name="strConfirm">Confirm</string>
 </resources>

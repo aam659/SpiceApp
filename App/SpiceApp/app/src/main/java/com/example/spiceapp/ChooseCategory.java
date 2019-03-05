@@ -18,6 +18,6 @@ public class ChooseCategory extends AppCompatActivity {
         setContentView(R.layout.activity_choose_category);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
     }
 }
