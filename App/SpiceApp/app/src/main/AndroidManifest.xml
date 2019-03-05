@@ -16,7 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NameMood"></activity>
+        <activity
+            android:name=".ChooseCategory"
+            android:label="@string/title_activity_choose_category"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".NameMood" />
         <activity
             android:name=".ListMoods"
             android:label="@string/title_activity_list_moods"

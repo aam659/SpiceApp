@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ChooseCategory"
+    tools:showIn="@layout/activity_choose_category">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <CheckBox
+                android:id="@+id/checkBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strBar" />
+
+            <CheckBox
+                android:id="@+id/checkCafe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strCafe" />
+
+            <CheckBox
+                android:id="@+id/checkSteakhouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strSteakhouse" />
+
+            <CheckBox
+                android:id="@+id/checkBBQ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strBBQ" />
+
+            <CheckBox
+                android:id="@+id/checkIndian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strIndian" />
+
+            <CheckBox
+                android:id="@+id/checkPizza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strPizza" />
+
+            <CheckBox
+                android:id="@+id/checkFastFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strFastFood" />
+
+            <CheckBox
+                android:id="@+id/checkMex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strMexican"
+                tools:text="@string/strMexican" />
+
+            <CheckBox
+                android:id="@+id/checkItalian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strItalian"
+                tools:text="@string/strItalian" />
+
+            <CheckBox
+                android:id="@+id/checkBurgers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strBurgers" />
+
+            <CheckBox
+                android:id="@+id/checkChinese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strChin" />
+
+            <CheckBox
+                android:id="@+id/checkSeafood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/strSeafood" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.core.widget.NestedScrollView>
