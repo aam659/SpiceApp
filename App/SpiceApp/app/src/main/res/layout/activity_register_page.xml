@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edtNewUser"
+        android:id="@+id/edtEmail"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -50,10 +50,10 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/edtNewUserPassword"
+        android:id="@+id/edtLoginPassword"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtNewUser"
+        android:layout_below="@+id/edtEmail"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
@@ -71,7 +71,7 @@
         android:id="@+id/edtRetype"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtNewUserPassword"
+        android:layout_below="@+id/edtLoginPassword"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"

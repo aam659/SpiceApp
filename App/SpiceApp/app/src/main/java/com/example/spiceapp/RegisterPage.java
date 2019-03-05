@@ -29,8 +29,8 @@ public class RegisterPage extends AppCompatActivity {
 
         mAuth = FirebaseManager.getAuth();
 
-        final TextView email = (TextView) findViewById(R.id.edtNewUser);
-        final TextView password = (TextView) findViewById(R.id.edtNewUserPassword);
+        final TextView email = (TextView) findViewById(R.id.edtEmail);
+        final TextView password = (TextView) findViewById(R.id.edtLoginPassword);
         final TextView retype = (TextView) findViewById(R.id.edtRetype);
         final CardView create = (CardView) findViewById(R.id.cardCreate);
 
