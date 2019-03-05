@@ -1,4 +1,11 @@
 <resources>
+    <string-array name="priceRange">
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+        <item>$$$$$</item>
+    </string-array>
     <string name="app_name">Spice</string>
     <string name="btnSIU">Spice It Up</string>
     <string name="strProfile">Profile</string>
@@ -53,7 +60,7 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="strMexican">Mexican</string>
-    <string name="strItalian" >Italian</string>
+    <string name="strItalian">Italian</string>
     <string name="strBurgers">Burgers</string>
     <string name="strChinese">Chinese</string>
     <string name="strChin">Chinese</string>
@@ -67,4 +74,7 @@
     <string name="strBar">Bar</string>
     <string name="strChooseACategory">What Kind Of Food Do You Want?</string>
     <string name="strConfirm">Confirm</string>
+    <string name="strHowMuchToSpend">How Much Do You Want To Spend?</string>
+    <string name="strMaximum">Maximum</string>
+    <string name="strMinimum">Minimum</string>
 </resources>

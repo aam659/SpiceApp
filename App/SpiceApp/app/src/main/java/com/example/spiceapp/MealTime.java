@@ -43,6 +43,7 @@ public class MealTime extends AppCompatActivity {
                 Toast.makeText(v.getContext(), "Lunch Clicked", Toast.LENGTH_LONG).show();
                 database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("MealTime").setValue("Lunch");
                 Intent nextScreen = new Intent(v.getContext(), ChooseCategory.class);
+                nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);;
                 
             }
@@ -54,6 +55,7 @@ public class MealTime extends AppCompatActivity {
                 Toast.makeText(v.getContext(), "Dinner Clicked", Toast.LENGTH_LONG).show();
                 database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("MealTime").setValue("Dinner");
                 Intent nextScreen = new Intent(v.getContext(), ChooseCategory.class);
+                nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
             }
         });

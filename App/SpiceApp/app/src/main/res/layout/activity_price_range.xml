@@ -8,8 +8,33 @@
     android:fitsSystemWindows="true"
     tools:context=".ChooseCategory">
 
+    <TextView
+        android:id="@+id/textMinimum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="@string/strMinimum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMaximum" />
+
+    <Spinner
+        android:id="@+id/spinnerMinimum"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMinimum" />
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardConfirmCat"
+        android:id="@+id/cardConfirmPrice"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@+id/edtRetype"
@@ -18,18 +43,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="88dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <RelativeLayout
-            android:id="@+id/btnConfirmCat"
+            android:id="@+id/btnConfirmPrice"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -46,18 +69,6 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/content_choose_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="152dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -65,13 +76,37 @@
         android:layout_marginTop="88dp"
         android:fontFamily="@font/comfortaa"
         android:gravity="top"
-        android:text="@string/strChooseACategory"
+        android:text="@string/strHowMuchToSpend"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="32sp"
         android:typeface="sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/strChooseACategory" />
+        tools:text="@string/strHowMuchToSpend" />
+
+    <Spinner
+        android:id="@+id/spinnerMaximum"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textMaximum" />
+
+    <TextView
+        android:id="@+id/textMaximum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="@string/strMaximum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
