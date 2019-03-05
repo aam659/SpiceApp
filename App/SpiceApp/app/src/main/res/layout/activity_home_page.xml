@@ -16,8 +16,14 @@
     <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
     <!--tools:layout_editor_absoluteX="0dp" />-->
 
-    <include android:id="@+id/bottom_navigation" layout="@layout/nav_layout"/>
-   <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
+
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/nav_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="656dp" />
+    <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         style="@style/AppTheme.NoActionBar"
         android:layout_width="match_parent"
@@ -95,13 +101,14 @@
         android:id="@+id/btnMainAct"
         android:layout_width="240dp"
         android:layout_height="51dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="226dp"
         android:layout_marginBottom="76dp"
         android:text="@string/strMainNotLogged"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
