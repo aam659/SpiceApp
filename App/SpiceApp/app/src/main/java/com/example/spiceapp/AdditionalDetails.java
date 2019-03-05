@@ -4,19 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-
-import java.util.UUID;
 
 public class AdditionalDetails extends AppCompatActivity {
 
@@ -59,7 +54,6 @@ public class AdditionalDetails extends AppCompatActivity {
             database.child("users").child(user.getUid()).child("phoneNumber").setValue(phone);
     }
 
-
     private Uri imgFilePath;
     private Button btnChooseImg, btnUpload;
     FirebaseUser user = FirebaseManager.getCurrentUser();
@@ -98,6 +92,6 @@ public class AdditionalDetails extends AppCompatActivity {
                 uploadImage();
             }
         });
-        
+
     }
 }
