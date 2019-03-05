@@ -49,7 +49,8 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 String email = edtEmail.getText().toString();
                 String password = edtPassword.getText().toString();
-                signInUser(email, password);
+                if(!email.isEmpty() && !password.isEmpty())
+                    signInUser(email, password);
             }
         });
 

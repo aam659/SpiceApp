@@ -61,6 +61,9 @@ public class HomePage extends AppCompatActivity {
 
             if(FirebaseManager.isLoggedIn()) {
                 Query query = FirebaseManager.getFirstNameReference();
+                /*
+                This is a simple example of how to "query" the database
+                 */
                 query.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

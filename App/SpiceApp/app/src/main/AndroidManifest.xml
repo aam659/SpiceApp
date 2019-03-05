@@ -17,7 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdditionalDetails"></activity>
+        <activity android:name=".DistanceRange"></activity>
+        <activity android:name=".PriceRange" />
+        <activity
+            android:name=".ChooseCategory"
+            android:label="@string/title_activity_choose_category"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".NameMood" />
+        <activity
+            android:name=".ListMoods"
+            android:label="@string/title_activity_list_moods"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MealTime" />
+        <activity android:name=".AdditionalDetails" />
         <activity
             android:name=".RegisterPage"
             android:label="@string/title_activity_register_page"
@@ -56,6 +68,9 @@
         <meta-data
             android:name="com.here.android.maps.apptoken"
             android:value="QDCpvdviLtTQLSuJmfOLKA" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

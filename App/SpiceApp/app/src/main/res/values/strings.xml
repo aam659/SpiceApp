@@ -1,4 +1,18 @@
 <resources>
+    <string-array name="priceRange">
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+        <item>$$$$$</item>
+    </string-array>
+    <string-array name="distances">
+        <item>.5 mi</item>
+        <item>1 mi</item>
+        <item>5 mi</item>
+        <item>10 mi</item>
+        <item>25 mi</item>
+    </string-array>
     <string name="app_name">Spice</string>
     <string name="btnSIU">Spice It Up</string>
     <string name="strProfile">Profile</string>
@@ -40,4 +54,36 @@
     <string name="strFName">First Name</string>
     <string name="strLName">Last Name</string>
     <string name="strFinish">Finish</string>
+    <string name="strChooseAMeal">What Meal Are You In The Mood For?</string>
+    <string name="strBreakfast">Breakfast</string>
+    <string name="strLunch">Lunch</string>
+    <string name="strDinner">Dinner</string>
+    <string name="title_activity_list_moods">ListMoods</string>
+    <string name="strWhatIsYourMood">What Do You Wanna Call This Mood?</string>
+    <string name="strCreateMood">Create Mood</string>
+    <string name="title_activity_choose_category">ChooseCategory</string>
+    <string name="large_text">
+
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="strMexican">Mexican</string>
+    <string name="strItalian">Italian</string>
+    <string name="strBurgers">Burgers</string>
+    <string name="strChinese">Chinese</string>
+    <string name="strChin">Chinese</string>
+    <string name="strSeafood">Seafood</string>
+    <string name="strIndian">Indian</string>
+    <string name="strPizza">Pizza</string>
+    <string name="strFastFood">Fast Food</string>
+    <string name="strBBQ">BBQ</string>
+    <string name="strCafe">Cafe</string>
+    <string name="strSteakhouse">Steakhouse</string>
+    <string name="strBar">Bar</string>
+    <string name="strChooseACategory">What Kind Of Food Do You Want?</string>
+    <string name="strConfirm">Confirm</string>
+    <string name="strHowMuchToSpend">How Much Do You Want To Spend?</string>
+    <string name="strMaximum">Maximum</string>
+    <string name="strMinimum">Minimum</string>
+    <string name="strHowFarToDrive">How Far Are You Willing To Drive?</string>
+    <string name="strDistance">Distance</string>
 </resources>
