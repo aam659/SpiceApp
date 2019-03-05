@@ -81,27 +81,23 @@ public class AdditionalDetails extends AppCompatActivity {
         database = FirebaseManager.getDatabaseReference();
         database.child("users").child(user.getUid()).child("details").child("profilePicture").setValue(imgFilePath);
     }
-    protected void onActivityResult(int requestCode, int resultCode, Intent image){
-        super.onActivityResult(requestCode, resultCode ,image);
-        if((requestCode == GALLERY_INTENT) && (resultCode == RESULT_OK) && (image != null) && (image.getData() != null)) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent image) {
+        super.onActivityResult(requestCode, resultCode, image);
+        if ((requestCode == GALLERY_INTENT) && (resultCode == RESULT_OK) && (image != null) && (image.getData() != null)) {
             imgFilePath = image.getData();
-    }
-    btnChooseImg.setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View v){
-            selectImage();
         }
-    });
-    btnUpload.setOnClickListener(new View.OnClickListener(){
-        @Override
-        public void onClick(View v){
-            uploadImage();
-        }
-    });
-
-
-
-    protected void updateUI(FirebaseUser user){
-        startActivityForResult(new Intent(this, HomePage.HomePageActivity.class), 0);
+        btnChooseImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImage();
+            }
+        });
+        
     }
 }
