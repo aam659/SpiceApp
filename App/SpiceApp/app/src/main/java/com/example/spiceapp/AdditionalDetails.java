@@ -4,12 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+
+import java.util.UUID;
 
 public class AdditionalDetails extends AppCompatActivity {
 
@@ -51,6 +58,47 @@ public class AdditionalDetails extends AppCompatActivity {
         if(!phone.isEmpty())
             database.child("users").child(user.getUid()).child("phoneNumber").setValue(phone);
     }
+
+
+    private Uri imgFilePath;
+    private Button btnChooseImg, btnUpload;
+    FirebaseUser user = FirebaseManager.getCurrentUser();
+    private static final int GALLERY_INTENT = 2;
+    protected void addUserPhoto(){
+        if(imgFilePath != null){
+
+        }
+    }
+
+    private void selectImage(){
+        Intent imgIntent = new Intent();
+        imgIntent.setType("image/*");
+        imgIntent.setAction(Intent.ACTION_PICK);
+        startActivityForResult(Intent.createChooser(imgIntent, "Choose Photo"), GALLERY_INTENT);
+
+    }
+    private void uploadImage(){
+        database = FirebaseManager.getDatabaseReference();
+        database.child("users").child(user.getUid()).child("details").child("profilePicture").setValue(imgFilePath);
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent image){
+        super.onActivityResult(requestCode, resultCode ,image);
+        if((requestCode == GALLERY_INTENT) && (resultCode == RESULT_OK) && (image != null) && (image.getData() != null)) {
+            imgFilePath = image.getData();
+    }
+    btnChooseImg.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            selectImage();
+        }
+    });
+    btnUpload.setOnClickListener(new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            uploadImage();
+        }
+    });
+
 
 
     protected void updateUI(FirebaseUser user){
