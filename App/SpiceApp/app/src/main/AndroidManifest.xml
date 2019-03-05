@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PriceRange"></activity>
+        <activity android:name=".DistanceRange"></activity>
+        <activity android:name=".PriceRange" />
         <activity
             android:name=".ChooseCategory"
             android:label="@string/title_activity_choose_category"

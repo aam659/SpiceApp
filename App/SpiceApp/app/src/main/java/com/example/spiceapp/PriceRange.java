@@ -44,7 +44,8 @@ public class PriceRange extends AppCompatActivity {
                 database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Price").child("HighPrice").setValue(maxInt);
                 int minInt = getIntegerRepresentation(minimum.getSelectedItem().toString());
                 database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Price").child("LowPrice").setValue(minInt);
-                Intent nextScreen = new Intent(v.getContext(), HomePage.HomePageActivity.class);
+                Intent nextScreen = new Intent(v.getContext(), DistanceRange.class);
+                nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
             }
         });

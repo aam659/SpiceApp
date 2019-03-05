@@ -6,6 +6,13 @@
         <item>$$$$</item>
         <item>$$$$$</item>
     </string-array>
+    <string-array name="distances">
+        <item>.5 mi</item>
+        <item>1 mi</item>
+        <item>5 mi</item>
+        <item>10 mi</item>
+        <item>25 mi</item>
+    </string-array>
     <string name="app_name">Spice</string>
     <string name="btnSIU">Spice It Up</string>
     <string name="strProfile">Profile</string>
@@ -77,4 +84,6 @@
     <string name="strHowMuchToSpend">How Much Do You Want To Spend?</string>
     <string name="strMaximum">Maximum</string>
     <string name="strMinimum">Minimum</string>
+    <string name="strHowFarToDrive">How Far Are You Willing To Drive?</string>
+    <string name="strDistance">Distance</string>
 </resources>
