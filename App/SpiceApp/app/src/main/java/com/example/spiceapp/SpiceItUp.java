@@ -4,6 +4,7 @@ package com.example.spiceapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
@@ -18,16 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.model.Place.Field;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.here.android.mpa.common.GeoCoordinate;
@@ -48,6 +52,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class SpiceItUp extends AppCompatActivity {
     private String name;
     private String addr;
@@ -55,6 +61,8 @@ public class SpiceItUp extends AppCompatActivity {
     private static List<DiscoveryResult> s_ResultList;
     private PlacesClient placesClient;
     private int rating;
+    private FusedLocationProviderClient fusedLocationClient;
+    private final String TAG = "SpiceItUp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +164,41 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
         SearchRequest searchRequest = new SearchRequest("Restaurant");
-        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
+        // TODO Remove below, if findCurrentPlace() works
+//        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
+//        // Added to find current place
+//        // Use fields to define the data types to return.
+//        List<com.google.android.libraries.places.api.model.Place.Field> placeFields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.NAME);
+//
+//        // Use the builder to create a FindCurrentPlaceRequest.
+//        FindCurrentPlaceRequest request =
+//                FindCurrentPlaceRequest.builder(placeFields).build();
+//        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
+//        if (.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            placesClient.findCurrentPlace(request).addOnSuccessListener(((response) -> {
+//                for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
+//                    Log.i(TAG, String.format("Place '%s' has likelihood: %f",
+//                            placeLikelihood.getPlace().getName(),
+//                            placeLikelihood.getLikelihood()));
+//                    localLatLng = Field.LAT_LNG.toString();
+////                    textView.append(String.format("Place '%s' has likelihood: %f\n",
+////                            placeLikelihood.getPlace().getName(),
+////                            placeLikelihood.getLikelihood()));
+//                }
+//            })).addOnFailureListener((exception) -> {
+//                if (exception instanceof ApiException) {
+//                    ApiException apiException = (ApiException) exception;
+//                    Log.e(TAG, "Place not found: " + apiException.getStatusCode());
+//                }
+//            });
+//        } else {
+//            // A local method to request required permissions;
+//            // See https://developer.android.com/training/permissions/requesting
+//            getLocationPermission();
+//        }
+
+        // End of above code added
+        // TODO Remove above commented section
         searchRequest.execute(discoveryResultPageListener);
     }
 
@@ -256,7 +298,6 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void findPlaceByID(String id) {
-        final String TAG = "SpiceItUp";
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Field> fields =
                 Arrays.asList(Field.PHOTO_METADATAS);
@@ -306,5 +347,3 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 }
-
-//@todo get real time lat and lng to get local query results
