@@ -22,7 +22,7 @@
     <string name="address">address</string>
     <string name="signup">signup</string>
     <string name="strHome">Home</string>
-    <string name="strMainNotLogged">Looks like you\'re not signed in. Log in?</string>
+    <string name="strMainNotLogged">Sign In</string>
     <string name="strMainIsLogged">Hi Alan, feeling Spicy?</string>
     <string name="title_activity_profile_page">ProfilePage</string>
     <string name="strLogout">Logout</string>
