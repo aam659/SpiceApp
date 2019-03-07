@@ -164,8 +164,8 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
         SearchRequest searchRequest = new SearchRequest("Restaurant");
+        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
         // TODO Remove below, if findCurrentPlace() works
-//        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
 //        // Added to find current place
 //        // Use fields to define the data types to return.
 //        List<com.google.android.libraries.places.api.model.Place.Field> placeFields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.NAME);
@@ -265,7 +265,7 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
-        Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
+        Places.initialize(getApplicationContext(),"");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         RectangularBounds bounds = RectangularBounds.newInstance(
