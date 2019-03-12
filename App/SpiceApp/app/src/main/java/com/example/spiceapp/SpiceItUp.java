@@ -1,15 +1,24 @@
 package com.example.spiceapp;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 import android.util.Log;
@@ -63,11 +72,89 @@ public class SpiceItUp extends AppCompatActivity {
     private int rating;
     private FusedLocationProviderClient fusedLocationClient;
     private final String TAG = "SpiceItUp";
+    // LocationManager for location access
+    private LocationManager locationManager;
+    // Location Listener
+    private LocationListener locationListener;
+    // Latitude and longitude coordinates
+    private static double deviceLatitude;
+    private static double deviceLongitude;
+    private static double firstLat;
+    private static double secondLat;
+    private static double firstLong;
+    private static double secondLong;
+
+    // onRequestPermissionsResult for location permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Permission Granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Have permission
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.i("Location", location.toString());
+                // Sets device latitude and longitude
+                deviceLatitude = location.getLatitude();
+                deviceLongitude = location.getLongitude();
+                firstLat = deviceLatitude - 0.0228;
+                firstLong = deviceLongitude - 0.0619;
+                secondLat = deviceLatitude + 0.0295;
+                secondLong = deviceLongitude - 0.000954;
+                // Log above constants for check
+                Log.i("Latitude", String.valueOf(deviceLatitude));
+                Log.i("Longitude", String.valueOf(deviceLongitude));
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        // Check for device running SDK < 23
+        if (Build.VERSION.SDK_INT < 23) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+            }
+        }
+
+        else {
+            // Request for permission if none
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // ask for permission
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 15);
+            } else {
+                // Location access already granted
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+            }
+
+        }
 
         boolean isLogged = isLoggedIn();
 
@@ -164,41 +251,7 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
         SearchRequest searchRequest = new SearchRequest("Restaurant");
-        searchRequest.setSearchCenter(new GeoCoordinate(33.2140,-87.5391));
-        // TODO Remove below, if findCurrentPlace() works
-//        // Added to find current place
-//        // Use fields to define the data types to return.
-//        List<com.google.android.libraries.places.api.model.Place.Field> placeFields = Arrays.asList(com.google.android.libraries.places.api.model.Place.Field.NAME);
-//
-//        // Use the builder to create a FindCurrentPlaceRequest.
-//        FindCurrentPlaceRequest request =
-//                FindCurrentPlaceRequest.builder(placeFields).build();
-//        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
-//        if (.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            placesClient.findCurrentPlace(request).addOnSuccessListener(((response) -> {
-//                for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
-//                    Log.i(TAG, String.format("Place '%s' has likelihood: %f",
-//                            placeLikelihood.getPlace().getName(),
-//                            placeLikelihood.getLikelihood()));
-//                    localLatLng = Field.LAT_LNG.toString();
-////                    textView.append(String.format("Place '%s' has likelihood: %f\n",
-////                            placeLikelihood.getPlace().getName(),
-////                            placeLikelihood.getLikelihood()));
-//                }
-//            })).addOnFailureListener((exception) -> {
-//                if (exception instanceof ApiException) {
-//                    ApiException apiException = (ApiException) exception;
-//                    Log.e(TAG, "Place not found: " + apiException.getStatusCode());
-//                }
-//            });
-//        } else {
-//            // A local method to request required permissions;
-//            // See https://developer.android.com/training/permissions/requesting
-//            getLocationPermission();
-//        }
-
-        // End of above code added
-        // TODO Remove above commented section
+        searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
         searchRequest.execute(discoveryResultPageListener);
     }
 
@@ -268,8 +321,12 @@ public class SpiceItUp extends AppCompatActivity {
         Places.initialize(getApplicationContext(),"");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+        Log.i("firstLat", String.valueOf(firstLat));
+        Log.i("firstLong", String.valueOf(firstLong));
+        Log.i("secondLat", String.valueOf(secondLat));
+        Log.i("secondLong", String.valueOf(secondLong));
         RectangularBounds bounds = RectangularBounds.newInstance(
-          new LatLng(33.191225,-87.601043),new LatLng(33.243540,-87.540054));
+          new LatLng(firstLat,firstLong),new LatLng(secondLat,secondLong));
 
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                 // Call either setLocationBias() OR setLocationRestriction().
