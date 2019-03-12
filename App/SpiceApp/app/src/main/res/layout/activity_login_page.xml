@@ -9,40 +9,6 @@
     tools:context=".LoginPage"
     android:transitionName="regUser">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardRegister"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginRight="55dp"
-        android:layout_marginBottom="68dp"
-        app:cardCornerRadius="25dp" >
-
-        <RelativeLayout
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignStart="@+id/cardRegister"
-            android:layout_alignTop="@+id/cardRegister"
-            android:layout_alignLeft="@+id/cardRegister">
-
-            <TextView
-                android:id="@+id/textRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/register"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="200dp"
@@ -93,7 +59,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="98dp"
         android:layout_marginLeft="98dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="99dp"
         android:layout_marginRight="99dp"
         android:ems="10"
@@ -111,7 +77,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="58dp"
         android:layout_marginLeft="58dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="58dp"
         android:layout_marginRight="58dp"
         app:cardCornerRadius="25dp">
@@ -127,6 +93,41 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/strLogin"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRegister"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/cardLogin"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginBottom="100dp"
+        app:cardCornerRadius="25dp" >
+
+        <RelativeLayout
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/cardRegister"
+            android:layout_alignTop="@+id/cardRegister"
+            android:layout_alignLeft="@+id/cardRegister">
+
+            <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/register"
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

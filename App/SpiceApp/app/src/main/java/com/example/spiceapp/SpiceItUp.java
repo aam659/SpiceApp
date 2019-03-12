@@ -156,7 +156,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         }
 
-        boolean isLogged = isLoggedIn();
+//        boolean isLogged = isLoggedIn();
 
         initializeToolbar();
 
@@ -173,23 +173,34 @@ public class SpiceItUp extends AppCompatActivity {
                 Intent nextScreen;
                 switch (item.getItemId()) {
                     case R.id.tlbLogin:
-                        nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
+                        if (FirebaseManager.isLoggedIn()) {
+                            Toast.makeText(SpiceItUp.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                            return false;
+                        } else {
+                            nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        }
 
                     case R.id.tlbSocial:
-                        nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
+                        if (FirebaseManager.isLoggedIn()) {
+                            nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        } else {
+                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
 
                     case R.id.tlbProfile:
-                        if(isLogged) {
+                        if(FirebaseManager.isLoggedIn()) {
                             nextScreen = new Intent(SpiceItUp.this, ProfilePage.class);
                             startActivityForResult(nextScreen, 0);
-                        }
-                        else
+                            return true;
+                        } else {
                             Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
-                        return true;
+                            return false;
+                        }
 
                     case R.id.tlbHome:
                         nextScreen = new Intent(SpiceItUp.this, HomePage.HomePageActivity.class);
@@ -211,10 +222,10 @@ public class SpiceItUp extends AppCompatActivity {
         startActivityForResult(nextScreen, 0);
     }
 
-    public boolean isLoggedIn(){
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("loginKey", false);
-    }
+//    public boolean isLoggedIn(){
+//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+//        return sharedPreferences.getBoolean("loginKey", false);
+//    }
 
     private void initializeToolbar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -225,11 +236,11 @@ public class SpiceItUp extends AppCompatActivity {
 
     private void updateViews(){
         TextView txtName = (TextView) findViewById(R.id.txtName);
-        ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
         TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
-        imgRestaurant.setImageBitmap(bitmap);
         txtName.setText(name);
         txtLocation.setText(addr);
+        ImageView restaurantImage = (ImageView) findViewById(R.id.imgRestuarant);
+        restaurantImage.setImageBitmap(bitmap);
     }
 
     private void initMapEngine(){

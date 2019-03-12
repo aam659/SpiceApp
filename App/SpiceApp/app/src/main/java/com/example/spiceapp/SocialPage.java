@@ -32,8 +32,12 @@ public class SocialPage extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.tlbLogin:
-                        nextScreen = new Intent(SocialPage.this, LoginPage.class);
-                        startActivityForResult(nextScreen, 0);
+                        if (FirebaseManager.isLoggedIn()) {
+                            Toast.makeText(SocialPage.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                        } else {
+                            nextScreen = new Intent(SocialPage.this, LoginPage.class);
+                            startActivityForResult(nextScreen, 0);
+                        }
                         return true;
 
                     case R.id.tlbSIU:
@@ -42,11 +46,11 @@ public class SocialPage extends AppCompatActivity {
                         return true;
 
                     case R.id.tlbProfile:
-                        if (isLogged) {
+                        if (FirebaseManager.isLoggedIn()) {
                             nextScreen = new Intent(SocialPage.this, ProfilePage.class);
                             startActivityForResult(nextScreen, 0);
                         } else
-                            Toast.makeText(SocialPage.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SocialPage.this, "Not Logged In!", Toast.LENGTH_LONG).show();
                         return true;
 
                     case R.id.tlbHome:
@@ -54,7 +58,11 @@ public class SocialPage extends AppCompatActivity {
                         startActivityForResult(nextScreen, 0);
                         return true;
                     case R.id.tlbSocial:
-                        return true;
+                        if (FirebaseManager.isLoggedIn()) {
+                            return true;
+                        } else {
+                            Toast.makeText(SocialPage.this, "Not Logged In!", Toast.LENGTH_LONG).show();
+                        }
 
                     default:
                         // If we got here, the user's action was not recognized.

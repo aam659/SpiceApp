@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomePage">
@@ -16,71 +18,6 @@
     <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
     <!--tools:layout_editor_absoluteX="0dp" />-->
 
-
-    <include
-        android:id="@+id/bottom_navigation"
-        layout="@layout/nav_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="656dp" />
-    <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        style="@style/AppTheme.NoActionBar"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_gravity="bottom"
-        android:background="#d50000"
-        app:itemIconTint="#fafafa"
-        app:itemTextColor="#fafafa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/toolbar_menu"
-        tools:layout_editor_absoluteX="0dp" /> -->
-
-    <!--<Button-->
-    <!--android:id="@+id/btnSpice"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="48dp"-->
-    <!--android:layout_marginLeft="48dp"-->
-    <!--android:layout_marginTop="144dp"-->
-    <!--android:text="@string/btnSIU"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:text="Spice It Up" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btnProfile"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="144dp"-->
-    <!--android:layout_marginEnd="48dp"-->
-    <!--android:layout_marginRight="48dp"-->
-    <!--android:text="@string/strProfile"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btnLogin"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="48dp"-->
-    <!--android:layout_marginLeft="48dp"-->
-    <!--android:layout_marginBottom="160dp"-->
-    <!--android:text="@string/strLogin"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/btnSocial"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginEnd="48dp"-->
-    <!--android:layout_marginRight="48dp"-->
-    <!--android:layout_marginBottom="160dp"-->
-    <!--android:text="@string/strSocial"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent" />-->
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="179dp"
@@ -91,24 +28,63 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:contentDescription="@string/picChilli"
-        android:src="@drawable/chilli_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/chilli_logo" />
 
-    <Button
-        android:id="@+id/btnMainAct"
-        android:layout_width="240dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginBottom="76dp"
-        android:text="@string/strMainNotLogged"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="1.0" />
+    <!--<Button-->
+        <!--android:id="@+id/btnMainAct"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginStart="98dp"-->
+        <!--android:layout_marginLeft="98dp"-->
+        <!--android:layout_marginTop="327dp"-->
+        <!--android:layout_marginEnd="100dp"-->
+        <!--android:layout_marginRight="100dp"-->
+        <!--android:ems="10"-->
+        <!--android:text="@string/strMainNotLogged" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSignIn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        app:cardCornerRadius="25dp">
+
+        <RelativeLayout
+            android:id="@+id/btnLoginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnMainAct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/strMainNotLogged"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/nav_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"/>
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
+
+</RelativeLayout>

@@ -57,9 +57,14 @@ public class ProfilePage extends AppCompatActivity {
                 Intent nextScreen;
                 switch (item.getItemId()) {
                     case R.id.tlbLogin:
-                        nextScreen = new Intent(ProfilePage.this, LoginPage.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
+                        if (FirebaseManager.isLoggedIn()) {
+                            Toast.makeText(ProfilePage.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                            return false;
+                        } else {
+                            nextScreen = new Intent(ProfilePage.this, LoginPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        }
 
                     case R.id.tlbSIU:
                         nextScreen = new Intent(ProfilePage.this, SpiceItUp.class);

@@ -54,6 +54,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SpiceItUp"
+            android:hardwareAccelerated="true"
             android:parentActivityName=".HomePage$HomePageActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".HomePage$HomePageActivity">

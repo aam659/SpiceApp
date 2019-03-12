@@ -8,12 +8,15 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 
 public class HomePage extends AppCompatActivity {
@@ -48,16 +53,20 @@ public class HomePage extends AppCompatActivity {
             FirebaseManager.initialize();
             user = FirebaseManager.getCurrentUser();
 
+            // Initialize top toolbar
+            initializeToolbar();
+
             if (hasPermissions(this, RUNTIME_PERMISSIONS)) {
                 //setupMapFragmentView();
-                Toast.makeText(this, "got permission", Toast.LENGTH_LONG).show();
+                if (!(FirebaseManager.isLoggedIn()))
+                    Toast.makeText(this, "Got permission", Toast.LENGTH_LONG).show();
             } else {
                 ActivityCompat
                         .requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE_ASK_PERMISSIONS);
             }
 
 
-            final Button btnMainAction = (Button)findViewById(R.id.btnMainAct);
+            final TextView btnMainAction = (TextView) findViewById(R.id.btnMainAct);
 
             if(FirebaseManager.isLoggedIn()) {
                 Query query = FirebaseManager.getFirstNameReference();
@@ -102,10 +111,15 @@ public class HomePage extends AppCompatActivity {
                     Intent nextScreen;
                     switch (item.getItemId()) {
                         case R.id.tlbLogin:
-                            System.out.println("userName when login: " + userName);
-                            nextScreen = new Intent(HomePageActivity.this, LoginPage.class);
-                            startActivityForResult(nextScreen, 0);
-                            return true;
+                            // System.out.println("userName when login: " + userName);
+                            if (FirebaseManager.isLoggedIn()) {
+                                Toast.makeText(HomePageActivity.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                                return false;
+                            } else {
+                                nextScreen = new Intent(HomePageActivity.this, LoginPage.class);
+                                startActivityForResult(nextScreen, 0);
+                                return true;
+                            }
 
                         case R.id.tlbSIU:
                             nextScreen = new Intent(HomePageActivity.this, SpiceItUp.class);
@@ -116,15 +130,21 @@ public class HomePage extends AppCompatActivity {
                             if(FirebaseManager.isLoggedIn()) {
                                 nextScreen = new Intent(HomePageActivity.this, ProfilePage.class);
                                 startActivityForResult(nextScreen, 0);
+                                return true;
+                            } else {
+                                Toast.makeText(HomePageActivity.this, "Not Logged In!", Toast.LENGTH_LONG).show();
+                                return false;
                             }
-                            else
-                                Toast.makeText(HomePageActivity.this, "Not Logged In", Toast.LENGTH_LONG).show();
-                            return true;
 
                         case R.id.tlbSocial:
-                            nextScreen = new Intent(HomePageActivity.this, SocialPage.class);
-                            startActivityForResult(nextScreen, 0);
-                            return true;
+                            if (FirebaseManager.isLoggedIn()) {
+                                nextScreen = new Intent(HomePageActivity.this, SocialPage.class);
+                                startActivityForResult(nextScreen, 0);
+                                return true;
+                            } else {
+                                Toast.makeText(HomePageActivity.this, "Not Logged In!", Toast.LENGTH_LONG).show();
+                                return false;
+                            }
                         case R.id.tlbHome:
                             return true;
                         default:
@@ -138,11 +158,24 @@ public class HomePage extends AppCompatActivity {
 
         }
 
-        private void updateButton(String value, Button btnMainAction) {
+        private void initializeToolbar(){
+            Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(myToolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle("Home");
+        }
+
+        private void updateButton(String value, TextView btnMainAction) {
             String btnText;
             if(FirebaseManager.isLoggedIn()){
                 System.out.println("CURRENT USER NAME " + userName);
-                btnText = "Hi " + userName + ", feeling spicy?";
+                if (userName != null) {
+                    btnText = "Hi " + userName + "! Feeling spicy?";
+                }
+
+                else {
+                    btnText = "Hi default user! Feeling spicy?";
+                }
                 btnMainAction.setText(btnText);
             }
             else{
