@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class ListMoods extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println("NUMBER OF MOODS: " + moodList.size());
                 Intent nextScreen = new Intent(view.getContext(), NameMood.class);
                 startActivityForResult(nextScreen, 0);
             }
@@ -63,18 +66,22 @@ public class ListMoods extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         //Sets up communication between the layout and the list
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         //List to pass to our adapter to populate the list
         moodList = new ArrayList<>();
 
         //Allows us to use our adapter to populate the list
         listMoodAdapter = new ListMoodAdapter(this, moodList);
+        recyclerView.setAdapter(listMoodAdapter);
+
 
         //The foundations of our lists are initialized, now we're going to populate everything
         //Get a reference to all of the user's moods
         // NOTE We can get creative with this, like return moods with BBQ or return moods that are for bfast, and should be easy, this is base case
         database = FirebaseManager.getMoodsReference();
+
 
         //Finally, we define a listener to make this list update in real time
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -85,6 +92,7 @@ public class ListMoods extends AppCompatActivity {
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Mood mood = snapshot.getValue(Mood.class);
                         moodList.add(mood);
+                        System.out.println("HERE LOOK " + moodList.size());
                     }
                     listMoodAdapter.notifyDataSetChanged();
                 }
@@ -95,6 +103,11 @@ public class ListMoods extends AppCompatActivity {
                 //  ¯\_(ツ)_/¯
             }
         };
+
+
+        //To finish it off, we set a listener on moods
+        Query query = database;
+        query.addListenerForSingleValueEvent(valueEventListener);
 
 
 

@@ -64,6 +64,7 @@ public class FirebaseManager {
 
     //Returns a reference to the top level of the moods level of the database
     static DatabaseReference getMoodsReference(){
+        System.out.println(mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods"));
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods");
     }
 

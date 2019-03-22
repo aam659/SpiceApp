@@ -8,8 +8,4 @@
     tools:context=".ListMoods"
     tools:showIn="@layout/activity_list_moods">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerMood"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</RelativeLayout>
+    </RelativeLayout>

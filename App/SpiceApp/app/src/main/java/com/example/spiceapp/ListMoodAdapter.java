@@ -31,12 +31,12 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
         this.moodList = moodList;
     }
 
-    //Creates a connection between the adapater and a new view holder
+    //Creates a connection between the adapter and a new view holder
 
     @Override
     @NonNull
     public ListMoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.activity_list_moods, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_moods, parent, false);
         return new ListMoodViewHolder(view);
     }
 
