@@ -6,9 +6,13 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,10 +71,31 @@ public class ListMoods extends AppCompatActivity {
         //Allows us to use our adapter to populate the list
         listMoodAdapter = new ListMoodAdapter(this, moodList);
 
-        //The foundations of our lists are initialized, now we're going to populate everything step by step
+        //The foundations of our lists are initialized, now we're going to populate everything
+        //Get a reference to all of the user's moods
+        // NOTE We can get creative with this, like return moods with BBQ or return moods that are for bfast, and should be easy, this is base case
+        database = FirebaseManager.getMoodsReference();
 
-        //Step 1. Select every one of the users moods
-        database = FirebaseDatabase.getInstance().getReference()
+        //Finally, we define a listener to make this list update in real time
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                moodList.clear();
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Mood mood = snapshot.getValue(Mood.class);
+                        moodList.add(mood);
+                    }
+                    listMoodAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //  ¯\_(ツ)_/¯
+            }
+        };
+
 
 
     }
