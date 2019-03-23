@@ -1,4 +1,4 @@
-package com.example.spiceapp;
+package com.example.spiceapp.FirebaseObjects;
 
 
 //Object to hold the categories object retrieved from firebase, each variable has a getter and setter

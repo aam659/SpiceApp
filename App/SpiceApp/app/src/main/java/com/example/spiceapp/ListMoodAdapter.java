@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.spiceapp.FirebaseObjects.Mood;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;

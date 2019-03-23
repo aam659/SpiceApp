@@ -1,4 +1,4 @@
-package com.example.spiceapp;
+package com.example.spiceapp.FirebaseObjects;
 
 //Class to hold price object retrieved from firebase, each var has their own getter and setter
 public class Price {

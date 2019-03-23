@@ -1,4 +1,4 @@
-package com.example.spiceapp;
+package com.example.spiceapp.FirebaseObjects;
 
 public class Mood {
 

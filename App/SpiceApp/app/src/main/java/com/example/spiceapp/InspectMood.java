@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.spiceapp.FirebaseObjects.Categories;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-
-import org.w3c.dom.Text;
 
 //Class to allow users to view, edit, or delete a mood
 public class InspectMood extends AppCompatActivity {
