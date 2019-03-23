@@ -119,7 +119,8 @@ public class ListMoods extends AppCompatActivity implements ListMoodAdapter.OnNo
     public void onNoteClick(int position) {
         moodList.get(position);
         Intent intent = new Intent(this, InspectMood.class);
-//        intent.putExtra("MOOD", moodList.get(position)); //TODO: CREATE PARCELABLE CLASS TO SEND MOOD
+        intent.putExtra("NAME", moodList.get(position).Name); //TODO: CREATE PARCELABLE CLASS TO SEND MOOD
+        intent.putExtra("MEALTIME", moodList.get(position).MealTime);
         startActivity(intent);
     }
 }

@@ -57,28 +57,52 @@ public class ChooseCategory extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkMex.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Mexican").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Mexican").setValue(0);
                 if(checkSeafood.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Seafood").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Seafood").setValue(0);
                 if(checkItalian.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Italian").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Italian").setValue(0);
                 if(checkFastFood.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("FastFood").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("FastFood").setValue(0);
                 if(checkBBQ.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("BBQ").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("BBQ").setValue(0);
                 if(checkSteakhouse.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Steakhouse").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Steakhouse").setValue(0);
                 if(checkIndian.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Indian").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Indian").setValue(0);
                 if(checkChinese.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Chinese").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Chinese").setValue(0);
                 if(checkBar.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Bar").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Bar").setValue(0);
                 if(checkCafe.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Cafe").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Cafe").setValue(0);
                 if(checkPizza.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Pizza").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Pizza").setValue(0);
                 if(checkBurgers.isChecked())
                     database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Burgers").setValue(1);
+                else
+                    database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("Categories").child("Burgers").setValue(0);
                 Intent nextScreen = new Intent (v.getContext(), PriceRange.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
