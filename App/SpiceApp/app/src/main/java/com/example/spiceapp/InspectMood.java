@@ -45,6 +45,7 @@ public class InspectMood extends AppCompatActivity {
         final CardView btnEdit = (CardView) findViewById(R.id.cardMoodEdit);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
+            //TODO: MAKE BREAKFAST SET CATEGORIES TO 0
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MealTime.class);
                 intent.putExtra("NAME_OF_MOOD", getIntent().getStringExtra("NAME"));

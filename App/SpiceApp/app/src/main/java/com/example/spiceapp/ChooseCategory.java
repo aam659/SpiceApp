@@ -53,6 +53,7 @@ public class ChooseCategory extends AppCompatActivity {
 
         //Essentially, whenever confirm is clicked, any boxes that are checked will be added to the firebase database
         btnConfirm.setOnClickListener(new View.OnClickListener() {
+            //TODO: MAKE CHECKBOXES PRESELECTED IF 1
             @Override
             public void onClick(View v) {
                 if(checkMex.isChecked())
