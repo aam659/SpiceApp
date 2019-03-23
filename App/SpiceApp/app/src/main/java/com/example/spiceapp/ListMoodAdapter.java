@@ -32,11 +32,11 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
     }
 
     //Creates a connection between the adapter and a new view holder
-
     @Override
     @NonNull
     public ListMoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_moods, parent, false);
+        System.out.println(moodList.get(0).Name + " MOOD NAME3");
         return new ListMoodViewHolder(view);
     }
 
@@ -44,7 +44,7 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
     @Override
     public void onBindViewHolder(@NonNull ListMoodViewHolder holder, int position) {
         Mood mood = moodList.get(position);
-        holder.textViewName.setText(mood.moodName);
+        holder.textViewName.setText(mood.Name);
 //        holder.textViewGenre.setText("Genre: " + mood.genre);
 //        holder.textViewAge.setText("Age: " + artist.age);
 //        holder.textViewCountry.setText("Country: " + artist.country);
@@ -63,7 +63,7 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
         public ListMoodViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            textViewName = itemView.findViewById(R.id.text_view_name);
+            textViewName = itemView.findViewById(R.id.textRecyclerName);
 //            textViewGenre = itemView.findViewById(R.id.text_view_genre);
 //            textViewAge = itemView.findViewById(R.id.text_view_age);
 //            textViewCountry = itemView.findViewById(R.id.text_view_country);

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp">
@@ -16,15 +16,15 @@
 
 
             <TextView
-                android:id="@+id/text_view_name"
+                android:id="@+id/textRecyclerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="HELLO?!"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

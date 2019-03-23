@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +15,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,7 +54,6 @@ public class ListMoods extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("NUMBER OF MOODS: " + moodList.size());
                 Intent nextScreen = new Intent(view.getContext(), NameMood.class);
                 startActivityForResult(nextScreen, 0);
             }
@@ -107,6 +108,7 @@ public class ListMoods extends AppCompatActivity {
 
         //To finish it off, we set a listener on moods
         Query query = database;
+        //        query.addChildEventListener(childEventListener);
         query.addListenerForSingleValueEvent(valueEventListener);
 
 

@@ -2,20 +2,15 @@ package com.example.spiceapp;
 
 public class Mood {
 
-    public String moodName, MealTime;
-    public int bar, caf, stk, bbq, ind, piz, fst, mex, itl, bur, chi, sea;
-    public int min, max;
+    public String Name, MealTime;
     public double Distance;
+    public Price Price;
+    public Categories Categories;
 
     public Mood(){
 
     }
 
-    private class Price {
-        int HighPrice, LowPrice;
-    }
-
-    private class
 
 
 
