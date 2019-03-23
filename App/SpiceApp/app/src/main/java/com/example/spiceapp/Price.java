@@ -1,8 +1,30 @@
 package com.example.spiceapp;
 
+//Class to hold price object retrieved from firebase, each var has their own getter and setter
 public class Price {
 
-    public int HighPrice, LowPrice;
+    private int HighPrice;
+    private int LowPrice;
+
+    public int getHighPrice() {
+        return HighPrice;
+    }
+
+    public void setHighPrice(int highPrice) {
+        HighPrice = highPrice;
+    }
+
+    public int getLowPrice() {
+        return LowPrice;
+    }
+
+    public void setLowPrice(int lowPrice) {
+        LowPrice = lowPrice;
+    }
+
+
+
+
 
     public Price(){
 

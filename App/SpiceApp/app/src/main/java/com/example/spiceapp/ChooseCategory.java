@@ -28,10 +28,15 @@ public class ChooseCategory extends AppCompatActivity {
         FirebaseUser user = FirebaseManager.getCurrentUser();
         database = FirebaseManager.getDatabaseReference();
 
+
+        //Retrieves mood name from previous intent
         String nameOfMood = getIntent().getStringExtra("NAME_OF_MOOD");
 
+        //Confirm button
         final CardView btnConfirm = (CardView) findViewById(R.id.cardConfirmCat);
 
+
+        //An enumerated list of the checkboxes
         final CheckBox checkMex = (CheckBox) findViewById(R.id.checkMex);
         final CheckBox checkSeafood = (CheckBox) findViewById(R.id.checkSeafood);
         final CheckBox checkItalian = (CheckBox) findViewById(R.id.checkItalian);
@@ -45,6 +50,8 @@ public class ChooseCategory extends AppCompatActivity {
         final CheckBox checkPizza = (CheckBox) findViewById(R.id.checkPizza);
         final CheckBox checkBurgers = (CheckBox) findViewById(R.id.checkBurgers);
 
+
+        //Essentially, whenever confirm is clicked, any boxes that are checked will be added to the firebase database
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
