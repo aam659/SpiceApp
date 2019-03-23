@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.LinearLayout;
@@ -93,7 +94,6 @@ public class ListMoods extends AppCompatActivity implements ListMoodAdapter.OnNo
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Mood mood = snapshot.getValue(Mood.class);
                         moodList.add(mood);
-                        System.out.println("HERE LOOK " + moodList.size());
                     }
                     listMoodAdapter.notifyDataSetChanged();
                 }
@@ -121,6 +121,9 @@ public class ListMoods extends AppCompatActivity implements ListMoodAdapter.OnNo
         Intent intent = new Intent(this, InspectMood.class);
         intent.putExtra("NAME", moodList.get(position).Name); //TODO: CREATE PARCELABLE CLASS TO SEND MOOD
         intent.putExtra("MEALTIME", moodList.get(position).MealTime);
+        intent.putExtra("Min", moodList.get(position).Price.getLowPrice());
+        intent.putExtra("Max", moodList.get(position).Price.getHighPrice());
+//        intent.putExtra("Categories", (Parcelable) moodList.get(position).Categories); //FIXME
         startActivity(intent);
     }
 }

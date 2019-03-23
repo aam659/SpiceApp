@@ -64,8 +64,17 @@ public class FirebaseManager {
 
     //Returns a reference to the top level of the moods level of the database
     static DatabaseReference getMoodsReference(){
-        System.out.println(mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods"));
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods");
+    }
+
+    //Returns a reference to the top level of the moods level of the database
+    static DatabaseReference getSpecifcMoodReference(String mood){
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child(mood);
+    }
+
+    //Method to delete a node, please use carefully
+    static void deleteDatabaseNode(DatabaseReference node){
+        node.removeValue();
     }
 
     //Tells us if the current user is logged in

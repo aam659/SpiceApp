@@ -127,26 +127,26 @@
 
     <TextView
         android:id="@+id/textMinPrice"
-        android:layout_width="107dp"
-        android:layout_height="52dp"
+        android:layout_width="112dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/textMealTime"
         android:layout_alignParentStart="true"
         android:layout_marginStart="62dp"
         android:layout_marginTop="-2dp"
+        android:layout_marginEnd="31dp"
+        android:layout_toStartOf="@+id/textMaxPrice"
         android:fontFamily="@font/comfortaa"
         android:text="@string/strMin"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textMaxPrice"
-        android:layout_width="114dp"
-        android:layout_height="54dp"
+        android:layout_width="144dp"
+        android:layout_height="42dp"
         android:layout_below="@+id/textMealTime"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="63dp"
         android:layout_marginTop="-2dp"
         android:layout_marginEnd="62dp"
-        android:layout_toEndOf="@+id/textMinPrice"
         android:fontFamily="@font/comfortaa"
         android:text="@string/strMax"
         android:textSize="18sp" />
