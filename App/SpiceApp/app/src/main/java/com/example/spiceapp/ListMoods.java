@@ -29,7 +29,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListMoods extends AppCompatActivity {
+public class ListMoods extends AppCompatActivity implements ListMoodAdapter.OnNoteListener{
 
     private RecyclerView recyclerView; //The container that holds the items of a list
     private ListMoodAdapter listMoodAdapter; //The class that manages the objects that are in the list
@@ -74,7 +74,7 @@ public class ListMoods extends AppCompatActivity {
         moodList = new ArrayList<>();
 
         //Allows us to use our adapter to populate the list
-        listMoodAdapter = new ListMoodAdapter(this, moodList);
+        listMoodAdapter = new ListMoodAdapter(this, moodList, this);
         recyclerView.setAdapter(listMoodAdapter);
 
 
@@ -115,4 +115,11 @@ public class ListMoods extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onNoteClick(int position) {
+        moodList.get(position);
+        Intent intent = new Intent(this, InspectMood.class);
+//        intent.putExtra("MOOD", moodList.get(position)); //TODO: CREATE PARCELABLE CLASS TO SEND MOOD
+        startActivity(intent);
+    }
 }

@@ -22,8 +22,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMood"
-        android:layout_width="257dp"
-        android:layout_height="673dp"
+        android:layout_width="414dp"
+        android:layout_height="662dp"
         app:layout_anchor="@+id/include3"
         app:layout_anchorGravity="bottom|center" />
 

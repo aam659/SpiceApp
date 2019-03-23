@@ -24,11 +24,17 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
 
     private Context mContext; //Current context
     private List<Mood> moodList; //Our list of moods
+    private OnNoteListener onNoteListener;
+
+
+    //Every ViewHolder will have an onclick listener
+
 
     //Constructor of our adapter
-    public ListMoodAdapter(Context mContext, List<Mood> moodList){
+    public ListMoodAdapter(Context mContext, List<Mood> moodList, OnNoteListener onNoteListener){
         this.mContext = mContext;
         this.moodList = moodList;
+        this.onNoteListener = onNoteListener;
     }
 
     //Creates a connection between the adapter and a new view holder
@@ -36,8 +42,7 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
     @NonNull
     public ListMoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.recyclerview_moods, parent, false);
-        System.out.println(moodList.get(0).Name + " MOOD NAME3");
-        return new ListMoodViewHolder(view);
+        return new ListMoodViewHolder(view, onNoteListener);
     }
 
     //Determines what is shown in the object
@@ -56,18 +61,28 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
     }
 
     //Class definition of view holder
-    class ListMoodViewHolder extends RecyclerView.ViewHolder {
+    class ListMoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textViewName;
+        OnNoteListener onNoteListener;
 
-        public ListMoodViewHolder(@NonNull View itemView) {
+        public ListMoodViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
-
+            this.onNoteListener = onNoteListener;
             textViewName = itemView.findViewById(R.id.textRecyclerName);
-//            textViewGenre = itemView.findViewById(R.id.text_view_genre);
-//            textViewAge = itemView.findViewById(R.id.text_view_age);
-//            textViewCountry = itemView.findViewById(R.id.text_view_country);
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 
 
