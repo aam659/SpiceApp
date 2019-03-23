@@ -35,11 +35,23 @@ public class InspectMood extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseManager.deleteDatabaseNode(mood);
+                FirebaseManager.deleteDatabaseNode(mood); //DELETES THE NODE WITHOUT CONFIRMATION
+                //TODO: ADD confirmation to deleting node
                 Intent intent = new Intent(v.getContext(), ListMoods.class);
                 startActivityForResult(intent, 0);
             }
         });
+
+        final CardView btnEdit = (CardView) findViewById(R.id.cardMoodEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MealTime.class);
+                intent.putExtra("NAME_OF_MOOD", getIntent().getStringExtra("NAME"));
+                startActivityForResult(intent, 0);
+            }
+        });
+
     }
 
 
