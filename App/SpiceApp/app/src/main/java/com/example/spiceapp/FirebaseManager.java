@@ -63,6 +63,12 @@ public class FirebaseManager {
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("fName");
     }
 
+    // Returns a reference to user's FancyItaly mood
+    static DatabaseReference getPreferencesReference() {
+        // Hard-coded for BBQ mood for time-being
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child("FancyItaly").child("Categories");
+    }
+
     //Returns a reference to the top level of the moods level of the database
     static DatabaseReference getMoodsReference(){
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods");
