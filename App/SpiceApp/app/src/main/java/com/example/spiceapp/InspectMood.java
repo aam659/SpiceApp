@@ -12,6 +12,8 @@ import com.example.spiceapp.FirebaseObjects.Categories;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+
 //Class to allow users to view, edit, or delete a mood
 public class InspectMood extends AppCompatActivity {
 
@@ -67,7 +69,8 @@ public class InspectMood extends AppCompatActivity {
         //Methods below are the same as above
         String mealTime = getIntent().getStringExtra("MEALTIME");
         final TextView textMealTime = (TextView) findViewById(R.id.textMealTime);
-        textMealTime.setText(mealTime);
+        String mealTimeText = "Meal Time: " + mealTime;
+        textMealTime.setText(mealTimeText); //Android studio does not like string concat in a settext field
 
         String minPrice = intToDollarSigns("Min");
         final TextView textMinPrice = (TextView) findViewById(R.id.textMinPrice);
@@ -77,13 +80,22 @@ public class InspectMood extends AppCompatActivity {
         final TextView textMaxPrice = (TextView) findViewById(R.id.textMaxPrice);
         textMaxPrice.setText(maxPrice);
 
-//        String categories = categoryToString(); //FIXME
+        ArrayList<String> categories = getIntent().getStringArrayListExtra("Categories");
+        final TextView categoryTextView = (TextView) findViewById(R.id.textCategories);
+        categoryTextView.setText(getCategoryText(categories));
     }
 
-    private String categoryToString() { //FIXME
-        Categories categories = (Categories)getIntent().getParcelableExtra("Categories");
-        System.out.println(categories.getBar());
-        return null;
+
+    private String getCategoryText(ArrayList<String> list){
+        StringBuilder returnString = new StringBuilder("Categories: ");
+        int iter = 0;
+        while (!list.isEmpty() && iter != 2){
+            returnString.append(list.get(0));
+            list.remove(0);
+            returnString.append(" ");
+            iter++;
+        }
+        return returnString.toString();
     }
 
     private String intToDollarSigns(String price) {
