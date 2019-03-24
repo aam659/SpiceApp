@@ -20,7 +20,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_list_moods" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMood"
+        android:layout_width="414dp"
+        android:layout_height="662dp"
+        app:layout_anchor="@+id/include3"
+        app:layout_anchorGravity="bottom|center" />
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/content_list_moods" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -29,6 +38,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@+id/include3"
+        app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/plus" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

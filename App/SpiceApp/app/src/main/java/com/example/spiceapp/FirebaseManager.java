@@ -6,14 +6,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Context;
 
+//This class was written as a quality of life for this app
+//Some methods may be redundant, but to abstract getting commonly needed references to
+//     some common aspects of the database will both cleanup code and keep things organized and standard
+
+
 public class FirebaseManager {
 
-    static FirebaseAuth mAuth;
-    static FirebaseDatabase mDatabase;
-    static boolean init;
+    private static FirebaseAuth mAuth;
+    private static FirebaseDatabase mDatabase;
+    private static boolean init;
     private static String firstName;
 
 
+    //Creates an initial database object if one has not already been made
     static void initialize(){
         if(init)
             return;
@@ -22,6 +28,7 @@ public class FirebaseManager {
         init = true;
     }
 
+    //Gets auth session
     static FirebaseAuth getAuth(){
         if(init)
             return mAuth;
@@ -31,6 +38,7 @@ public class FirebaseManager {
         }
     }
 
+    //Returns the current user
     static FirebaseUser getCurrentUser(){
         if(init)
             return mAuth.getCurrentUser();
@@ -40,6 +48,7 @@ public class FirebaseManager {
         }
     }
 
+    //Gets a reference to mDatabase, top level
     static DatabaseReference getDatabaseReference(){
         if(init)
             return mDatabase.getReference();
@@ -49,15 +58,27 @@ public class FirebaseManager {
         }
     }
 
+    //Returns a reference to current user's first name
     static DatabaseReference getFirstNameReference() {
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("fName");
     }
 
-    static DatabaseReference getPreferencesReference() {
-        // Hard-coded for BBQ mood for time-being
-        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child("FancyItaly").child("Categories");
+    //Returns a reference to the top level of the moods level of the database
+    static DatabaseReference getMoodsReference(){
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods");
     }
 
+    //Returns a reference to the top level of the moods level of the database
+    static DatabaseReference getSpecifcMoodReference(String mood){
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child(mood);
+    }
+
+    //Method to delete a node, please use carefully
+    static void deleteDatabaseNode(DatabaseReference node){
+        node.removeValue();
+    }
+
+    //Tells us if the current user is logged in
     static boolean isLoggedIn() {
             return !(FirebaseAuth.getInstance().getCurrentUser() == null);
     }

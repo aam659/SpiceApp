@@ -86,4 +86,12 @@
     <string name="strMinimum">Minimum</string>
     <string name="strHowFarToDrive">How Far Are You Willing To Drive?</string>
     <string name="strDistance">Distance</string>
+    <string name="delete">Delete</string>
+    <string name="strEdit">Edit</string>
+    <string name="MoodName">MoodName</string>
+    <string name="Categories" />
+    <string name="strMin">Min</string>
+    <string name="strMax">Max</string>
+    <string name="MealTime">MealTime</string>
+    <string name="MoodDetails">Here\'s a Look At Your Mood</string>
 </resources>
