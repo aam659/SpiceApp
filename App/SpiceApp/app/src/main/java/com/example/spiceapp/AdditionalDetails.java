@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+//TODO: POPULATE VIEWS IF USER IS EDITING
+
 public class AdditionalDetails extends AppCompatActivity {
 
     private DatabaseReference database;

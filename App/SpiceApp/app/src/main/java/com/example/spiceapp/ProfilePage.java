@@ -32,6 +32,7 @@ public class ProfilePage extends AppCompatActivity {
 
         final Button btnMoods = (Button)findViewById(R.id.btnMoods);
         final Button btnLogout = (Button)findViewById(R.id.btnLogout);
+        final Button btnEdit = (Button)findViewById(R.id.btnEditDetails);
 
         btnMoods.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,16 @@ public class ProfilePage extends AppCompatActivity {
             }
         });
 
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextScreen = new Intent(v.getContext(), AdditionalDetails.class);
+                startActivityForResult(nextScreen, 0);
+            }
+        });
+
+
+        //TODO: REPLACE WITH BOTTOM NAV BAR FUNCTION
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

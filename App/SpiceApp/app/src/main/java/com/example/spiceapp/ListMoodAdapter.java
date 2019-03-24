@@ -51,7 +51,7 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
     @Override
     public void onBindViewHolder(@NonNull ListMoodViewHolder holder, int position) {
         Mood mood = moodList.get(position);
-        holder.textViewName.setText(mood.Name);
+        holder.textViewName.setText(mood.getName());
 //        holder.textViewGenre.setText("Genre: " + mood.genre);
 //        holder.textViewAge.setText("Age: " + artist.age);
 //        holder.textViewCountry.setText("Country: " + artist.country);
@@ -82,7 +82,7 @@ public class ListMoodAdapter extends RecyclerView.Adapter<ListMoodAdapter.ListMo
         }
     }
 
-
+    //Interface used in ListMoods that lets us interact with the recyclerview objects
     public interface OnNoteListener{
         void onNoteClick(int position);
     }
