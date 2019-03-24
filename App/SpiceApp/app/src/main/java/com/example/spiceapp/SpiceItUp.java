@@ -68,6 +68,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -93,7 +94,7 @@ public class SpiceItUp extends AppCompatActivity {
     private static double secondLong;
     private static FirebaseUser user;
     private static DatabaseReference database;
-    private static HashMap<String, Integer> categories = null;
+    private static String categories;
 
 
     // onRequestPermissionsResult for location permission
@@ -124,7 +125,7 @@ public class SpiceItUp extends AppCompatActivity {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    categories = dataSnapshot.getValue(HashMap.class);
+                    categories = dataSnapshot.getValue(String.class);
                     System.out.println("Categories: " + "Testing");
                     // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
 
