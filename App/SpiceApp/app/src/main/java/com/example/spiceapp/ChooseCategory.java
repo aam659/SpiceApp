@@ -70,9 +70,9 @@ public class ChooseCategory extends AppCompatActivity {
                 if(checkBBQ.isChecked())
                     categories.add("BBQ");
                 if(checkSteakhouse.isChecked())
-                    categories.add("Indian");
+                    categories.add("Steakhouse");
                 if(checkIndian.isChecked())
-                    categories.add("Mexican");
+                    categories.add("Indian");
                 if(checkChinese.isChecked())
                     categories.add("Chinese");
                 if(checkBar.isChecked())
