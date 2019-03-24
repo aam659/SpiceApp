@@ -96,20 +96,6 @@ public class SpiceItUp extends AppCompatActivity {
     private static DatabaseReference database;
     private static String categories;
 
-
-    // onRequestPermissionsResult for location permission
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // Permission Granted
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Have permission
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, locationListener);
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +123,34 @@ public class SpiceItUp extends AppCompatActivity {
             });
         }
 
+        locationSetup();
+
+        initializeToolbar();
+
+        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+
+        initMapEngine();
+        findPlace();
+
+        initializeNavBar();
+    }
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> User Location <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+    // onRequestPermissionsResult for location permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Permission Granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Have permission
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, locationListener);
+            }
+        }
+    }
+
+    private void locationSetup(){
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         locationListener = new LocationListener() {
@@ -190,94 +204,11 @@ public class SpiceItUp extends AppCompatActivity {
             }
 
         }
-
-//        boolean isLogged = isLoggedIn();
-
-        initializeToolbar();
-
-        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
-
-        initMapEngine();
-        findPlace();
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                Intent nextScreen;
-                switch (item.getItemId()) {
-                    case R.id.tlbLogin:
-                        if (FirebaseManager.isLoggedIn()) {
-                            Toast.makeText(SpiceItUp.this, "Already logged in!", Toast.LENGTH_LONG).show();
-                            return false;
-                        } else {
-                            nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
-                            startActivityForResult(nextScreen, 0);
-                            return true;
-                        }
-
-                    case R.id.tlbSocial:
-                        if (FirebaseManager.isLoggedIn()) {
-                            nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
-                            startActivityForResult(nextScreen, 0);
-                            return true;
-                        } else {
-                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
-                            return false;
-                        }
-
-                    case R.id.tlbProfile:
-                        if(FirebaseManager.isLoggedIn()) {
-                            nextScreen = new Intent(SpiceItUp.this, ProfilePage.class);
-                            startActivityForResult(nextScreen, 0);
-                            return true;
-                        } else {
-                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
-                            return false;
-                        }
-
-                    case R.id.tlbHome:
-                        nextScreen = new Intent(SpiceItUp.this, HomePage.HomePageActivity.class);
-                        startActivityForResult(nextScreen, 0);
-                        return true;
-                    case R.id.tlbSIU:
-                        return true;
-                    default:
-                        // If we got here, the user's action was not recognized.
-                        //Do nothing
-                        return false;
-                }
-            }
-        });
     }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
-    private void launchMap(){
-        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
-        startActivityForResult(nextScreen, 0);
-    }
-
-//    public boolean isLoggedIn(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-//        return sharedPreferences.getBoolean("loginKey", false);
-//    }
-
-    private void initializeToolbar(){
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Spice It Up");
-    }
-
-    private void updateViews(){
-        TextView txtName = (TextView) findViewById(R.id.txtName);
-        TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
-        txtName.setText(name);
-        txtLocation.setText(addr);
-        ImageView restaurantImage = (ImageView) findViewById(R.id.imgRestuarant);
-        restaurantImage.setImageBitmap(bitmap);
-    }
-
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> HereAPI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+    //initialize HereApi
     private void initMapEngine(){
         MapEngine mapEngine = MapEngine.getInstance();
         mapEngine.init(this, new OnEngineInitListener() {
@@ -365,7 +296,9 @@ public class SpiceItUp extends AppCompatActivity {
             }
         }));
     }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Google Places <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
     private void autoComplete(String query){
         Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
@@ -452,4 +385,80 @@ public class SpiceItUp extends AppCompatActivity {
             }
         });
     }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+
+    private void launchMap(){
+        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
+        startActivityForResult(nextScreen, 0);
+    }
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> UI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+    private void updateViews(){
+        TextView txtName = (TextView) findViewById(R.id.txtName);
+        TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
+        txtName.setText(name);
+        txtLocation.setText(addr);
+        ImageView restaurantImage = (ImageView) findViewById(R.id.imgRestuarant);
+        restaurantImage.setImageBitmap(bitmap);
+    }
+
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Spice It Up");
+    }
+
+    private void initializeNavBar(){
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                Intent nextScreen;
+                switch (item.getItemId()) {
+                    case R.id.tlbLogin:
+                        if (FirebaseManager.isLoggedIn()) {
+                            Toast.makeText(SpiceItUp.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                            return false;
+                        } else {
+                            nextScreen = new Intent(SpiceItUp.this, LoginPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        }
+
+                    case R.id.tlbSocial:
+                        if (FirebaseManager.isLoggedIn()) {
+                            nextScreen = new Intent(SpiceItUp.this, SocialPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        } else {
+                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+
+                    case R.id.tlbProfile:
+                        if(FirebaseManager.isLoggedIn()) {
+                            nextScreen = new Intent(SpiceItUp.this, ProfilePage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        } else {
+                            Toast.makeText(SpiceItUp.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+
+                    case R.id.tlbHome:
+                        nextScreen = new Intent(SpiceItUp.this, HomePage.HomePageActivity.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+                    case R.id.tlbSIU:
+                        return true;
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        //Do nothing
+                        return false;
+                }
+            }
+        });
+    }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 }
