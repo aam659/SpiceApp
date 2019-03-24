@@ -113,6 +113,9 @@ public class SpiceItUp extends AppCompatActivity {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //Since we need to pull an object from the database which is an implemented generic,
+                    //we can't just pull the interface class "ArrayList.class", so instead we create and object that
+                    //is in the format to let the firebase database know that we're going to be expecting a generic implementation
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
                     categories = dataSnapshot.getValue(t);
                     // Debugging code
