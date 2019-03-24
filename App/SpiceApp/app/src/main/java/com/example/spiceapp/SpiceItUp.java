@@ -94,7 +94,8 @@ public class SpiceItUp extends AppCompatActivity {
     private static double secondLong;
     private static FirebaseUser user;
     private static DatabaseReference database;
-    private static String categories;
+    private static ArrayList<String> categories;
+    private static String preferencesString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,15 +107,15 @@ public class SpiceItUp extends AppCompatActivity {
         if(FirebaseManager.isLoggedIn()) {
             Query query = FirebaseManager.getPreferencesReference();
                 /*
-                Queries database for 'Categories' for FancyItaly - hardcoded
+                Queries database for 'Categories' for EasternLunch - hardcoded
                  */
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    categories = dataSnapshot.getValue(String.class);
-                    System.out.println("Categories: " + "Testing");
+                    categories = dataSnapshot.getValue(ArrayList.class);
+                    // Debugging code
+                    // System.out.println("Categories: " + categories);
                     // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
-
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -230,6 +231,9 @@ public class SpiceItUp extends AppCompatActivity {
 //        FirebaseUser user = FirebaseManager.getCurrentUser();
 //        database = FirebaseManager.getDatabaseReference();
 //        database.child("users").child(user.getUid()).child("Mood").child("BBQ").child("Categories").child()
+        /*for (String queries : categories) {
+            preferencesString += queries;
+        }*/
         SearchRequest searchRequest = new SearchRequest("Restaurant");
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
         searchRequest.execute(discoveryResultPageListener);
