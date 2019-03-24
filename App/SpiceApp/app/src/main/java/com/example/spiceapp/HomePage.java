@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +51,7 @@ public class HomePage extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_home_page);
+            FirebaseApp.initializeApp(getApplicationContext());
             FirebaseManager.initialize();
             user = FirebaseManager.getCurrentUser();
 

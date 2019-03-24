@@ -43,6 +43,12 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.here.android.mpa.common.GeoCoordinate;
 import com.here.android.mpa.common.MapEngine;
 import com.here.android.mpa.common.OnEngineInitListener;
@@ -57,8 +63,10 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -83,6 +91,10 @@ public class SpiceItUp extends AppCompatActivity {
     private static double secondLat;
     private static double firstLong;
     private static double secondLong;
+    private static FirebaseUser user;
+    private static DatabaseReference database;
+    private static HashMap<String, Integer> categories = null;
+
 
     // onRequestPermissionsResult for location permission
     @Override
@@ -92,7 +104,7 @@ public class SpiceItUp extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // Have permission
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, locationListener);
             }
         }
     }
@@ -101,6 +113,28 @@ public class SpiceItUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+        FirebaseManager.initialize();
+        user = FirebaseManager.getCurrentUser();
+
+        if(FirebaseManager.isLoggedIn()) {
+            Query query = FirebaseManager.getPreferencesReference();
+                /*
+                Queries database for 'Categories' for FancyItaly - hardcoded
+                 */
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    categories = dataSnapshot.getValue(HashMap.class);
+                    System.out.println("Categories: " + "Testing");
+                    // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            });
+        }
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -261,6 +295,9 @@ public class SpiceItUp extends AppCompatActivity {
 
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
+//        FirebaseUser user = FirebaseManager.getCurrentUser();
+//        database = FirebaseManager.getDatabaseReference();
+//        database.child("users").child(user.getUid()).child("Mood").child("BBQ").child("Categories").child()
         SearchRequest searchRequest = new SearchRequest("Restaurant");
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
         searchRequest.execute(discoveryResultPageListener);
@@ -329,7 +366,7 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void autoComplete(String query){
-        Places.initialize(getApplicationContext(),"");
+        Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
         Log.i("firstLat", String.valueOf(firstLat));
