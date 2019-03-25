@@ -96,7 +96,7 @@ public class SpiceItUp extends AppCompatActivity {
     private static FirebaseUser user;
     private static DatabaseReference database;
     private static ArrayList<String> categories;
-    private static String preferencesString;
+    private static String preferencesString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,11 +120,13 @@ public class SpiceItUp extends AppCompatActivity {
                     categories = dataSnapshot.getValue(t);
                     System.out.println(categories.getClass());
 
-                    for (int i = 0; i < categories.size(); ++i) {
-                        preferencesString += categories.get(i);
-
-                        if (i != categories.size() - 1)
+                    for (int i = categories.size() - 1; i > -1; --i) {
+                        if (i != -1)
                             preferencesString += ", ";
+
+                        // System.out.println("Contents: " + categories.get(i));
+
+                        preferencesString += categories.get(i);
                     }
                     // Debugging code
                     // System.out.println("Categories: " + categories);
@@ -251,6 +253,7 @@ public class SpiceItUp extends AppCompatActivity {
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
+            System.out.println("Restaurant" + preferencesString);
         } else {
             searchRequest = new SearchRequest("Restaurant");
         }
