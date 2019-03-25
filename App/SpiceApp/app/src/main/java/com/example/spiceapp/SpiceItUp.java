@@ -118,6 +118,14 @@ public class SpiceItUp extends AppCompatActivity {
                     //is in the format to let the firebase database know that we're going to be expecting a generic implementation
                     GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
                     categories = dataSnapshot.getValue(t);
+                    System.out.println(categories.getClass());
+
+                    for (int i = 0; i < categories.size(); ++i) {
+                        preferencesString += categories.get(i);
+
+                        if (i != categories.size() - 1)
+                            preferencesString += ", ";
+                    }
                     // Debugging code
                     // System.out.println("Categories: " + categories);
                     // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
@@ -236,10 +244,16 @@ public class SpiceItUp extends AppCompatActivity {
 //        FirebaseUser user = FirebaseManager.getCurrentUser();
 //        database = FirebaseManager.getDatabaseReference();
 //        database.child("users").child(user.getUid()).child("Mood").child("BBQ").child("Categories").child()
-        /*for (String queries : categories) {
-            preferencesString += queries;
-        }*/
-        SearchRequest searchRequest = new SearchRequest("Restaurant");
+//        for (String queries : categories) {
+//            preferencesString += queries;
+//        }
+// System.out.println("Categorgies: " + categories.get(0));
+        SearchRequest searchRequest;
+        if (FirebaseManager.isLoggedIn()) {
+            searchRequest = new SearchRequest("Restaurant" + preferencesString);
+        } else {
+            searchRequest = new SearchRequest("Restaurant");
+        }
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
         searchRequest.execute(discoveryResultPageListener);
     }
