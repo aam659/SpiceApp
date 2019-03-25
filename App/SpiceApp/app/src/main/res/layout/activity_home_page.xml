@@ -18,6 +18,35 @@
     <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
     <!--tools:layout_editor_absoluteX="0dp" />-->
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSignIn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        app:cardCornerRadius="25dp">
+
+        <RelativeLayout
+            android:id="@+id/btnLoginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnMainAct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/strMainNotLogged"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="179dp"
@@ -48,7 +77,7 @@
         <!--android:text="@string/strMainNotLogged" />-->
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardSignIn"
+        android:id="@+id/cardChoosePreference"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_below="@+id/imageView3"
@@ -56,22 +85,22 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="58dp"
         android:layout_marginLeft="58dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="58dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="57dp"
         android:layout_marginRight="58dp"
         app:cardCornerRadius="25dp">
 
         <RelativeLayout
-            android:id="@+id/btnLoginBtn"
+            android:id="@+id/btnChoosePreference"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/btnMainAct"
+                android:id="@+id/textChoosePreference"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/strMainNotLogged"
+                android:text="@string/strChoosePreference"
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

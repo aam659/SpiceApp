@@ -1,4 +1,5 @@
 package com.example.spiceapp;
+import com.example.spiceapp.FirebaseObjects.Mood;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -77,6 +78,20 @@ public class FirebaseManager {
     //Returns a reference to the top level of the moods level of the database
     static DatabaseReference getSpecifcMoodReference(String mood){
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child(mood);
+    }
+
+    //Save selected preference into the firebase database
+    static void setCurrentPreference(Mood pref){
+        mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference").setValue(pref);
+    }
+
+    //Returns a REFERENCE to the current mood
+    static DatabaseReference getCurrentPreference(){
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference");
+    }
+
+    static void clearCurrentPreference(){
+        mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference").removeValue();
     }
 
     //Method to delete a node, please use carefully

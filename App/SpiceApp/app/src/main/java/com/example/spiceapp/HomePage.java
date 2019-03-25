@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.view.MenuItem;
@@ -69,6 +70,7 @@ public class HomePage extends AppCompatActivity {
 
 
             final TextView btnMainAction = (TextView) findViewById(R.id.btnMainAct);
+            final CardView btnChoosePreference = (CardView) findViewById(R.id.cardChoosePreference);
 
             if(FirebaseManager.isLoggedIn()) {
                 Query query = FirebaseManager.getFirstNameReference();
@@ -105,6 +107,13 @@ public class HomePage extends AppCompatActivity {
                 }
             });
 
+            btnChoosePreference.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent nextScreen = new Intent(v.getContext(), SetPreference.class);
+                    startActivityForResult(nextScreen, 0);
+                }
+            });
 
             BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

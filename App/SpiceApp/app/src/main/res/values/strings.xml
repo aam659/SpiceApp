@@ -94,4 +94,6 @@
     <string name="strMax">Max</string>
     <string name="MealTime">MealTime</string>
     <string name="MoodDetails">Here\'s a Look At Your Mood</string>
+    <string name="strChoosePreference">Choose Preference</string>
+    <string name="title_activity_set_preference">SetPreference</string>
 </resources>

@@ -17,7 +17,11 @@
         android:roundIcon="@mipmap/spice_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InspectMood"></activity>
+        <activity
+            android:name=".SetPreference"
+            android:label="@string/title_activity_set_preference"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".InspectMood" />
         <activity android:name=".DistanceRange" />
         <activity android:name=".PriceRange" />
         <activity
