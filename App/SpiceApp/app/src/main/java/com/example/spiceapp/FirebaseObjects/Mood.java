@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 public class Mood {
 
-    private String Name, MealTime;
-    private double Distance;
-    private Price Price;
-    private ArrayList<String> Categories;
+    private String name, mealTime;
+    private double distance;
+    private Price price;
+    private ArrayList<String> categories;
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getMealTime() {
-        return MealTime;
+        return mealTime;
     }
 
     public double getDistance() {
-        return Distance;
+        return distance;
     }
 
     public com.example.spiceapp.FirebaseObjects.Price getPrice() {
-        return Price;
+        return price;
     }
 
     public ArrayList<String> getCategories(){
-        return Categories;
+        return categories;
     }
 
     public Mood(){
