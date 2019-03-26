@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.FirebaseObjects.Mood;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
@@ -95,6 +96,7 @@ public class SpiceItUp extends AppCompatActivity {
     private static double secondLong;
     private static FirebaseUser user;
     private static DatabaseReference database;
+    private static Mood mood;
     private static ArrayList<String> categories;
     private static String preferencesString = "";
 
@@ -106,7 +108,7 @@ public class SpiceItUp extends AppCompatActivity {
         user = FirebaseManager.getCurrentUser();
 
         if(FirebaseManager.isLoggedIn()) {
-            Query query = FirebaseManager.getPreferencesReference();
+            Query query = FirebaseManager.getCurrentPreference();
                 /*
                 Queries database for 'Categories' for EasternLunch - hardcoded
                  */
@@ -116,15 +118,17 @@ public class SpiceItUp extends AppCompatActivity {
                     //Since we need to pull an object from the database which is an implemented generic,
                     //we can't just pull the interface class "ArrayList.class", so instead we create and object that
                     //is in the format to let the firebase database know that we're going to be expecting a generic implementation
-                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
-                    categories = dataSnapshot.getValue(t);
-                    System.out.println(categories.getClass());
+//                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
+                    mood = dataSnapshot.getValue(Mood.class);
+                    // System.out.println(mood.getClass());
+
+                    categories = mood.getCategories();
 
                     for (int i = categories.size() - 1; i > -1; --i) {
                         if (i != -1)
                             preferencesString += ", ";
 
-                        // System.out.println("Contents: " + categories.get(i));
+                        System.out.println("Contents: " + categories.get(i));
 
                         preferencesString += categories.get(i);
                     }

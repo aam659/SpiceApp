@@ -23,7 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSetPref"
         android:layout_width="414dp"
-        android:layout_height="662dp"
+        android:layout_height="604dp"
         app:layout_anchor="@+id/include3"
         app:layout_anchorGravity="bottom|center" />
 
