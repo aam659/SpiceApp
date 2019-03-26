@@ -102,6 +102,8 @@ public class SetPreference extends AppCompatActivity implements SetPreferenceAda
     @Override
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, HomePage.HomePageActivity.class);
+        Mood mood = new Mood();
+
         FirebaseManager.setCurrentPreference(moodList.get(position));
         startActivity(intent);
     }
