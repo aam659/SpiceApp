@@ -109,6 +109,16 @@ public class SpiceItUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+        initializeToolbar();
+        initializeNavBar();
+        initMapEngine();
+        locationSetup();
+
+
+        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+
+
         FirebaseManager.initialize();
         user = FirebaseManager.getCurrentUser();
 
@@ -138,11 +148,10 @@ public class SpiceItUp extends AppCompatActivity {
                         if (i != -1)
                             preferencesString += ", ";
 
-                        System.out.println("Contents: " + categories.get(i));
-
                         preferencesString += categories.get(i);
                     }
 
+                    findPlace();
                     // preferencesString += ", " + mealTime;
                     // Debugging code
                     // System.out.println("Categories: " + categories);
@@ -154,18 +163,11 @@ public class SpiceItUp extends AppCompatActivity {
                 }
             });
         }
+        else{
+            findPlace();
+        }
 
-        locationSetup();
 
-        initializeToolbar();
-
-        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
-
-        initMapEngine();
-        findPlace();
-
-        initializeNavBar();
     }
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> User Location <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
@@ -270,13 +272,13 @@ public class SpiceItUp extends AppCompatActivity {
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
             System.out.println("Distance: " + distance);
-            searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude,deviceLongitude), distance);
+            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude,deviceLongitude), distance);
             System.out.println("Restaurant" + preferencesString);
         } else {
             searchRequest = new SearchRequest("Restaurant");
             searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude, deviceLongitude), 10);
         }
-        // searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
+        searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
 
         searchRequest.execute(discoveryResultPageListener);
     }
