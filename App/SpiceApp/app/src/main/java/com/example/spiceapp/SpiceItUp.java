@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spiceapp.FirebaseObjects.Mood;
+import com.example.spiceapp.FirebaseObjects.Price;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.model.LatLng;
@@ -99,6 +100,10 @@ public class SpiceItUp extends AppCompatActivity {
     private static Mood mood;
     private static ArrayList<String> categories;
     private static String preferencesString = "";
+    private static String distance = "";
+    private static String mealTime = "";
+    private static String lowPrice = "";
+    private static String highPrice = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +128,11 @@ public class SpiceItUp extends AppCompatActivity {
                     // System.out.println(mood.getClass());
 
                     categories = mood.getCategories();
+                    distance = String.valueOf(mood.getDistance());
+                    mealTime = String.valueOf(mood.getMealTime());
+                    lowPrice = String.valueOf(mood.getPrice().getLowPrice());
+                    highPrice = String.valueOf(mood.getPrice().getHighPrice());
+
 
                     for (int i = categories.size() - 1; i > -1; --i) {
                         if (i != -1)
@@ -132,6 +142,8 @@ public class SpiceItUp extends AppCompatActivity {
 
                         preferencesString += categories.get(i);
                     }
+
+                    preferencesString += ", " + mealTime;
                     // Debugging code
                     // System.out.println("Categories: " + categories);
                     // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
