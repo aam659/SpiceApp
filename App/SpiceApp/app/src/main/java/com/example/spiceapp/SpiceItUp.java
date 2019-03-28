@@ -272,11 +272,11 @@ public class SpiceItUp extends AppCompatActivity {
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
             System.out.println("Distance: " + distance);
-            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude,deviceLongitude), distance);
+            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude,deviceLongitude), 100);
             System.out.println("Restaurant" + preferencesString);
         } else {
             searchRequest = new SearchRequest("Restaurant");
-            searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude, deviceLongitude), 10);
+            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude, deviceLongitude), 10);
         }
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
 
