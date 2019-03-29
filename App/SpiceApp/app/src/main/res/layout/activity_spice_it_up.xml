@@ -51,10 +51,11 @@
             <!--android:layout_height="match_parent">-->
     <TextView
         android:id="@+id/txtName"
-        android:layout_width="383dp"
-        android:layout_height="48dp"
+        android:layout_width="382dp"
+        android:layout_height="71dp"
         android:layout_below="@id/imgRestuarant"
         android:layout_marginStart="14dp"
+        android:layout_marginTop="87dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="15dp"
         android:contentDescription="@string/restaurant_name"
@@ -62,7 +63,7 @@
         android:text="@string/restaurant_name"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        android:typeface="normal"/>
+        android:typeface="normal" />
 
     <TextView
         android:id="@+id/txtLocation"
@@ -70,7 +71,7 @@
         android:layout_height="39dp"
         android:layout_below="@+id/txtName"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
@@ -195,6 +196,8 @@
         layout="@layout/nav_layout"
         android:layout_width="wrap_content"
         android:layout_height="90dp"
-        android:layout_alignParentBottom="true" />  <!-- Bottom Nav -->
+        android:layout_alignParentBottom="true" />
+
+    <!-- Bottom Nav -->
 
 </RelativeLayout>

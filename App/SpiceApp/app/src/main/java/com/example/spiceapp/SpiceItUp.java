@@ -116,13 +116,14 @@ public class SpiceItUp extends AppCompatActivity {
 
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> chooseMood());
+        //findviewById(R.id.btnMood).setOnClickListener(view -> chooseMood());
 
 
         FirebaseManager.initialize();
         user = FirebaseManager.getCurrentUser();
 
-        if(FirebaseManager.isLoggedIn()) {
+        if(FirebaseManager.isLoggedIn()) { //@TODO display mood name in text view
             Query query = FirebaseManager.getCurrentPreference();
                 /*
                 Queries database for 'Categories' for EasternLunch - hardcoded
@@ -280,14 +281,6 @@ public class SpiceItUp extends AppCompatActivity {
      * if signed in it uses current mood else it uses a random search
      */
     private void findPlace(){
-        //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
-//        FirebaseUser user = FirebaseManager.getCurrentUser();
-//        database = FirebaseManager.getDatabaseReference();
-//        database.child("users").child(user.getUid()).child("Mood").child("BBQ").child("Categories").child()
-//        for (String queries : categories) {
-//            preferencesString += queries;
-//        }
-// System.out.println("Categorgies: " + categories.get(0));
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
@@ -470,11 +463,18 @@ public class SpiceItUp extends AppCompatActivity {
     }
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Intents <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
     //launch activty in future for nav
     private void launchMap(){
         Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
         startActivityForResult(nextScreen, 0);
     }
+
+    private void chooseMood(){
+        Intent nextScreen = new Intent(SpiceItUp.this,SetPreference.class);
+        startActivityForResult(nextScreen,0);
+    }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> UI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
