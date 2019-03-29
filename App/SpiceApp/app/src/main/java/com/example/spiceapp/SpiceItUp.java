@@ -82,7 +82,6 @@ public class SpiceItUp extends AppCompatActivity {
     private static List<DiscoveryResult> s_ResultList;
     private PlacesClient placesClient;
     private int rating;
-    private FusedLocationProviderClient fusedLocationClient;
     private final String TAG = "SpiceItUp";
     // LocationManager for location access
     private LocationManager locationManager;
@@ -97,7 +96,6 @@ public class SpiceItUp extends AppCompatActivity {
     private static ArrayList<String> categories;
     private static String preferencesString = "";
     private static int distance = 10;
-    private static String mealTime = "";
     private static int lowPrice;
     private static int highPrice;
 
@@ -136,7 +134,6 @@ public class SpiceItUp extends AppCompatActivity {
 
                     categories = mood.getCategories();
                     distance = (int) mood.getDistance();
-                    // mealTime = String.valueOf(mood.getMealTime());
                     lowPrice = mood.getPrice().getLowPrice();
                     highPrice = mood.getPrice().getHighPrice();
 
