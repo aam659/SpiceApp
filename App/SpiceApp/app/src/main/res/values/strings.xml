@@ -96,4 +96,5 @@
     <string name="MoodDetails">Here\'s a Look At Your Mood</string>
     <string name="strChoosePreference">Choose Preference</string>
     <string name="title_activity_set_preference">SetPreference</string>
+    <string name="txtmood">Blank</string>
 </resources>
