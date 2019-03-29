@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -102,31 +104,31 @@ public class SpiceItUp extends AppCompatActivity {
     private static FirebaseUser user;
     private static DatabaseReference database;
     private static Mood mood;
+    private static Mood currentMood;
     private static ArrayList<String> categories;
     private static String preferencesString = "";
     private static int distance = 10;
     private static int lowPrice;
     private static int highPrice;
+    private TextView moodText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+        FirebaseManager.initialize();
+        user = FirebaseManager.getCurrentUser();
         initializeToolbar();
         initializeNavBar();
         initMapEngine();
         locationSetup();
-
+        showCurrentMood();
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
-        //findviewById(R.id.btnMood).setOnClickListener(view -> chooseMood());
+        findViewById(R.id.btnChangeCategories).setOnClickListener(view -> chooseMood());
 
-
-        FirebaseManager.initialize();
-        user = FirebaseManager.getCurrentUser();
-
-        if(FirebaseManager.isLoggedIn()) { //@TODO display mood name in text view
+        if(FirebaseManager.isLoggedIn()) {
             Query query = FirebaseManager.getCurrentPreference();
                 /*
                 Queries database for current user mood
@@ -166,6 +168,34 @@ public class SpiceItUp extends AppCompatActivity {
         }
 
         findPlace();
+
+
+    }
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Display Mood <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+
+    public void showCurrentMood() {
+        moodText = (TextView) findViewById(R.id.btnTextCategories);
+
+        if (FirebaseManager.isLoggedIn()) {
+            Query query = FirebaseManager.getCurrentPreference();
+
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Grab current mood
+                    currentMood = dataSnapshot.getValue(Mood.class);
+                    moodText.setText("Current Mood\n" + currentMood.getName());
+                    // System.out.println("Current Mood" + currentMood.getName());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            });
+        } else {
+            moodText.setText("Not Logged in!");
+        }
 
 
     }

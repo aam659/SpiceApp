@@ -1,4 +1,4 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
+<?xml version="1.0" encoding="utf-8"?>
 <!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
     <!--xmlns:tools="http://schemas.android.com/tools"-->
@@ -22,8 +22,15 @@
         android:id="@+id/btnCategories"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp">
+        android:layout_below="@id/toolbar"
+        android:layout_alignStart="@id/toolbar"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="58dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:cardCornerRadius="25dp">
 
         <RelativeLayout
             android:id="@+id/btnCategoriesBtn"
@@ -35,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/CurrentCategories"
+                android:text="@string/CurrentCategory"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -44,14 +52,14 @@
         android:id="@+id/btnChangeCategories"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/btnCategories"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/toolbar"
+        android:layout_alignEnd="@id/toolbar"
         android:layout_marginStart="58dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginLeft="58dp"
         android:layout_marginRight="58dp"
-        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/colorPrimary"
         app:cardCornerRadius="25dp">
 
         <RelativeLayout
@@ -65,17 +73,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/ChangeCategory"
+                android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imgRestuarant"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@+id/btnCategories"
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/btnChangeCategories"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/imgRestaurant"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,46 +93,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chilli_logo" />
 
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:id="@+id/cardInfo"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_below="@+id/imgRestuarant"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginStart="58dp"-->
-        <!--android:layout_marginLeft="58dp"-->
-        <!--android:layout_marginTop="23dp"-->
-        <!--android:layout_marginEnd="58dp"-->
-        <!--android:layout_marginRight="58dp"-->
-        <!--app:cardCornerRadius="25dp">-->
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/edtRestaurantName"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
     <TextView
         android:id="@+id/txtName"
-        android:layout_width="382dp"
-        android:layout_height="71dp"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
         android:layout_below="@id/imgRestuarant"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="15dp"
         android:contentDescription="@string/restaurant_name"
         android:gravity="center"
         android:text="@string/restaurant_name"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:typeface="normal" />
 
     <TextView
         android:id="@+id/txtLocation"
-        android:layout_width="377dp"
-        android:layout_height="39dp"
+        android:layout_width="397dp"
+        android:layout_height="74dp"
+        android:layout_above="@id/btnSIU"
         android:layout_below="@+id/txtName"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
@@ -133,10 +126,11 @@
         android:id="@+id/btnSIU"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/txtLocation"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp"
         android:layout_marginLeft="58dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="58dp"
         android:layout_marginRight="58dp"
         app:cardCornerRadius="25dp">
@@ -160,10 +154,11 @@
         android:id="@+id/btnAccept"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/txtLocation"
+        android:layout_above="@+id/bottom_navigation"
         android:layout_alignParentEnd="true"
+        android:layout_marginBottom="25dp"
         android:layout_marginStart="58dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginLeft="58dp"
         android:layout_marginRight="58dp"
         app:cardCornerRadius="25dp">
