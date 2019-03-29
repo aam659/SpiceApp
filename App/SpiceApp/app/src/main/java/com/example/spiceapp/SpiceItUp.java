@@ -91,10 +91,6 @@ public class SpiceItUp extends AppCompatActivity {
     // Latitude and longitude coordinates
     private static double deviceLatitude;
     private static double deviceLongitude;
-    private static double firstLat;
-    private static double secondLat;
-    private static double firstLong;
-    private static double secondLong;
     private static FirebaseUser user;
     private static DatabaseReference database;
     private static Mood mood;
@@ -116,7 +112,7 @@ public class SpiceItUp extends AppCompatActivity {
 
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> chooseMood());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
         //findviewById(R.id.btnMood).setOnClickListener(view -> chooseMood());
 
 
@@ -126,7 +122,7 @@ public class SpiceItUp extends AppCompatActivity {
         if(FirebaseManager.isLoggedIn()) { //@TODO display mood name in text view
             Query query = FirebaseManager.getCurrentPreference();
                 /*
-                Queries database for 'Categories' for EasternLunch - hardcoded
+                Queries database for current user mood
                  */
             query.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -204,10 +200,6 @@ public class SpiceItUp extends AppCompatActivity {
                 // Sets device latitude and longitude
                 deviceLatitude = location.getLatitude();
                 deviceLongitude = location.getLongitude();
-                firstLat = deviceLatitude - 0.5;
-                firstLong = deviceLongitude - 1.5;
-                secondLat = deviceLatitude + 0.5;
-                secondLong = deviceLongitude + 1.5;
                 // Log above constants for check
                 Log.i("Latitude", String.valueOf(deviceLatitude));
                 Log.i("Longitude", String.valueOf(deviceLongitude));
@@ -379,12 +371,6 @@ public class SpiceItUp extends AppCompatActivity {
         Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
         AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
-        Log.i("firstLat", String.valueOf(firstLat));
-        Log.i("firstLong", String.valueOf(firstLong));
-        Log.i("secondLat", String.valueOf(secondLat));
-        Log.i("secondLong", String.valueOf(secondLong));
-        RectangularBounds bounds = RectangularBounds.newInstance(
-          new LatLng(firstLat,firstLong),new LatLng(secondLat,secondLong));
 
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
                 .setCountry("US")
