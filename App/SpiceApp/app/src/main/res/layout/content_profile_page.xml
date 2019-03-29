@@ -15,21 +15,22 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="User Uploaded photo"
         app:layout_constraintBottom_toTopOf="@+id/btnMoods"
-        app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textUsername"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textUserFName"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/chilli_logo"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textUsername"
+        android:id="@+id/textUserFName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="60dp"
-        android:text="sampleuser"
+        android:text="@string/strFName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,5 +83,34 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
         tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/strUserEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserLname" />
+
+    <TextView
+        android:id="@+id/textUserPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/strUserPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserEmail" />
+
+    <TextView
+        android:id="@+id/textUserLname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:text="@string/strLName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserFName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

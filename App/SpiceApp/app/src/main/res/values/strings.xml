@@ -51,6 +51,8 @@
     <string name="strFinishAccount" />
     <string name="strNewName">What\'s your name?</string>
     <string name="strPhone">Can we get your number?</string>
+    <string name="strUserPhone">205-555-1234</string>
+    <string name="strUserEmail">Sample@Email.com</string>
     <string name="strFName">First Name</string>
     <string name="strLName">Last Name</string>
     <string name="strFinish">Finish</string>
