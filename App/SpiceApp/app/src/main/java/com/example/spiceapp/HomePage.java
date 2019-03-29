@@ -31,6 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+/**
+ * This class implements the class for the HomePage
+ * activity, where users may sign in or choose a mood.
+ *
+ * @author Ryan Simpson
+ */
 
 public class HomePage extends AppCompatActivity {
 

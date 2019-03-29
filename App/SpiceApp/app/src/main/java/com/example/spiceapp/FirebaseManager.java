@@ -7,9 +7,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Context;
 
-//This class was written as a quality of life for this app
-//Some methods may be redundant, but to abstract getting commonly needed references to
-//     some common aspects of the database will both cleanup code and keep things organized and standard
+/** This class was written as a quality of life for this app.
+ * Some methods may be redundant, but to abstract getting commonly
+ * needed references to some common aspects of the database will
+ * both cleanup code and keep things organized and standard.
+ *
+ * @author Ryan Simpson
+ */
 
 
 public class FirebaseManager {

@@ -18,6 +18,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * This class implements the RegisterPage activity,
+ * which is used to allow an individual to register
+ * for the app on the login page.
+ *
+ * @author Ryan Simpson
+ */
+
 public class RegisterPage extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

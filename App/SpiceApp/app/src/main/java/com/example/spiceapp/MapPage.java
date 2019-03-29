@@ -18,6 +18,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implements the MapPage class, which
+ * is used to generate a map and route to a given
+ * dining location.
+ *
+ * @author Logan Dawkins
+ */
+
 public class MapPage extends AppCompatActivity {
     // map embedded in the map fragment
     private Map map = null;

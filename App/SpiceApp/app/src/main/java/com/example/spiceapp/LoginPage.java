@@ -25,6 +25,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+/**
+ * This class implements the LoginPage activity,
+ * where users may login or register for the app.
+ *
+ * @author Alan Manning
+ */
+
 public class LoginPage extends AppCompatActivity {
 
     public static final String MyPREFERENCES = "MyPrefs";
