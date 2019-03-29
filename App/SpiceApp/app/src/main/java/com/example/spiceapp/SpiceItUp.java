@@ -179,7 +179,8 @@ public class SpiceItUp extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // Have permission
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+                locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 10, 5, locationListener);
             }
         }
     }
@@ -223,6 +224,7 @@ public class SpiceItUp extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < 23) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 5, locationListener);
             }
         }
 
@@ -235,6 +237,7 @@ public class SpiceItUp extends AppCompatActivity {
             } else {
                 // Location access already granted
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 5, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 5, locationListener);
             }
 
         }
