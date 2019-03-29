@@ -151,7 +151,6 @@ public class SpiceItUp extends AppCompatActivity {
                         preferencesString += categories.get(i);
                     }
 
-                    findPlace();
                     // preferencesString += ", " + mealTime;
                     // Debugging code
                     // System.out.println("Categories: " + categories);
@@ -163,15 +162,20 @@ public class SpiceItUp extends AppCompatActivity {
                 }
             });
         }
-        else{
-            findPlace();
-        }
 
+
+        findPlace();
 
     }
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> User Location <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
-    // onRequestPermissionsResult for location permission
+
+    /**onRequestPermissionsResult for location permission
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -184,6 +188,10 @@ public class SpiceItUp extends AppCompatActivity {
         }
     }
 
+    /**
+     * locationSetup
+     * retrieve users current location
+     */
     private void locationSetup(){
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -194,10 +202,10 @@ public class SpiceItUp extends AppCompatActivity {
                 // Sets device latitude and longitude
                 deviceLatitude = location.getLatitude();
                 deviceLongitude = location.getLongitude();
-                firstLat = deviceLatitude - 0.0228;
-                firstLong = deviceLongitude - 0.0619;
-                secondLat = deviceLatitude + 0.0295;
-                secondLong = deviceLongitude - 0.000954;
+                firstLat = deviceLatitude - 0.5;
+                firstLong = deviceLongitude - 1.5;
+                secondLat = deviceLatitude + 0.5;
+                secondLong = deviceLongitude + 1.5;
                 // Log above constants for check
                 Log.i("Latitude", String.valueOf(deviceLatitude));
                 Log.i("Longitude", String.valueOf(deviceLongitude));
@@ -242,7 +250,11 @@ public class SpiceItUp extends AppCompatActivity {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> HereAPI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
-    //initialize HereApi
+
+    /**
+     * initMapEngine
+     * initialize hereAPI
+     */
     private void initMapEngine(){
         MapEngine mapEngine = MapEngine.getInstance();
         mapEngine.init(this, new OnEngineInitListener() {
@@ -259,6 +271,11 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 
+    /**
+     * findPlace
+     * starts search request by finding a restaurant using hereAPI
+     * if signed in it uses current mood else it uses a random search
+     */
     private void findPlace(){
         //https://developer.here.com/documentation/android-starter/dev_guide/topics/places.html
 //        FirebaseUser user = FirebaseManager.getCurrentUser();
@@ -312,6 +329,9 @@ public class SpiceItUp extends AppCompatActivity {
         }
     };
 
+    /**
+     * result listener for the here place search
+     */
     private ResultListener<Place> m_placeResultListener = new ResultListener<Place>() {
         @Override
         public void onCompleted(Place place, ErrorCode errorCode) {
@@ -330,6 +350,12 @@ public class SpiceItUp extends AppCompatActivity {
     };
 
     //May be garbage since im querying based on the name
+
+    /**
+     * getHereAddress
+     * @param geoCoordinate
+     * retrieves the restaurants address
+     */
     private void getHereAddress(GeoCoordinate geoCoordinate){
         ReverseGeocodeRequest revGeo = new ReverseGeocodeRequest(geoCoordinate);
         revGeo.execute((new ResultListener<Address>() {
@@ -347,6 +373,12 @@ public class SpiceItUp extends AppCompatActivity {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Google Places <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+
+    /**
+     * autoComplete
+     * @param query
+     * takes name of restaurant and uses place id to call findPlaceById
+     */
     private void autoComplete(String query){
         Places.initialize(getApplicationContext(),"AIzaSyDRXeL2mFFQmQPz3dpMn-wkIu87tmo_Tg4");
         placesClient = Places.createClient(this);
@@ -359,18 +391,13 @@ public class SpiceItUp extends AppCompatActivity {
           new LatLng(firstLat,firstLong),new LatLng(secondLat,secondLong));
 
         FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
-                // Call either setLocationBias() OR setLocationRestriction().
-                .setLocationBias(bounds)
-//                .setLocationRestriction(bounds)
                 .setCountry("US")
-//                .setTypeFilter(TypeFilter.ESTABLISHMENT)
                 .setSessionToken(token)
                 .setQuery(query)
                 .build();
 
         placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
-                //System.out.println("GOOGLE PLACE ID: " + prediction.getPlaceId());
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId());
                 return;
@@ -384,6 +411,11 @@ public class SpiceItUp extends AppCompatActivity {
         });
     }
 
+    /**
+     * findPlaceById
+     * @param id
+     * takes place id, retrieves relevant place details from google Places
+     */
     private void findPlaceByID(String id) {
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Field> fields =
@@ -435,12 +467,18 @@ public class SpiceItUp extends AppCompatActivity {
     }
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
+    //launch activty in future for nav
     private void launchMap(){
         Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
         startActivityForResult(nextScreen, 0);
     }
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> UI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
+
+    /**
+     * updateViews
+     * updates all views with the results place details
+     */
     private void updateViews(){
         TextView txtName = (TextView) findViewById(R.id.txtName);
         TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
@@ -450,6 +488,10 @@ public class SpiceItUp extends AppCompatActivity {
         restaurantImage.setImageBitmap(bitmap);
     }
 
+    /**
+     * initializeToolbar
+     * setups up general purpose top action bar
+     */
     private void initializeToolbar(){
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -457,6 +499,10 @@ public class SpiceItUp extends AppCompatActivity {
         actionBar.setTitle("Spice It Up");
     }
 
+    /**
+     * initializeNavBar
+     * sets up the bottom nav bar
+     */
     private void initializeNavBar(){
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
