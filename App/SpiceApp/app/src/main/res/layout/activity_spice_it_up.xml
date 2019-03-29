@@ -18,10 +18,62 @@
         <!--android:id="@+id/toolbar"-->
         <!--layout="@layout/toolbar_layout" />  &lt;!&ndash; Top toolbar &ndash;&gt;-->
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnCategories"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp">
+
+        <RelativeLayout
+            android:id="@+id/btnCategoriesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnTextCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/CurrentCategories"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnChangeCategories"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btnCategories"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="58dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="25dp">
+
+        <RelativeLayout
+            android:id="@+id/btnChangeCategoriesBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btnBtnChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ChangeCategory"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
     <ImageView
         android:id="@+id/imgRestuarant"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/btnCategories"
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
@@ -76,50 +128,6 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="@string/txtLocation" />
-        <!--</RelativeLayout>-->
-    <!--</androidx.cardview.widget.CardView>-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/txtLocation"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintHorizontal_bias="0.5"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-    <!--<androidx.cardview.widget.CardView-->
-        <!--android:id="@+id/cardPlace"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_below="@+id/cardInfo"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginStart="58dp"-->
-        <!--android:layout_marginLeft="58dp"-->
-        <!--android:layout_marginTop="23dp"-->
-        <!--android:layout_marginEnd="58dp"-->
-        <!--android:layout_marginRight="58dp"-->
-        <!--app:cardCornerRadius="25dp">-->
-        <!--<RelativeLayout-->
-            <!--android:id="@+id/edtRestaurantLocation"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent">-->
-        <!--</RelativeLayout>-->
-    <!--</androidx.cardview.widget.CardView>-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/btnSIU"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/btnSIU"-->
-        <!--android:layout_width="173dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@+id/bottom_navigation"-->
-        <!--android:layout_below="@+id/txtLocation"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_marginStart="11dp"-->
-        <!--android:layout_marginTop="30dp"-->
-        <!--android:layout_marginEnd="30dp"-->
-        <!--android:layout_marginBottom="48dp"-->
-        <!--android:layout_toStartOf="@+id/btnAccept"-->
-        <!--android:text="@string/btnSIU" />-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/btnSIU"

@@ -89,7 +89,8 @@
     <string name="delete">Delete</string>
     <string name="strEdit">Edit</string>
     <string name="MoodName">MoodName</string>
-    <string name="Categories" />
+    <string name="CurrentCategories">Current Category: </string>
+    <string name="ChangeCategory">Edit Mood</string>
     <string name="strMin">Min</string>
     <string name="strMax">Max</string>
     <string name="MealTime">MealTime</string>
