@@ -90,8 +90,8 @@
     <string name="strEdit">Edit</string>
     <string name="MoodName">MoodName</string>
     <string name="Categories" />
-    <string name="CurrentCategory">Current Category: </string>
-    <string name="ChangeCategory">Edit Category</string>
+    <string name="CurrentMood">Current Mood: </string>
+    <string name="ChangeMood">Edit Mood</string>
     <string name="strMin">Min</string>
     <string name="strMax">Max</string>
     <string name="MealTime">MealTime</string>
