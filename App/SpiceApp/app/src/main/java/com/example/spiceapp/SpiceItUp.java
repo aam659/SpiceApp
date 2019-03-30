@@ -102,15 +102,13 @@ public class SpiceItUp extends AppCompatActivity {
     private static double deviceLatitude;
     private static double deviceLongitude;
     private static FirebaseUser user;
-    private static DatabaseReference database;
     private static Mood mood;
-    private static Mood currentMood;
-    private static ArrayList<String> categories;
+    private static String moodName;
+    //private static ArrayList<String> categories;
     private static String preferencesString = "";
     private static int distance = 10;
     private static int lowPrice;
     private static int highPrice;
-    private TextView moodText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,83 +120,92 @@ public class SpiceItUp extends AppCompatActivity {
         initializeNavBar();
         initMapEngine();
         locationSetup();
-        showCurrentMood();
+        //showCurrentMood();
+        moodName = "None";
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
         findViewById(R.id.btnChangeCategories).setOnClickListener(view -> chooseMood());
+    }
 
+    /**
+     * onStart
+     * executed after on create, this allows the gps to be handled in onCreate before execution
+     */
+    @Override
+    protected void onStart(){
+        super.onStart();
         if(FirebaseManager.isLoggedIn()) {
-            Query query = FirebaseManager.getCurrentPreference();
+            getUserInfo(new FirebaseCallback() {
+                @Override
+                public void onCallback(String pref, int dist, int low, int hi) {
+                    preferencesString = pref;
+                    distance = dist;
+                    lowPrice = low;
+                    highPrice = hi;
+                    findPlace();
+                }
+            });
+        }
+        else {
+            findPlace();
+        }
+    }
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Synchronized Firebase <<<<<<<<<<<<<<<<<<<<<<< //
+
+    /**
+     * FirebaseCallback used to wait for the data to populate
+     */
+    private interface FirebaseCallback{
+        void onCallback(String pref,int dist,int low,int hi);
+    }
+
+    /**
+     * getUserInfo
+     * @param firebaseCallback
+     * gets current users mood values to refine search
+     */
+    private void getUserInfo(FirebaseCallback firebaseCallback){
+        Query query = FirebaseManager.getCurrentPreference();
                 /*
                 Queries database for current user mood
                  */
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //Since we need to pull an object from the database which is an implemented generic,
-                    //we can't just pull the interface class "ArrayList.class", so instead we create and object that
-                    //is in the format to let the firebase database know that we're going to be expecting a generic implementation
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Since we need to pull an object from the database which is an implemented generic,
+                //we can't just pull the interface class "ArrayList.class", so instead we create and object that
+                //is in the format to let the firebase database know that we're going to be expecting a generic implementation
 //                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
-                    mood = dataSnapshot.getValue(Mood.class);
-                    // System.out.println(mood.getClass());
+                mood = dataSnapshot.getValue(Mood.class);
+                moodName = mood.getName();
 
-                    categories = mood.getCategories();
-                    distance = (int) mood.getDistance();
-                    lowPrice = mood.getPrice().getLowPrice();
-                    highPrice = mood.getPrice().getHighPrice();
+                ArrayList<String> categories = mood.getCategories();
+                int dist = (int) mood.getDistance();
+                int low = mood.getPrice().getLowPrice();
+                int high = mood.getPrice().getHighPrice();
 
 
-                    for (int i = categories.size() - 1; i > -1; --i) {
-                        if (i != -1)
-                            preferencesString += ", ";
+                for (int i = categories.size() - 1; i > -1; --i) {
+                    if (i != -1)
+                        preferencesString += ", ";
 
-                        preferencesString += categories.get(i);
-                    }
-
-                    // Debugging code
-                    // System.out.println("Categories: " + categories);
-                    // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
+                    preferencesString += categories.get(i);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                }
-            });
-        }
 
-        findPlace();
-
-
+                firebaseCallback.onCallback(preferencesString,dist,low,high);
+                // Debugging code
+                // System.out.println("Categories: " + categories);
+                // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        });
     }
-
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Display Mood <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
-
-    public void showCurrentMood() {
-        moodText = (TextView) findViewById(R.id.btnTextCategories);
-
-        if (FirebaseManager.isLoggedIn()) {
-            Query query = FirebaseManager.getCurrentPreference();
-
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Grab current mood
-                    currentMood = dataSnapshot.getValue(Mood.class);
-                    moodText.setText("Current Mood\n" + currentMood.getName());
-                    // System.out.println("Current Mood" + currentMood.getName());
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                }
-            });
-        } else {
-            moodText.setText("Not Logged in!");
-        }
-
-
-    }
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> User Location <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
     /**onRequestPermissionsResult for location permission
@@ -505,12 +512,14 @@ public class SpiceItUp extends AppCompatActivity {
      * updates all views with the results place details
      */
     private void updateViews(){
-        TextView txtName = (TextView) findViewById(R.id.txtName);
-        TextView txtLocation = (TextView) findViewById(R.id.txtLocation);
+        TextView txtName = findViewById(R.id.txtName);
+        TextView txtLocation = findViewById(R.id.txtLocation);
         txtName.setText(name);
         txtLocation.setText(addr);
-        ImageView restaurantImage = (ImageView) findViewById(R.id.imgRestuarant);
+        ImageView restaurantImage = findViewById(R.id.imgRestuarant);
         restaurantImage.setImageBitmap(bitmap);
+        TextView moodText = findViewById(R.id.btnTextCategories);
+        moodText.setText("Current Mood: " + moodName);
     }
 
     /**

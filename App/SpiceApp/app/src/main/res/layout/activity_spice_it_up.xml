@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/CurrentCategory"
+                android:text="@string/CurrentMood"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -72,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/ChangeCategory"
+                android:text="@string/ChangeMood"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
         </RelativeLayout>
