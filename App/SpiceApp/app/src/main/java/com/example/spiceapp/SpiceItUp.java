@@ -114,14 +114,16 @@ public class SpiceItUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
+        locationSetup();
         FirebaseManager.initialize();
         user = FirebaseManager.getCurrentUser();
+
+
         initializeToolbar();
         initializeNavBar();
         initMapEngine();
-        locationSetup();
-        //showCurrentMood();
         moodName = "None";
+
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
@@ -147,9 +149,8 @@ public class SpiceItUp extends AppCompatActivity {
                 }
             });
         }
-        else {
+        else
             findPlace();
-        }
     }
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Synchronized Firebase <<<<<<<<<<<<<<<<<<<<<<< //
