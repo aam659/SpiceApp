@@ -105,7 +105,7 @@ public class SpiceItUp extends AppCompatActivity {
     private static Mood mood;
     private static String moodName;
     //private static ArrayList<String> categories;
-    private static String preferencesString = "";
+    private static String preferencesString;
     private static int distance = 10;
     private static int lowPrice;
     private static int highPrice;
@@ -114,29 +114,12 @@ public class SpiceItUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
-        locationSetup();
-        FirebaseManager.initialize();
-        user = FirebaseManager.getCurrentUser();
-
-
         initializeToolbar();
         initializeNavBar();
         initMapEngine();
         moodName = "None";
-
-
-        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
-        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
-        findViewById(R.id.btnChangeCategories).setOnClickListener(view -> chooseMood());
-    }
-
-    /**
-     * onStart
-     * executed after on create, this allows the gps to be handled in onCreate before execution
-     */
-    @Override
-    protected void onStart(){
-        super.onStart();
+        FirebaseManager.initialize();
+        user = FirebaseManager.getCurrentUser();
         if(FirebaseManager.isLoggedIn()) {
             getUserInfo(new FirebaseCallback() {
                 @Override
@@ -145,13 +128,33 @@ public class SpiceItUp extends AppCompatActivity {
                     distance = dist;
                     lowPrice = low;
                     highPrice = hi;
-                    findPlace();
+                    locationSetup(new LocationCallBack() {
+                        @Override
+                        public void onCallback(double lat, double lon) {
+                            deviceLatitude = lat;
+                            deviceLongitude = lon;
+                            findPlace();
+                        }
+                    });
                 }
             });
         }
         else
-            findPlace();
+        locationSetup(new LocationCallBack() {
+            @Override
+            public void onCallback(double lat, double lon) {
+                deviceLatitude = lat;
+                deviceLongitude = lon;
+                findPlace();
+            }
+        });
+
+
+        findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
+        findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+        findViewById(R.id.btnChangeCategories).setOnClickListener(view -> chooseMood());
     }
+
 
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Synchronized Firebase <<<<<<<<<<<<<<<<<<<<<<< //
 
@@ -188,6 +191,7 @@ public class SpiceItUp extends AppCompatActivity {
                 int high = mood.getPrice().getHighPrice();
 
 
+                preferencesString = "";
                 for (int i = categories.size() - 1; i > -1; --i) {
                     if (i != -1)
                         preferencesString += ", ";
@@ -232,19 +236,20 @@ public class SpiceItUp extends AppCompatActivity {
      * locationSetup
      * retrieve users current location
      */
-    private void locationSetup(){
+    private void locationSetup(LocationCallBack locationCallBack){
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 Log.i("Location", location.toString());
-                // Sets device latitude and longitude
-                deviceLatitude = location.getLatitude();
-                deviceLongitude = location.getLongitude();
+                // gets device latitude and longitude
+                double lat = location.getLatitude();
+                double lon = location.getLongitude();
+                locationCallBack.onCallback(lat,lon);
                 // Log above constants for check
-                Log.i("Latitude", String.valueOf(deviceLatitude));
-                Log.i("Longitude", String.valueOf(deviceLongitude));
+                Log.i("Latitude", String.valueOf(lat));
+                Log.i("Longitude", String.valueOf(lon));
             }
 
             @Override
@@ -284,6 +289,14 @@ public class SpiceItUp extends AppCompatActivity {
             }
 
         }
+    }
+
+    /**
+     * LocationCallBack
+     * waits for the device location before calling back for findPlace
+     */
+    private interface LocationCallBack{
+        void onCallback(double lat,double lon);
     }
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
