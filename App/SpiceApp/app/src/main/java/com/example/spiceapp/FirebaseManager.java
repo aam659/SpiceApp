@@ -63,7 +63,18 @@ public class FirebaseManager {
     static DatabaseReference getFirstNameReference() {
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("fName");
     }
-
+    //Returns a reference to current user's last name
+    static DatabaseReference getLastNameReference() {
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("lName");
+    }
+    //Returns a reference to current user's Phone Number
+    static DatabaseReference getPhoneReference() {
+        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("phoneNumber");
+    }
+    //Returns a reference to current user's Email
+    static DatabaseReference getEmailReference() {
+        return mDatabase.getReference("authentication").child(getCurrentUser().getEmail());
+    }
     // Returns a reference to user's FancyItaly mood
     static DatabaseReference getPreferencesReference() {
         // Hard-coded for BBQ mood for time-being

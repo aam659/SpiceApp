@@ -79,7 +79,7 @@ public class ProfilePage extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-            Query queryLname = FirebaseManager.getFirstNameReference();
+            Query queryLname = FirebaseManager.getLastNameReference();
             queryLname.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,7 +94,7 @@ public class ProfilePage extends AppCompatActivity {
 
                 }
             });
-            Query queryPhone = FirebaseManager.getFirstNameReference();
+            Query queryPhone = FirebaseManager.getPhoneReference();
             queryPhone.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -109,7 +109,7 @@ public class ProfilePage extends AppCompatActivity {
 
                 }
             });
-            Query queryEmail = FirebaseManager.getFirstNameReference();
+            Query queryEmail = FirebaseManager.getEmailReference();
             queryEmail.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
