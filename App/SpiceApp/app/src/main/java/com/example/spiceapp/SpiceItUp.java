@@ -86,7 +86,9 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  * @author Logan Dawkins, Alan Manning
  */
 
+// TODO: get price and distance involved preferably with hereAPI
 public class SpiceItUp extends AppCompatActivity {
+    private boolean firstRun = true;
     private String name;
     private String addr;
     private Bitmap bitmap;
@@ -133,7 +135,10 @@ public class SpiceItUp extends AppCompatActivity {
                         public void onCallback(double lat, double lon) {
                             deviceLatitude = lat;
                             deviceLongitude = lon;
-                            findPlace();
+                            if(firstRun) {
+                                findPlace();
+                                firstRun = false;
+                            }
                         }
                     });
                 }
