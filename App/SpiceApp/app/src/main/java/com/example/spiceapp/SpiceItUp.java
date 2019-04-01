@@ -482,35 +482,34 @@ public class SpiceItUp extends AppCompatActivity {
                 }
                 findPlace();
             }
-
-            // Get the photo metadata.
-            if (place.getPhotoMetadatas() != null) {
-                PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
-
-                // Get the attribution text.
-                String attributions = photoMetadata.getAttributions();
-
-                // Create a FetchPhotoRequest.
-                FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
-                        .setMaxWidth(500) // Optional.
-                        .setMaxHeight(300) // Optional.
-                        .build();
-                placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
-                    bitmap = fetchPhotoResponse.getBitmap();
-                    updateViews();
-                }).addOnFailureListener((exception) -> {
-                    if (exception instanceof ApiException) {
-                        ApiException apiException = (ApiException) exception;
-                        int statusCode = apiException.getStatusCode();
-                        // Handle error with given status code.
-                        Log.e(TAG, "Place not found: " + exception.getMessage());
-                    }
-                });
-            }
-
             else {
-                ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
-                imgRestaurant.setImageResource(R.drawable.chilli_logo);
+                // Get the photo metadata.
+                if (place.getPhotoMetadatas() != null) {
+                    PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
+
+                    // Get the attribution text.
+                    String attributions = photoMetadata.getAttributions();
+
+                    // Create a FetchPhotoRequest.
+                    FetchPhotoRequest photoRequest = FetchPhotoRequest.builder(photoMetadata)
+                            .setMaxWidth(500) // Optional.
+                            .setMaxHeight(300) // Optional.
+                            .build();
+                    placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
+                        bitmap = fetchPhotoResponse.getBitmap();
+                        updateViews();
+                    }).addOnFailureListener((exception) -> {
+                        if (exception instanceof ApiException) {
+                            ApiException apiException = (ApiException) exception;
+                            int statusCode = apiException.getStatusCode();
+                            // Handle error with given status code.
+                            Log.e(TAG, "Place not found: " + exception.getMessage());
+                        }
+                    });
+                } else {
+                    ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
+                    imgRestaurant.setImageResource(R.drawable.chilli_logo);
+                }
             }
         }).addOnFailureListener((exception) -> {
             if (exception instanceof ApiException) {
