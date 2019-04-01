@@ -366,12 +366,17 @@ public class SpiceItUp extends AppCompatActivity {
                 for (DiscoveryResult item : s_ResultList) {
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
-                        PlaceRequest placeRequest = placeLink.getDetailsRequest();
-                        placeRequest.execute(m_placeResultListener);
-                        break;
+                        // Check for distance
+
+                        if ((placeLink.getDistance() * .00062137) <= distance) {
+                            PlaceRequest placeRequest = placeLink.getDetailsRequest();
+                            System.out.println("Distance: " + (placeLink.getDistance() * .00062137));
+                            placeRequest.execute(m_placeResultListener);
+                            break;
+                        }
                     }
                 }
-
+                // 
 
             } else {
                 System.out.println("Failed Search Request");
