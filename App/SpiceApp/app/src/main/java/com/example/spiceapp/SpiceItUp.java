@@ -61,6 +61,7 @@ import com.here.android.mpa.search.Address;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
+import com.here.android.mpa.search.ExtendedAttribute;
 import com.here.android.mpa.search.Place;
 import com.here.android.mpa.search.PlaceLink;
 import com.here.android.mpa.search.PlaceRequest;
@@ -376,9 +377,10 @@ public class SpiceItUp extends AppCompatActivity {
                         }
                     }
                 }
-                // 
-
+                // TODO: Implement case for no search results found
             } else {
+                // Invalid Search
+                Toast.makeText(getApplicationContext(), "Invalid Search Paramters", Toast.LENGTH_SHORT);
                 System.out.println("Failed Search Request");
             }
         }
@@ -465,13 +467,18 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlaceByID(String id) {
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Field> fields =
-                Arrays.asList(Field.PHOTO_METADATAS);
+                Arrays.asList(Field.PHOTO_METADATAS, Field.PRICE_LEVEL);
 
 // Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
         FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(id, fields).build();
 
         placesClient.fetchPlace(placeRequest).addOnSuccessListener((response) -> {
             com.google.android.libraries.places.api.model.Place place = response.getPlace();
+
+            // Check for price level
+            if ((FirebaseManager.isLoggedIn()) && (place.getPriceLevel() > highPrice)) {
+                findPlace();
+            }
 
             // Get the photo metadata.
             if (place.getPhotoMetadatas() != null) {
