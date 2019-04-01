@@ -476,7 +476,10 @@ public class SpiceItUp extends AppCompatActivity {
             com.google.android.libraries.places.api.model.Place place = response.getPlace();
 
             // Check for price level
-            if ((FirebaseManager.isLoggedIn()) && (place.getPriceLevel() > highPrice)) {
+            if ((FirebaseManager.isLoggedIn()) && ((place.getPriceLevel() == null) || (place.getPriceLevel() > highPrice - 1) || (place.getPriceLevel() < lowPrice - 1))) {
+                if (place.getPriceLevel() != null) {
+                    System.out.println("Pricing" + place.getPriceLevel().toString());
+                }
                 findPlace();
             }
 
