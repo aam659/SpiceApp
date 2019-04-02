@@ -8,7 +8,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //Testing imports
 import org.junit.Before;
@@ -16,9 +19,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 import java.util.concurrent.Executor;
 
@@ -29,6 +39,12 @@ import androidx.annotation.Nullable;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
+/**
+ * @Author Ryan Simpson
+ * Tests various aspects of the app using the Firebase
+ * realtime database
+ */
+
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({ FirebaseDatabase.class})
@@ -36,6 +52,7 @@ public class LogInTest {
 
     private FirebaseAuth mockedFirebaseAuth;
     private FirebaseUser mockedFirebaseUser;
+    private DatabaseReference mockedDatabaseReference;
 
     //Safely ignore this, set up a mock result for testing
     private Task<AuthResult> result = new Task<AuthResult>() {
@@ -114,6 +131,14 @@ public class LogInTest {
 
         //Setting up mock methods before we start testing
 
+        mockedDatabaseReference = Mockito.mock(DatabaseReference.class);
+
+        FirebaseDatabase mockedFirebaseDatabase = Mockito.mock(FirebaseDatabase.class);
+        when(mockedFirebaseDatabase.getReference()).thenReturn(mockedDatabaseReference);
+
+        PowerMockito.mockStatic(FirebaseDatabase.class);
+        when(FirebaseDatabase.getInstance()).thenReturn(mockedFirebaseDatabase);
+
         //Gives a false reference to a FirebaseAuth
         mockedFirebaseAuth = Mockito.mock(FirebaseAuth.class);
 
@@ -136,7 +161,7 @@ public class LogInTest {
         Task<AuthResult> test = mockedFirebaseAuth.signInWithEmailAndPassword("test", "test");
 
         //Logged in check
-        assert(result.isSuccessful());
+        assert (result.isSuccessful());
 
         //We can see that our method of logging in can work
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
@@ -144,7 +169,20 @@ public class LogInTest {
 
     }
 
+    @Test
+    public void getFromDatabase() {
+        when(mockedDatabaseReference.child(anyString())).thenReturn(mockedDatabaseReference);
+        doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                ValueEventListener valueEventListener = (ValueEventListener) invocation.getArguments()[0];
+                DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
+                valueEventListener.onDataChange(mockedDataSnapshot);
+                return null;
+            }
+        }).when(mockedDatabaseReference).addListenerForSingleValueEvent(any(ValueEventListener.class));
 
 
+    }
 }
 
