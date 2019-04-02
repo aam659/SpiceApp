@@ -12,24 +12,21 @@
         android:id="@+id/imgProfilePic"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnMoods"
-        app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textUsername"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/chilli_logo"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textUsername"
+        android:id="@+id/textUserFName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="60dp"
-        android:text="sampleuser"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="30dp"
+        android:text="UserFname"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +47,7 @@
         android:layout_width="350dp"
         android:layout_height="48dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="20dp"
         android:text="@string/strMoodsNav"
@@ -82,5 +80,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
         tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textUserLName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:text="UserLname"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserFName" />
+
+    <TextView
+        android:id="@+id/textUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:text="user@email.com"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserPhone" />
+
+    <TextView
+        android:id="@+id/textUserPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:text="205-555-5555"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUserLName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
