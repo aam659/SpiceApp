@@ -1,46 +1,111 @@
 package com.example.spiceapp;
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import afu.org.checkerframework.checker.nullness.qual.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.FirebaseObjects.Mood;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ProfilePage extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
+    private FirebaseStorage storage;
+    StorageReference storageReference;
+    private static FirebaseUser user;
+    private Uri filePath;
+    private final int PICK_IMAGE_REQUEST = 71;
+    private static String fullName = null;
+    private final String TAG = "ProfilePage";
+    private static String phoneNumber;
+
+    /**
+     * FirebaseCallback used to wait for the data to populate
+     */
+    private interface FirebaseCallback{
+        void onCallback(String fullName, String phoneNumber);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mAuth = FirebaseManager.getAuth();
+        TextView name = (TextView) findViewById(R.id.textName);
+        TextView number = (TextView) findViewById(R.id.textPhone);
+        final TextView btnMoods = (TextView) findViewById(R.id.btnMoods);
+        final TextView btnLogout = (TextView) findViewById(R.id.btnLogout);
+        final TextView btnEdit = (TextView) findViewById(R.id.btnEditDetails);
+        final ImageView imgProfile = (ImageView) findViewById(R.id.imgProfilePic);
+        final TextView btnUpload = (TextView) findViewById(R.id.btnUpload);
 
-        final Button btnMoods = (Button)findViewById(R.id.btnMoods);
-        final Button btnLogout = (Button)findViewById(R.id.btnLogout);
-        final Button btnEdit = (Button)findViewById(R.id.btnEditDetails);
+//        mAuth = FirebaseManager.getAuth();
+        FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseManager.initialize();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
 
-        btnMoods.setOnClickListener(new View.OnClickListener() {
+        // Gets Firebase user info
+        getUserInfo(new FirebaseCallback() {
             @Override
-            public void onClick(View v) {
-                Intent nextScreen = new Intent(v.getContext(), ListMoods.class);
-                startActivityForResult(nextScreen, 0);
+            public void onCallback(String fullName, String phoneNumber) {
+                if (fullName != null) {
+                    name.setText(fullName);
+                }
+
+                if (phoneNumber != null) {
+                    number.setText("Phone Number: " + phoneNumber);
+                }
             }
         });
+
+                btnMoods.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent nextScreen = new Intent(v.getContext(), ListMoods.class);
+                        startActivityForResult(nextScreen, 0);
+                    }
+                });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +123,42 @@ public class ProfilePage extends AppCompatActivity {
                 startActivityForResult(nextScreen, 0);
             }
         });
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
+                    } else {
+
+                        getPhoto();
+
+                    }
+                }
+            }
+        });
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//
+//                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//
+//                    } else {
+//
+//                        uploadImage();
+//
+//                    }
+//                }
+                uploadImage();
+            }
+        });
+
 
 
         //TODO: REPLACE WITH BOTTOM NAV BAR FUNCTION
@@ -100,10 +201,128 @@ public class ProfilePage extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
+    public void getPhoto() {
+//        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(intent, 1);
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                getPhoto();
+
+            }
+        }
+    }
+//
+//    private void updateButton(String value) {
+//        // System.out.println("CURRENT USER NAME " + fullName);
+//        if (fullName != null) {
+//            name.setText(fullName);
+//        }
+//
+//        if (phoneNumber != null) {
+//
+//        }
+//    }
+
+    /**
+     * getUserInfo
+     * @param firebaseCallback
+     * gets current users mood values to refine search
+     */
+    private void getUserInfo(FirebaseCallback firebaseCallback){
+        if(FirebaseManager.isLoggedIn()) {
+            Query query = FirebaseManager.getDatabaseReference().child("users").child(FirebaseManager.getCurrentUser().getUid());
+                    /*
+                    Queries database for current user mood
+                     */
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    fullName = dataSnapshot.child("fName").getValue(String.class) + " " + dataSnapshot.child("lName").getValue(String.class);
+                    phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                    System.out.println("Full name: " + fullName);
+//                    updateButton(fullName, phoneNumber);
+
+                    firebaseCallback.onCallback(fullName, phoneNumber);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            filePath = data.getData();
+
+            try {
+
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), filePath);
+
+                ImageView imageView = (ImageView) findViewById(R.id.imgProfilePic);
+                imageView.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadImage() {
+
+        if(filePath != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            System.out.println("File name:" + UUID.randomUUID().toString());
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ProfilePage.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(ProfilePage.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            System.out.println("Error message: " + e.getMessage());
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
+    }
 }

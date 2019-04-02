@@ -49,8 +49,10 @@
     <string name="strRetype">Retype Password</string>
     <string name="strCreateAccount">Create Account</string>
     <string name="strFinishAccount" />
+    <string name="strName">Full Name</string>
     <string name="strNewName">What\'s your name?</string>
     <string name="strPhone">Can we get your number?</string>
+    <string name="strPhoneNumber">Phone: 123-456-7890</string>
     <string name="strFName">First Name</string>
     <string name="strLName">Last Name</string>
     <string name="strFinish">Finish</string>
@@ -65,6 +67,8 @@
     <string name="large_text">
 
     </string>
+    <string name="strUpload">Upload Image</string>
+    <string name="strUsername">Username</string>
     <string name="action_settings">Settings</string>
     <string name="strMexican">Mexican</string>
     <string name="strItalian">Italian</string>
@@ -89,13 +93,13 @@
     <string name="delete">Delete</string>
     <string name="strEdit">Edit</string>
     <string name="MoodName">MoodName</string>
-    <string name="Categories" />
+    <string name="Categories">Category</string>
     <string name="CurrentMood">Current Mood: </string>
     <string name="ChangeMood">Edit Mood</string>
     <string name="strMin">Min</string>
     <string name="strMax">Max</string>
     <string name="MealTime">MealTime</string>
-    <string name="MoodDetails">Here\'s a Look At Your Mood</string>
+    <string name="MoodDetails">Here\'s a Look\n At Your Mood</string>
     <string name="strChoosePreference">Choose Preference</string>
     <string name="title_activity_set_preference">SetPreference</string>
     <string name="txtmood">Blank</string>

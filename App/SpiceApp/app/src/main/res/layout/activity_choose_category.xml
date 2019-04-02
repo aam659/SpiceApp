@@ -12,7 +12,7 @@
         android:id="@+id/cardConfirmCat"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edtRetype"
+        android:layout_below="@+id/include2"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
