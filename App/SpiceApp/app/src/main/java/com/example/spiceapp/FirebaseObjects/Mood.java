@@ -33,7 +33,12 @@ public class Mood {
 
     }
 
-
-
+    public Mood(String n, String m,double d,Price p,ArrayList<String> c){
+        name = n;
+        mealTime = m;
+        distance = d;
+        categories = c;
+        price = p;
+    }
 
 }
