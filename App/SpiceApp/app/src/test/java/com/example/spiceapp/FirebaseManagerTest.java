@@ -197,4 +197,10 @@ public class FirebaseManagerTest {
 //    @Test
 //    public void getCurrentPreference() {
 //    }
+//    @Test
+//    public void getLastNameReference() {
+//    }
+//    @Test
+//    public void getPhoneNumberReference() {
+//    }
 }
