@@ -21,6 +21,7 @@ import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.mockito.stubbing.OngoingStubbing;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -48,11 +49,82 @@ import static org.mockito.Mockito.when;
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(JUnit4.class)
 @PrepareForTest({ FirebaseDatabase.class})
-public class LogInTest {
+public class FirebaseTests {
 
     private FirebaseAuth mockedFirebaseAuth;
     private FirebaseUser mockedFirebaseUser;
     private DatabaseReference mockedDatabaseReference;
+
+    private Task<Void> result2 = new Task<Void>() {
+        @Override
+        public boolean isComplete(){
+            return false;
+        }
+
+        @Override
+        public boolean isSuccessful() {
+            return true;
+        }
+
+        @Override
+        public boolean isCanceled() {
+            return false;
+        }
+
+        @Nullable
+        @Override
+        public Void getResult() {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public <X extends Throwable> Void getResult(@NonNull Class<X> aClass) throws X {
+            return null;
+        }
+
+        @Nullable
+        @Override
+        public Exception getException() {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnSuccessListener(@NonNull OnSuccessListener<? super Void> onSuccessListener) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnSuccessListener(@NonNull Executor executor, @NonNull OnSuccessListener<? super Void> onSuccessListener) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnSuccessListener(@NonNull Activity activity, @NonNull OnSuccessListener<? super Void> onSuccessListener) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnFailureListener(@NonNull OnFailureListener onFailureListener) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnFailureListener(@NonNull Executor executor, @NonNull OnFailureListener onFailureListener) {
+            return null;
+        }
+
+        @NonNull
+        @Override
+        public Task<Void> addOnFailureListener(@NonNull Activity activity, @NonNull OnFailureListener onFailureListener) {
+            return null;
+        }
+    };
 
     //Safely ignore this, set up a mock result for testing
     private Task<AuthResult> result = new Task<AuthResult>() {
@@ -181,8 +253,17 @@ public class LogInTest {
                 return null;
             }
         }).when(mockedDatabaseReference).addListenerForSingleValueEvent(any(ValueEventListener.class));
+    }
 
-
+    @Test
+    public void pushToDatabase(){
+        when(mockedDatabaseReference.child(anyString()).setValue(anyString()));
+        //The task should not have been completed yet
+        assert (!result2.isComplete());
+        //Mock Pushing in
+        result2 = mockedDatabaseReference.child("test").setValue("test");
+        //Logged in check
+        assert (result2.isSuccessful());
     }
 }
 
