@@ -265,5 +265,12 @@ public class FirebaseTests {
         //Logged in check
         assert (result2.isSuccessful());
     }
+
+    @Test
+    public void logOut(){
+        assert (mockedFirebaseAuth.getCurrentUser() != null);
+        mockedFirebaseAuth.getInstance().signOut();
+        
+    }
 }
 
