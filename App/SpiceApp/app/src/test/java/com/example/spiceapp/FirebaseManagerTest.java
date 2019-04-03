@@ -32,6 +32,7 @@ import androidx.annotation.Nullable;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
@@ -56,6 +57,7 @@ public class FirebaseManagerTest {
     private FirebaseAuth mockedFirebaseAuth;
     private FirebaseUser mockedFirebaseUser;
     private FirebaseManager mockedFirebaseManager;
+    private FirebaseDatabase mockedFirebaseDatabase;
     private DatabaseReference mockedDatabaseReference;
 
     //Safely ignore this, set up a mock result for testing
@@ -148,8 +150,10 @@ public class FirebaseManagerTest {
 
         mockedDatabaseReference = Mockito.mock(DatabaseReference.class);
 
-        FirebaseDatabase mockedFirebaseDatabase = Mockito.mock(FirebaseDatabase.class);
+        mockedFirebaseDatabase = Mockito.mock(FirebaseDatabase.class);
         when(mockedFirebaseDatabase.getReference()).thenReturn(mockedDatabaseReference);
+
+        mockedFirebaseManager = Mockito.mock(FirebaseManager.class);
 
         PowerMockito.mockStatic(FirebaseDatabase.class);
         when(FirebaseDatabase.getInstance()).thenReturn(mockedFirebaseDatabase);
@@ -187,7 +191,7 @@ public class FirebaseManagerTest {
         mockedDatabaseReference.child("users").child(mockedFirebaseUser.getUid()).child("fName").setValue(firstName);
 
         // Check if user's name is firstName
-        assert(FirebaseManager.getFirstNameReference().equals(firstName));
+        assert(mockedFirebaseManager.getFirstNameReference().equals(firstName));
     }
 
 //    @Test

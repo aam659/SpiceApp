@@ -56,44 +56,44 @@ public class AdditionalDetails extends AppCompatActivity {
             database.child("users").child(user.getUid()).child("phoneNumber").setValue(phone);
     }
 
-    private Uri imgFilePath;
-    private Button btnChooseImg, btnUpload;
-    FirebaseUser user = FirebaseManager.getCurrentUser();
-    private static final int GALLERY_INTENT = 2;
-    protected void addUserPhoto(){
-        if(imgFilePath != null){
-
-        }
-    }
-
-    private void selectImage(){
-        Intent imgIntent = new Intent();
-        imgIntent.setType("image/*");
-        imgIntent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(Intent.createChooser(imgIntent, "Choose Photo"), GALLERY_INTENT);
-
-    }
-    private void uploadImage(){
-        database = FirebaseManager.getDatabaseReference();
-        database.child("users").child(user.getUid()).child("details").child("profilePicture").setValue(imgFilePath);
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent image) {
-        super.onActivityResult(requestCode, resultCode, image);
-        if ((requestCode == GALLERY_INTENT) && (resultCode == RESULT_OK) && (image != null) && (image.getData() != null)) {
-            imgFilePath = image.getData();
-        }
-        btnChooseImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage();
-            }
-        });
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();
-            }
-        });
-
-    }
+//    private Uri imgFilePath;
+//    private Button btnChooseImg, btnUpload;
+//    FirebaseUser user = FirebaseManager.getCurrentUser();
+//    private static final int GALLERY_INTENT = 2;
+//    protected void addUserPhoto(){
+//        if(imgFilePath != null){
+//
+//        }
+//    }
+//
+//    private void selectImage(){
+//        Intent imgIntent = new Intent();
+//        imgIntent.setType("image/*");
+//        imgIntent.setAction(Intent.ACTION_PICK);
+//        startActivityForResult(Intent.createChooser(imgIntent, "Choose Photo"), GALLERY_INTENT);
+//
+//    }
+//    private void uploadImage(){
+//        database = FirebaseManager.getDatabaseReference();
+//        database.child("users").child(user.getUid()).child("details").child("profilePicture").setValue(imgFilePath);
+//    }
+//    protected void onActivityResult(int requestCode, int resultCode, Intent image) {
+//        super.onActivityResult(requestCode, resultCode, image);
+//        if ((requestCode == GALLERY_INTENT) && (resultCode == RESULT_OK) && (image != null) && (image.getData() != null)) {
+//            imgFilePath = image.getData();
+//        }
+//        btnChooseImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                selectImage();
+//            }
+//        });
+//        btnUpload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                uploadImage();
+//            }
+//        });
+//
+//    }
 }
