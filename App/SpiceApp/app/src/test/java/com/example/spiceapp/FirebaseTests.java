@@ -270,7 +270,7 @@ public class FirebaseTests {
     public void logOut(){
         assert (mockedFirebaseAuth.getCurrentUser() != null);
         mockedFirebaseAuth.getInstance().signOut();
-        
+
     }
 }
 
