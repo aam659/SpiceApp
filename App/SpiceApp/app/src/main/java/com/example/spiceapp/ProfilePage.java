@@ -1,9 +1,7 @@
 package com.example.spiceapp;
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,32 +16,30 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.spiceapp.FirebaseObjects.Mood;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+
 
 public class ProfilePage extends AppCompatActivity {
 
@@ -84,6 +80,19 @@ public class ProfilePage extends AppCompatActivity {
         FirebaseManager.initialize();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        Task<Uri> task = storageReference.child("images/"+FirebaseManager.getCurrentUser().getUid()).getDownloadUrl();
+        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(imgProfile);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@androidx.annotation.NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"Failed to load image",Toast.LENGTH_LONG);
+            }
+        });
 
         // Gets Firebase user info
         getUserInfo(new FirebaseCallback() {
@@ -144,17 +153,6 @@ public class ProfilePage extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//
-//                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//
-//                    } else {
-//
-//                        uploadImage();
-//
-//                    }
-//                }
                 uploadImage();
             }
         });
@@ -225,17 +223,6 @@ public class ProfilePage extends AppCompatActivity {
             }
         }
     }
-//
-//    private void updateButton(String value) {
-//        // System.out.println("CURRENT USER NAME " + fullName);
-//        if (fullName != null) {
-//            name.setText(fullName);
-//        }
-//
-//        if (phoneNumber != null) {
-//
-//        }
-//    }
 
     /**
      * getUserInfo
@@ -254,8 +241,6 @@ public class ProfilePage extends AppCompatActivity {
 
                     fullName = dataSnapshot.child("fName").getValue(String.class) + " " + dataSnapshot.child("lName").getValue(String.class);
                     phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
-                    System.out.println("Full name: " + fullName);
-//                    updateButton(fullName, phoneNumber);
 
                     firebaseCallback.onCallback(fullName, phoneNumber);
                 }
@@ -297,8 +282,8 @@ public class ProfilePage extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            System.out.println("File name:" + UUID.randomUUID().toString());
+            StorageReference ref = storageReference.child("images/"+ FirebaseManager.getCurrentUser().getUid());
+            System.out.println("File name:" + FirebaseManager.getCurrentUser().getUid());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
