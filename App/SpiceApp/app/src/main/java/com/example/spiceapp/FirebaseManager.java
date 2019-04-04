@@ -83,11 +83,6 @@ public class FirebaseManager {
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods");
     }
 
-    //Returns a reference to the top level of the images level of the database
-    static DatabaseReference getImageReference(){
-        return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Images");
-    }
-
     //Returns a reference to the top level of the moods level of the database
     static DatabaseReference getSpecifcMoodReference(String mood){
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("Moods").child(mood);
@@ -103,9 +98,9 @@ public class FirebaseManager {
         return mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference");
     }
 
-    static void clearCurrentPreference(){
-        mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference").removeValue();
-    }
+//    static void clearCurrentPreference(){
+//        mDatabase.getReference("users").child(getCurrentUser().getUid()).child("CurrentPreference").removeValue();
+//    }
 
     //Method to delete a node, please use carefully
     static void deleteDatabaseNode(DatabaseReference node){

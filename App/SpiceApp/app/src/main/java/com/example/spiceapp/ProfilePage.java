@@ -241,6 +241,7 @@ public class ProfilePage extends AppCompatActivity {
 
                     fullName = dataSnapshot.child("fName").getValue(String.class) + " " + dataSnapshot.child("lName").getValue(String.class);
                     phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                    //TODO Add username and email fields to be displayed
 
                     firebaseCallback.onCallback(fullName, phoneNumber);
                 }
