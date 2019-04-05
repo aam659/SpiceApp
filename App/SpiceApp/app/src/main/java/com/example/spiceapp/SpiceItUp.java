@@ -555,8 +555,6 @@ public class SpiceItUp extends AppCompatActivity {
         txtLocation.setText(addr);
         ImageView restaurantImage = findViewById(R.id.imgRestuarant);
         restaurantImage.setImageBitmap(bitmap);
-//        TextView moodText = findViewById(R.id.btnTextCategories);
-//        moodText.setText("Current Mood: " + moodName);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Mood: " + moodName);
     }

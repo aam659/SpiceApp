@@ -20,47 +20,53 @@
         <activity
             android:name=".SetPreference"
             android:label="@string/title_activity_set_preference"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".InspectMood" />
-        <activity android:name=".DistanceRange" />
-        <activity android:name=".PriceRange" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".InspectMood" android:screenOrientation="portrait"/>
+        <activity android:name=".DistanceRange" android:screenOrientation="portrait"/>
+        <activity android:name=".PriceRange" android:screenOrientation="portrait"/>
         <activity
             android:name=".ChooseCategory"
             android:label="@string/title_activity_choose_category"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NameMood" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NameMood" android:screenOrientation="portrait"/>
         <activity
             android:name=".ListMoods"
             android:label="@string/title_activity_list_moods"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MealTime" />
-        <activity android:name=".AdditionalDetails" />
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
+        <activity android:name=".MealTime" android:screenOrientation="portrait"/>
+        <activity android:name=".AdditionalDetails" android:screenOrientation="portrait"/>
         <activity
             android:name=".RegisterPage"
             android:label="@string/title_activity_register_page"
             android:parentActivityName=".LoginPage"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.spiceapp.LoginPage" />
         </activity>
-        <activity android:name=".MapPage" />
+        <activity android:name=".MapPage" android:screenOrientation="portrait"/>
         <activity
             android:name=".ProfilePage"
             android:label="@string/title_activity_profile_page"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginPage" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginPage" android:screenOrientation="portrait"/>
         <activity
             android:name=".SocialPage"
             android:label="@string/title_activity_social_page"
             android:parentActivityName=".HomePage$HomePageActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SpiceItUp"
             android:hardwareAccelerated="true"
-            android:parentActivityName=".HomePage$HomePageActivity" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".HomePage$HomePageActivity">
+            android:parentActivityName=".HomePage$HomePageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HomePage" android:screenOrientation="portrait"/>
+        <activity android:name=".HomePage$HomePageActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
