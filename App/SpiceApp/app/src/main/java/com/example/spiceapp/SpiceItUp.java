@@ -534,8 +534,12 @@ public class SpiceItUp extends AppCompatActivity {
      * takes user to choose a preference
      */
     private void chooseMood(){
-        Intent nextScreen = new Intent(SpiceItUp.this,SetPreference.class);
-        startActivityForResult(nextScreen,0);
+        if (FirebaseManager.isLoggedIn()) {
+            Intent nextScreen = new Intent(SpiceItUp.this, SetPreference.class);
+            startActivityForResult(nextScreen, 0);
+        } else {
+            Toast.makeText(getApplicationContext(), "Not logged in!", Toast.LENGTH_SHORT).show();
+        }
     }
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 

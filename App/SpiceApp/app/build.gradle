@@ -58,5 +58,6 @@ dependencies {
     testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

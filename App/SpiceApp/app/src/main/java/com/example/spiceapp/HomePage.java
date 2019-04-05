@@ -116,8 +116,12 @@ public class HomePage extends AppCompatActivity {
             btnChoosePreference.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent nextScreen = new Intent(v.getContext(), SetPreference.class);
-                    startActivityForResult(nextScreen, 0);
+                    if (FirebaseManager.isLoggedIn()) {
+                        Intent nextScreen = new Intent(v.getContext(), SetPreference.class);
+                        startActivityForResult(nextScreen, 0);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Not logged in!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
