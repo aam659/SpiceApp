@@ -87,53 +87,46 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
  * @author Logan Dawkins, Alan Manning
  */
 
-// TODO: get price and distance involved preferably with hereAPI
+// TODO: extend place results displayed
 public class SpiceItUp extends AppCompatActivity {
-    private boolean firstRun = true;
-    private String name;
-    private String addr;
-    private Bitmap bitmap;
+    private boolean firstRun = true;    // flag if activity just started
     private static List<DiscoveryResult> s_ResultList;
     private PlacesClient placesClient;
-    private int rating;
     private final String TAG = "SpiceItUp";
-    // LocationManager for location access
-    private LocationManager locationManager;
-    // Location Listener
-    private LocationListener locationListener;
-    // Latitude and longitude coordinates
-    private static double deviceLatitude;
+    private LocationManager locationManager;    // LocationManager for location access
+    private LocationListener locationListener;  // Location Listener
+    private static double deviceLatitude;   
     private static double deviceLongitude;
-    private static FirebaseUser user;
-    private static Mood mood;
-    private static String moodName;
-    //private static ArrayList<String> categories;
-    private static String preferencesString;
-    private static int distance = 10;
-    private static int lowPrice;
-    private static int highPrice;
+    private String name;    // name of place
+    private String addr;    // address of place
+    private Bitmap bitmap;  //pic of place
+    private static String preferencesString; // string used for place query
+    private static Mood mood;   // users current mood
+    private static String moodName = "None"; // name of mood used
+    private static int distance = 10; // distance in mood
+    private static int lowPrice; // low price in mood
+    private static int highPrice; //high price in mood
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spice_it_up);
-        initializeToolbar();
-        initializeNavBar();
-        initMapEngine();
-        moodName = "None";
-        FirebaseManager.initialize();
-        user = FirebaseManager.getCurrentUser();
-        if(FirebaseManager.isLoggedIn()) {
+        initializeToolbar();    //add toolbar
+        initializeNavBar(); //add nav bar
+        initMapEngine();    // start places API
+
+        FirebaseManager.initialize(); // start firbase
+        if(FirebaseManager.isLoggedIn()) {  //if user a authenticated get current mood
             getUserInfo(new FirebaseCallback() {
                 @Override
-                public void onCallback(String pref, int dist, int low, int hi) {
+                public void onCallback(String pref, int dist, int low, int hi) { //got mood
                     preferencesString = pref;
                     distance = dist;
                     lowPrice = low;
                     highPrice = hi;
-                    locationSetup(new LocationCallBack() {
+                    locationSetup(new LocationCallBack() { //get user location
                         @Override
-                        public void onCallback(double lat, double lon) {
+                        public void onCallback(double lat, double lon) { //all data is fetched, so find place
                             deviceLatitude = lat;
                             deviceLongitude = lon;
                             if(firstRun) {
@@ -146,7 +139,7 @@ public class SpiceItUp extends AppCompatActivity {
             });
         }
         else
-        locationSetup(new LocationCallBack() {
+        locationSetup(new LocationCallBack() { //user not logged in
             @Override
             public void onCallback(double lat, double lon) {
                 deviceLatitude = lat;
@@ -336,12 +329,8 @@ public class SpiceItUp extends AppCompatActivity {
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
-            System.out.println("Distance: " + distance);
-            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude,deviceLongitude), 100);
-            System.out.println("Restaurant" + preferencesString);
         } else {
             searchRequest = new SearchRequest("Restaurant");
-            //searchRequest.setSearchArea(new GeoCoordinate(deviceLatitude, deviceLongitude), 10);
         }
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
 
