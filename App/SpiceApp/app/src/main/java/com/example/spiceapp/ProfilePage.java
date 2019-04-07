@@ -73,7 +73,6 @@ public class ProfilePage extends AppCompatActivity {
         final TextView btnLogout = (TextView) findViewById(R.id.btnLogout);
         final TextView btnEdit = (TextView) findViewById(R.id.btnEditDetails);
         final ImageView imgProfile = (ImageView) findViewById(R.id.imgProfilePic);
-        final TextView btnUpload = (TextView) findViewById(R.id.btnUpload);
 
 //        mAuth = FirebaseManager.getAuth();
         FirebaseApp.initializeApp(getApplicationContext());
@@ -149,14 +148,6 @@ public class ProfilePage extends AppCompatActivity {
                 }
             }
         });
-
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();
-            }
-        });
-
 
 
         //TODO: REPLACE WITH BOTTOM NAV BAR FUNCTION
@@ -272,6 +263,8 @@ public class ProfilePage extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            uploadImage();
         }
     }
 

@@ -95,7 +95,7 @@ public class SpiceItUp extends AppCompatActivity {
     private final String TAG = "SpiceItUp";
     private LocationManager locationManager;    // LocationManager for location access
     private LocationListener locationListener;  // Location Listener
-    private static double deviceLatitude;   
+    private static double deviceLatitude;
     private static double deviceLongitude;
     private String name;    // name of place
     private String addr;    // address of place
