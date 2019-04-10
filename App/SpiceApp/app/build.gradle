@@ -59,5 +59,28 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.viewpager:viewpager:1.0.0'
+
+    //NOTE: Below are libraries needed for chat feature, as I work on this
+    //Some will be deleted, let me know if you need to remove one of these PLEASE
+    // -Ryan
+    //libraries we need for now
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
+    implementation 'com.google.firebase:firebase-database:16.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    //add this
+    implementation 'com.google.firebase:firebase-storage:16.1.0'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //add this library and this
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+
+    //add these libraries
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

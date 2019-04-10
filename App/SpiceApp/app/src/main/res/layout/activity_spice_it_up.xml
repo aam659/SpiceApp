@@ -49,7 +49,7 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgRestuarant"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
@@ -57,12 +57,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/imgRestaurant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chilli_logo" />
+        android:contentDescription="@string/imgRestaurant" />
 
     <TextView
         android:id="@+id/txtName"
