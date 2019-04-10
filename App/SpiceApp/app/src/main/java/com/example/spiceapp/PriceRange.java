@@ -41,9 +41,9 @@ public class PriceRange extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int maxInt = getIntegerRepresentation(maximum.getSelectedItem().toString());
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("price").child("HighPrice").setValue(maxInt);
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("price").child("HighPrice").setValue(maxInt);
                 int minInt = getIntegerRepresentation(minimum.getSelectedItem().toString());
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("price").child("LowPrice").setValue(minInt);
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("price").child("LowPrice").setValue(minInt);
                 Intent nextScreen = new Intent(v.getContext(), DistanceRange.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);

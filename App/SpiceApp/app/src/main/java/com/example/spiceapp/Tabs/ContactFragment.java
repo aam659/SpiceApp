@@ -1,5 +1,6 @@
 package com.example.spiceapp.Tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.spiceapp.Adapters.ContactsAdapter;
+import com.example.spiceapp.AddContact;
 import com.example.spiceapp.FirebaseManager;
 import com.example.spiceapp.FirebaseObjects.User;
+import com.example.spiceapp.PriceRange;
 import com.example.spiceapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,8 +56,19 @@ public class ContactFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
+
         mUsers = new ArrayList<>();
         readUsers();
+
+        final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabContacts);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextScreen = new Intent (v.getContext(), AddContact.class);
+                startActivityForResult(nextScreen, 0);
+            }
+        });
 
         return view;
     }
@@ -61,7 +76,9 @@ public class ContactFragment extends Fragment {
     private void readUsers() {
 
        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+       DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getEmail().replace('.','_')).child("Contacts");
+
+
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,7 +86,7 @@ public class ContactFragment extends Fragment {
                 mUsers.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    if(!user.getEmail().equals(firebaseUser.getEmail())){
+                    if(!(user.getEmail().replace('.','_')).equals(firebaseUser.getEmail().replace('.','_'))){
                         mUsers.add(user);
                     }
                 }

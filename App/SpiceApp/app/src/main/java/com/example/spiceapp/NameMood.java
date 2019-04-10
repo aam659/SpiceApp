@@ -33,8 +33,8 @@ public class NameMood extends AppCompatActivity {
             public void onClick(View v) {
                 String mood = moodName.getText().toString();
                 if(!mood.isEmpty()) {
-                    database.child("users").child(user.getUid()).child("Moods").child(mood).setValue(mood);
-                    database.child("users").child(user.getUid()).child("Moods").child(mood).child("name").setValue(mood);
+                    database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(mood).setValue(mood);
+                    database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(mood).child("name").setValue(mood);
                     Intent nextScreen = new Intent(v.getContext(), MealTime.class);
                     nextScreen.putExtra("NAME_OF_MOOD", mood);
                     startActivityForResult(nextScreen, 0);

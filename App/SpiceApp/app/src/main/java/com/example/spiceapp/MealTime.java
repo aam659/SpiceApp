@@ -33,7 +33,7 @@ public class MealTime extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Breakfast Clicked", Toast.LENGTH_LONG).show();
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("mealTime").setValue("Breakfast");
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("mealTime").setValue("Breakfast");
                 Intent nextScreen = new Intent(v.getContext(), PriceRange.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
@@ -44,7 +44,7 @@ public class MealTime extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Lunch Clicked", Toast.LENGTH_LONG).show();
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("mealTime").setValue("Lunch");
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("mealTime").setValue("Lunch");
                 Intent nextScreen = new Intent(v.getContext(), ChooseCategory.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
@@ -56,7 +56,7 @@ public class MealTime extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Dinner Clicked", Toast.LENGTH_LONG).show();
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("mealTime").setValue("Dinner");
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("mealTime").setValue("Dinner");
                 Intent nextScreen = new Intent(v.getContext(), ChooseCategory.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);

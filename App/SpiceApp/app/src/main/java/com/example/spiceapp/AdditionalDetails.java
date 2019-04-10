@@ -50,13 +50,14 @@ public class AdditionalDetails extends AppCompatActivity {
     protected void addDetails(String fName, String phone, String lName, FirebaseUser user) {
         String email = getIntent().getStringExtra("UserEmail");
 
+        database.child("users").child(user.getEmail().replace('.','_')).child("uid").setValue(user.getUid());
         if(email != null)
-            database.child("users").child(user.getUid()).child("email").setValue(email);
+            database.child("users").child(user.getEmail().replace('.','_')).child("email").setValue(email.replace('.','_'));
         if(!fName.isEmpty())
-            database.child("users").child(user.getUid()).child("fName").setValue(fName);
+            database.child("users").child(user.getEmail().replace('.','_')).child("fName").setValue(fName);
         if(!lName.isEmpty())
-            database.child("users").child(user.getUid()).child("lName").setValue(lName);
+            database.child("users").child(user.getEmail().replace('.','_')).child("lName").setValue(lName);
         if(!phone.isEmpty())
-            database.child("users").child(user.getUid()).child("phoneNumber").setValue(phone);
+            database.child("users").child(user.getEmail().replace('.','_')).child("phoneNumber").setValue(phone);
     }
 }

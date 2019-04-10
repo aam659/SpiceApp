@@ -36,7 +36,7 @@ public class DistanceRange extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 double distanceNum = Double.valueOf(distance.getSelectedItem().toString().split(" ")[0]);
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("distance").setValue(distanceNum);
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("distance").setValue(distanceNum);
                 Intent nextScreen = new Intent(v.getContext(), HomePage.HomePageActivity.class);
                 startActivityForResult(nextScreen, 0);
             }

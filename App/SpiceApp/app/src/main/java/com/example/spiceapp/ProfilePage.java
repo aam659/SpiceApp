@@ -80,7 +80,7 @@ public class ProfilePage extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        Task<Uri> task = storageReference.child("images/"+FirebaseManager.getCurrentUser().getUid()).getDownloadUrl();
+        Task<Uri> task = storageReference.child("images/"+FirebaseManager.getCurrentUser().getEmail().replace('.','_')).getDownloadUrl();
         task.addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -222,7 +222,7 @@ public class ProfilePage extends AppCompatActivity {
      */
     private void getUserInfo(FirebaseCallback firebaseCallback){
         if(FirebaseManager.isLoggedIn()) {
-            Query query = FirebaseManager.getDatabaseReference().child("users").child(FirebaseManager.getCurrentUser().getUid());
+            Query query = FirebaseManager.getDatabaseReference().child("users").child(FirebaseManager.getCurrentUser().getEmail().replace('.','_'));
                     /*
                     Queries database for current user mood
                      */
@@ -276,8 +276,8 @@ public class ProfilePage extends AppCompatActivity {
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ FirebaseManager.getCurrentUser().getUid());
-            System.out.println("File name:" + FirebaseManager.getCurrentUser().getUid());
+            StorageReference ref = storageReference.child("images/"+ FirebaseManager.getCurrentUser().getEmail().replace('.','_'));
+            System.out.println("File name:" + FirebaseManager.getCurrentUser().getEmail().replace('.','_'));
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
