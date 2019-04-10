@@ -50,7 +50,8 @@ public class AdditionalDetails extends AppCompatActivity {
     protected void addDetails(String fName, String phone, String lName, FirebaseUser user) {
         String email = getIntent().getStringExtra("UserEmail");
 
-        database.child("users").child(user.getUid()).child("email").setValue(email);
+        if(email != null)
+            database.child("users").child(user.getUid()).child("email").setValue(email);
         if(!fName.isEmpty())
             database.child("users").child(user.getUid()).child("fName").setValue(fName);
         if(!lName.isEmpty())

@@ -1,4 +1,4 @@
-package com.example.spiceapp.Tabs;
+package com.example.spiceapp.Adapters;
 
 import java.util.ArrayList;
 import java.util.List;
