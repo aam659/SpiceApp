@@ -13,8 +13,18 @@ public class User {
     private String fName;
     private String lName;
     private String phoneNumber;
+    private String uid;
 
-    public User(String email, String fName, String lName, String phoneNumber){
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public User(String email, String fName, String lName, String phoneNumber, String uid){
+        this.uid = uid;
         this.email = email;
         this.fName = fName;
         this.lName = lName;

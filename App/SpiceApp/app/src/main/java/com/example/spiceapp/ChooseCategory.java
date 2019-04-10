@@ -83,7 +83,7 @@ public class ChooseCategory extends AppCompatActivity {
                     categories.add("Pizza");
                 if(checkBurgers.isChecked())
                     categories.add("Burgers");
-                database.child("users").child(user.getUid()).child("Moods").child(nameOfMood).child("categories").setValue(categories);
+                database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("categories").setValue(categories);
                 Intent nextScreen = new Intent (v.getContext(), PriceRange.class);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);

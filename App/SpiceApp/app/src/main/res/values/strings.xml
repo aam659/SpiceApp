@@ -103,4 +103,6 @@
     <string name="strChoosePreference">Choose Preference</string>
     <string name="title_activity_set_preference">SetPreference</string>
     <string name="txtmood">Blank</string>
+    <string name="strEnterContactName">Enter Contact Email</string>
+    <string name="strAddContact">Add Contact</string>
 </resources>
