@@ -34,10 +34,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Testing class with a TabLayout
- * WILL BE REPLACED SHORTLY
+ * Fragment that reads a user's contact list, and then
+ * populates a recycler view with the contacts
+ *
+ * Can click on contact to delete or start a message with the contact
+ *
  * @author Ryan Simpson
  */
+
+//TODO: ADD ONCLICK METHODS FOR RECYCLER VIEW
 
 public class ContactFragment extends Fragment {
     private static final String TAG = "ContactFragment";
@@ -50,17 +55,19 @@ public class ContactFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.contacts_fragment, container ,false);
 
+
+        View view = inflater.inflate(R.layout.contacts_fragment, container ,false);
         recyclerView = view.findViewById(R.id.contact_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
         mUsers = new ArrayList<>();
+
+        //Pulls all users from the user's contact list
         readUsers();
 
+
+        //Add a new contact
         final FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fabContacts);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +82,12 @@ public class ContactFragment extends Fragment {
 
     private void readUsers() {
 
-       final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-       DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getEmail().replace('.','_')).child("Contacts");
+        //Get current user
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //Reference to contacts
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getEmail().replace('.','_')).child("Contacts");
 
-
-
+        //Populates recyclerview
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -96,7 +104,6 @@ public class ContactFragment extends Fragment {
                 recyclerView.setAdapter(contactsAdapter);
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

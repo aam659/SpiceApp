@@ -19,6 +19,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+
+/**
+ * Method that lets user's type in an email and
+ * add them as a contact.
+ *
+ * Will not add contact if the user entered does not exist or is the current user
+ *
+ * @author Ryan Simpson
+ */
+
+//TODO: DON'T LET A USER ADD THEMSELVES
+
 public class AddContact extends AppCompatActivity {
 
     DatabaseReference database;
