@@ -95,7 +95,7 @@ public class SpiceItUp extends AppCompatActivity {
     private final String TAG = "SpiceItUp";
     private LocationManager locationManager;    // LocationManager for location access
     private LocationListener locationListener;  // Location Listener
-    private static double deviceLatitude;   
+    private static double deviceLatitude;
     private static double deviceLongitude;
     private String name;    // name of place
     private String addr;    // address of place
@@ -177,31 +177,33 @@ public class SpiceItUp extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Since we need to pull an object from the database which is an implemented generic,
-                //we can't just pull the interface class "ArrayList.class", so instead we create and object that
-                //is in the format to let the firebase database know that we're going to be expecting a generic implementation
-//                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
-                mood = dataSnapshot.getValue(Mood.class);
-                moodName = mood.getName();
+                if (dataSnapshot.exists()) {
+                    //Since we need to pull an object from the database which is an implemented generic,
+                    //we can't just pull the interface class "ArrayList.class", so instead we create and object that
+                    //is in the format to let the firebase database know that we're going to be expecting a generic implementation
+                    //                    GenericTypeIndicator<ArrayList<String>> t = new GenericTypeIndicator<ArrayList<String>>(){};
+                    mood = dataSnapshot.getValue(Mood.class);
+                    moodName = mood.getName();
 
-                ArrayList<String> categories = mood.getCategories();
-                int dist = (int) mood.getDistance();
-                int low = mood.getPrice().getLowPrice();
-                int high = mood.getPrice().getHighPrice();
+                    ArrayList<String> categories = mood.getCategories();
+                    int dist = (int) mood.getDistance();
+                    int low = mood.getPrice().getLowPrice();
+                    int high = mood.getPrice().getHighPrice();
 
 
-                preferencesString = "";
-                for (int i = categories.size() - 1; i > -1; --i) {
-                    if (i != -1)
-                        preferencesString += ", ";
+                    preferencesString = "";
+                    for (int i = categories.size() - 1; i > -1; --i) {
+                        if (i != -1)
+                            preferencesString += ", ";
 
-                    preferencesString += categories.get(i);
+                        preferencesString += categories.get(i);
+                    }
+
+                    firebaseCallback.onCallback(preferencesString, dist, low, high);
+                    // Debugging code
+                    // System.out.println("Categories: " + categories);
+                    // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
                 }
-
-                firebaseCallback.onCallback(preferencesString,dist,low,high);
-                // Debugging code
-                // System.out.println("Categories: " + categories);
-                // updateButton(dataSnapshot.getValue(String.class), btnMainAction);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
