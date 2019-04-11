@@ -192,11 +192,15 @@ public class SpiceItUp extends AppCompatActivity {
 
 
                     preferencesString = "";
-                    for (int i = categories.size() - 1; i > -1; --i) {
-                        if (i != -1)
-                            preferencesString += ", ";
+                    if (categories != null) {
+                        for (int i = categories.size() - 1; i > -1; --i) {
+                            if (i != -1)
+                                preferencesString += ", ";
 
-                        preferencesString += categories.get(i);
+                            preferencesString += categories.get(i);
+                        }
+                    } else {
+                        preferencesString += ", Breakfast";
                     }
 
                     firebaseCallback.onCallback(preferencesString, dist, low, high);
