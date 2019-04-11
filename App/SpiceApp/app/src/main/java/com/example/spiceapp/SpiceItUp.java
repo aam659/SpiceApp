@@ -99,6 +99,9 @@ public class SpiceItUp extends AppCompatActivity {
     private static double deviceLongitude;
     private String name;    // name of place
     private String addr;    // address of place
+    private static double rating = -0.1; // rating of place - Default in case null
+    private String stringRating = "N/A"; //rating casted to string - Default in case null
+    private String phone = "205 555 5555"; // PhoneNumber of place - Default in case null
     private Bitmap bitmap;  //pic of place
     private static String preferencesString; // string used for place query
     private static Mood mood;   // users current mood
@@ -462,7 +465,7 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlaceByID(String id) {
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Field> fields =
-                Arrays.asList(Field.PHOTO_METADATAS, Field.PRICE_LEVEL);
+                Arrays.asList(Field.PHOTO_METADATAS, Field.PRICE_LEVEL, Field.PHONE_NUMBER, Field.RATING);
 
 // Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
         FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(id, fields).build();
@@ -478,6 +481,19 @@ public class SpiceItUp extends AppCompatActivity {
                 findPlace();
             }
             else {
+                //Get the restaurant phone number and rating.
+                if(place.getRating() != null) {
+                    rating = place.getRating();
+                    stringRating = Double.toString(rating);
+                }
+                else if(place.getRating() == null)
+                    System.out.println("rating was null");
+
+                if(place.getPhoneNumber() != null) {
+                    phone = place.getPhoneNumber();
+                }
+                else if(place.getPhoneNumber() == null)
+                    System.out.println("Phone Number was null");
                 // Get the photo metadata.
                 if (place.getPhotoMetadatas() != null) {
                     PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
@@ -546,8 +562,13 @@ public class SpiceItUp extends AppCompatActivity {
     private void updateViews(){
         TextView txtName = findViewById(R.id.txtName);
         TextView txtLocation = findViewById(R.id.txtLocation);
+        TextView txtRating = findViewById(R.id.txtRating);
+        TextView txtPhone = findViewById(R.id.txtPhone);
         txtName.setText(name);
         txtLocation.setText(addr);
+        txtRating.setText(stringRating + "/5");
+        txtPhone.setText(phone);
+
         ImageView restaurantImage = findViewById(R.id.imgRestuarant);
         restaurantImage.setImageBitmap(bitmap);
         ActionBar actionBar = getSupportActionBar();
