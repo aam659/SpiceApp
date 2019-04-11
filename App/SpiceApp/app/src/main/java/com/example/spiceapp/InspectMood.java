@@ -89,7 +89,7 @@ public class InspectMood extends AppCompatActivity {
     private String getCategoryText(ArrayList<String> list){
         StringBuilder returnString = new StringBuilder("Categories: ");
         int iter = 0;
-        while (!list.isEmpty() && iter != 2){
+        while (list != null && iter != 2){
             returnString.append(list.get(0));
             list.remove(0);
             returnString.append(" ");
