@@ -15,27 +15,27 @@
         android:id="@+id/profileImg"
         android:src="@drawable/placeholder_pp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/strUsername"
-        android:id="@+id/contactName"
-        android:layout_toEndOf="@+id/profileImg"
-        android:layout_marginStart="10dp"
-        android:layout_centerVertical="true"
-        android:textSize="18sp"/>
-
 
     <include
         android:id="@+id/toolbarMessage"
         layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/messageRecyler"
+        android:layout_below="@+id/toolbarMessage"
+        android:layout_above="@+id/bottom"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFF">
+        android:background="#FFF"
+        android:id="@+id/bottom">
+
 
         <EditText
             android:id="@+id/message_send"

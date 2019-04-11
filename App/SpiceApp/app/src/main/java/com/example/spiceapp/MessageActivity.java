@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import android.content.Intent;
@@ -15,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.Adapters.MessageAdapter;
+import com.example.spiceapp.FirebaseObjects.Chat;
 import com.example.spiceapp.FirebaseObjects.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +28,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.linear.qual.Linear;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -36,12 +44,23 @@ public class MessageActivity extends AppCompatActivity {
     EditText message_send;
     ImageButton send;
 
+    MessageAdapter messageAdapter;
+    List<Chat> mChat;
+
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         initializeToolbar();
+
+        recyclerView = findViewById(R.id.messageRecyler);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         mUser = FirebaseManager.getCurrentUser();
         profile_pic = findViewById(R.id.profileImg);
         message_send = findViewById(R.id.message_send);
@@ -59,6 +78,8 @@ public class MessageActivity extends AppCompatActivity {
                 ActionBar actionBar = getSupportActionBar();
                 actionBar.setTitle(setName);
                 //Todo: Change user profile picture too
+
+                readMessage(mUser.getEmail().replace('.','_'), userEmail, null);
             }
 
             @Override
@@ -70,11 +91,13 @@ public class MessageActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!message_send.equals("")){
-                    sendMessage(mUser.getEmail().replace('.','_'), userEmail, message_send.getText().toString());
+                String msg = message_send.getText().toString();
+                if(!msg.equals("")){
+                    sendMessage(mUser.getEmail().replace('.','_'), userEmail, msg);
                 }
                 else
                     Toast.makeText(MessageActivity.this, "Message empty.", Toast.LENGTH_SHORT).show();
+                message_send.setText("");
             }
         });
 
@@ -85,7 +108,7 @@ public class MessageActivity extends AppCompatActivity {
         androidx.appcompat.widget.Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarMessage);
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Spice It Up");
+        actionBar.setTitle("");
     }
 
     private void sendMessage(String sender, String reciever, String message){
@@ -94,12 +117,33 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("reciever", reciever);
         hashMap.put("message", message);
-        reference.child("Chats").setValue(hashMap);
+        reference.child("Chats").push().setValue(hashMap);
+    }
 
-        //FINISH HASHMAP
+    private void readMessage(String myEmail, String userEmail,String imageURL){
+        mChat = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference().child("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mChat.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReciever().equals(myEmail) && chat.getSender().equals(userEmail) ||
+                        chat.getReciever().equals(userEmail) && chat.getSender().equals(myEmail)){
+                        mChat.add(chat);
+                    }
+                }
 
+                messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageURL);
+                recyclerView.setAdapter(messageAdapter);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
     }
 
 }
