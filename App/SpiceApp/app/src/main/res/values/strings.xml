@@ -22,6 +22,8 @@
     <string name="picChilli" />
     <string name="title_activity_social_page">SocialPage</string>
     <string name="restaurant_name" translatable="false">Restaurant Name</string>
+    <string name="restaurant_rating" translatable="false">Restaurant Rating</string>
+    <string name="restaurant_phone" translatable="false">Restaurant Phone</string>
     <string name="imgRestaurant" translatable="false">Restaurant</string>
     <string name="register">Register</string>
     <string name="password">password</string>

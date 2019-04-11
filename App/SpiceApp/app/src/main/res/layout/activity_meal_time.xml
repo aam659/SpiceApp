@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
+    android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
     tools:context=".MealTime">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBreakfast"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edtRetype"
+        android:layout_below="@+id/textQuestion"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="80dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" >
+        app:cardCornerRadius="25dp">
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/textView2" >-->
 
         <RelativeLayout
             android:id="@+id/btnBreakfastBtn"
@@ -30,7 +31,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/Breakfast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -46,19 +47,16 @@
         android:id="@+id/cardDinner"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edtRetype"
+        android:layout_below="@+id/cardLunch"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="184dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLunch" >
+        app:cardCornerRadius="25dp">
 
         <RelativeLayout
             android:id="@+id/btnDinnerBtn"
@@ -82,17 +80,16 @@
         android:id="@+id/cardLunch"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edtRetype"
+        android:layout_below="@+id/cardBreakfast"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardBreakfast" >
+        app:cardCornerRadius="25dp">
 
         <RelativeLayout
             android:id="@+id/btLunchBtn"
@@ -113,20 +110,21 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textQuestion"
         android:layout_width="match_parent"
         android:layout_height="99dp"
         android:layout_below="@+id/toolbar"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="128dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/comfortaa"
         android:text="@string/strChooseAMeal"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="32sp"
         android:typeface="sans"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/strChooseAMeal" />
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
