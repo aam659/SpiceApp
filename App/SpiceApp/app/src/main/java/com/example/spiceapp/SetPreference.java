@@ -3,9 +3,8 @@ package com.example.spiceapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.spiceapp.Adapters.SetPreferenceAdapter;
 import com.example.spiceapp.FirebaseObjects.Mood;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;

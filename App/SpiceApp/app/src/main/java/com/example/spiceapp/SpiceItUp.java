@@ -192,13 +192,16 @@ public class SpiceItUp extends AppCompatActivity {
 
 
                     preferencesString = "";
-                    for (int i = categories.size() - 1; i > -1; --i) {
-                        if (i != -1)
-                            preferencesString += ", ";
+                    if(categories != null) {
+                        for (int i = categories.size() - 1; i > -1; --i) {
+                            if (i != -1)
+                                preferencesString += ", ";
 
-                        preferencesString += categories.get(i);
+                            preferencesString += categories.get(i);
+                        }
                     }
-
+                    else preferencesString = "breakfast";
+                    System.out.println("PREF" + preferencesString);
                     firebaseCallback.onCallback(preferencesString, dist, low, high);
                     // Debugging code
                     // System.out.println("Categories: " + categories);
@@ -330,8 +333,10 @@ public class SpiceItUp extends AppCompatActivity {
     private void findPlace(){
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
+            System.out.println("HERE? " + preferencesString);
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
         } else {
+            System.out.println("WHY");
             searchRequest = new SearchRequest("Restaurant");
         }
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));

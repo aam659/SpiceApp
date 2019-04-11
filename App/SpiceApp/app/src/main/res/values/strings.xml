@@ -105,4 +105,5 @@
     <string name="txtmood">Blank</string>
     <string name="strEnterContactName">Enter Contact Email</string>
     <string name="strAddContact">Add Contact</string>
+    <string name="TypeAMessage">Type a message...</string>
 </resources>

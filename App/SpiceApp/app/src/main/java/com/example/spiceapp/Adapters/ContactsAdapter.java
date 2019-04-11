@@ -1,6 +1,7 @@
 package com.example.spiceapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spiceapp.FirebaseObjects.User;
+import com.example.spiceapp.MessageActivity;
 import com.example.spiceapp.R;
 
 import java.util.List;
@@ -39,6 +41,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         holder.userName.setText(setName);
 
         //TODO: Somehow add profile picture
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MessageActivity.class);
+                intent.putExtra("userEmail", user.getEmail().replace('.','_'));
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

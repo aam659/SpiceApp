@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/spice_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddContact"></activity>
+        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".AddContact" />
         <activity
             android:name=".SetPreference"
             android:label="@string/title_activity_set_preference"
