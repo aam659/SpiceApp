@@ -40,6 +40,12 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Ryan Simpson
  */
 
+/*TODO:
+    1. Make Group chats appear on the chats tab
+    2. Allow users to create their own group chat
+    3. Have DMs and Group Chats coexist on this page
+    4. Use checkboxes in conjunction with recycler view to allow users to add other users to group chat
+*/
 public class ChatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
