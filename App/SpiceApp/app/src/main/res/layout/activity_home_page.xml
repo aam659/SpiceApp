@@ -59,23 +59,6 @@
         android:contentDescription="@string/picChilli"
         android:src="@drawable/chilli_logo" />
 
-    <!--<Button-->
-        <!--android:id="@+id/btnMainAct"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginStart="98dp"-->
-        <!--android:layout_marginLeft="98dp"-->
-        <!--android:layout_marginTop="327dp"-->
-        <!--android:layout_marginEnd="100dp"-->
-        <!--android:layout_marginRight="100dp"-->
-        <!--android:ems="10"-->
-        <!--android:text="@string/strMainNotLogged" />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardChoosePreference"
         android:layout_width="300dp"

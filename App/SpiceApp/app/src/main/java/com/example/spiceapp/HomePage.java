@@ -16,6 +16,8 @@ import androidx.core.app.ActivityCompat;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +47,8 @@ public class HomePage extends AppCompatActivity {
         private FirebaseUser user;
         private DatabaseReference database;
         private String userName = null;
+        private Animation atg;
+        private Animation atg2;
 
         private final static int REQUEST_CODE_ASK_PERMISSIONS = 1;
         private static final String[] RUNTIME_PERMISSIONS = {
@@ -65,6 +69,10 @@ public class HomePage extends AppCompatActivity {
             // Initialize top toolbar
             initializeToolbar();
 
+            // Load animations
+            atg = AnimationUtils.loadAnimation(this, R.anim.atg);
+            atg2 = AnimationUtils.loadAnimation(this, R.anim.atg2);
+
             if (hasPermissions(this, RUNTIME_PERMISSIONS)) {
                 //setupMapFragmentView();
                 if (!(FirebaseManager.isLoggedIn()))
@@ -76,7 +84,11 @@ public class HomePage extends AppCompatActivity {
 
 
             final TextView btnMainAction = (TextView) findViewById(R.id.btnMainAct);
+            final CardView btnMainActionCard = (CardView) findViewById(R.id.cardSignIn);
             final CardView btnChoosePreference = (CardView) findViewById(R.id.cardChoosePreference);
+
+            btnMainActionCard.startAnimation(atg);
+            btnChoosePreference.startAnimation(atg2);
 
             if(FirebaseManager.isLoggedIn()) {
                 Query query = FirebaseManager.getFirstNameReference();
