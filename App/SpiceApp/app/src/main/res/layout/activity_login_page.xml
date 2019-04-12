@@ -1,136 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradient"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LoginPage"
-    android:transitionName="regUser">
+<layout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_login_page"
+        android:background="@drawable/gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".LoginPage"
+        android:transitionName="regUser">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="86dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginRight="116dp"
-        android:contentDescription="@string/picChilli"
-        android:src="@drawable/chilli_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="116dp"
+            android:layout_marginLeft="116dp"
+            android:layout_marginTop="86dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginRight="116dp"
+            android:contentDescription="@string/picChilli"
+            android:src="@drawable/chilli_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="327dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:ems="10"
-        android:hint="@string/strLoginField"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="98dp"
+            android:layout_marginLeft="98dp"
+            android:layout_marginTop="327dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginRight="100dp"
+            android:ems="10"
+            android:hint="@string/strLoginField"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/edtLoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/edtEmail"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginRight="99dp"
-        android:ems="10"
-        android:hint="@string/password_screen"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/edtLoginPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtEmail"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="98dp"
+            android:layout_marginLeft="98dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="99dp"
+            android:layout_marginRight="99dp"
+            android:ems="10"
+            android:hint="@string/password_screen"
+            android:inputType="textPassword" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardLogin"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/edtLoginPassword"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginLeft="58dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginRight="58dp"
-        app:cardCornerRadius="25dp">
+        <!--<androidx.cardview.widget.CardView-->
+            <!--android:id="@+id/cardLogin"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_below="@+id/edtLoginPassword"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginStart="58dp"-->
+            <!--android:layout_marginLeft="58dp"-->
+            <!--android:layout_marginTop="23dp"-->
+            <!--android:layout_marginEnd="58dp"-->
+            <!--android:layout_marginRight="58dp"-->
+            <!--app:cardCornerRadius="25dp">-->
 
-        <RelativeLayout
-            android:id="@+id/btnLoginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/btnLoginBtn"
+                android:layout_width="300dp"
+                android:layout_height="56dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/sign_in_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_below="@id/edtLoginPassword">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/strLogin"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/signInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/strLogin"
+                    android:textSize="18sp" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardRegister"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/cardLogin"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="35dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginRight="55dp"
-        android:layout_marginBottom="100dp"
-        app:cardCornerRadius="25dp" >
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"/>
 
-        <RelativeLayout
-            android:id="@+id/btnRegister"
+            </FrameLayout>
+        <!--</androidx.cardview.widget.CardView>-->
+
+        <!--<androidx.cardview.widget.CardView-->
+            <!--android:id="@+id/cardRegister"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_below="@id/btnLoginBtn"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginTop="35dp"-->
+            <!--android:layout_marginStart="56dp"-->
+            <!--android:layout_marginLeft="56dp"-->
+            <!--android:layout_marginEnd="55dp"-->
+            <!--android:layout_marginRight="55dp"-->
+            <!--android:layout_marginBottom="100dp"-->
+            <!--app:cardCornerRadius="25dp" >-->
+
+        <!--<FrameLayout
+                android:id="@+id/btnLoginBtn"
+                android:layout_width="300dp"
+                android:layout_height="56dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/sign_in_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_below="@id/edtLoginPassword">-->
+
+            <FrameLayout
+                android:id="@+id/btnRegister"
+                android:layout_width="300dp"
+                android:layout_height="56dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/sign_in_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_below="@id/btnLoginBtn">
+
+                <!--<TextView
+                    android:id="@+id/signInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/strLogin"
+                    android:textSize="18sp" />-->
+
+                <TextView
+                    android:id="@+id/registerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/register"
+                    android:textSize="18sp" />
+            </FrameLayout>
+
+        <!--</androidx.cardview.widget.CardView>-->
+
+        <View
+            android:id="@+id/revealView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignStart="@+id/cardRegister"
-            android:layout_alignTop="@+id/cardRegister"
-            android:layout_alignLeft="@+id/cardRegister">
-
-            <TextView
-                android:id="@+id/textRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/register"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+            android:background="@color/colorPrimary"
+            android:visibility="invisible"/>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
