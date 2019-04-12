@@ -43,12 +43,14 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/btnSend"
             android:hint="@string/TypeAMessage"
+            android:inputType="textCapSentences"
             android:layout_centerVertical="true"/>
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/btnSend"
+            android:background="@android:color/white"
             android:layout_alignParentEnd="true"
             android:src="@drawable/send"
             />

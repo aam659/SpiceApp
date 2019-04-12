@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.spiceapp.Tabs.ContactFragment;
 import com.example.spiceapp.Adapters.SocialPageAdapter;
-import com.example.spiceapp.Tabs.Tab1Fragment;
+import com.example.spiceapp.Tabs.ChatsFragment;
 import com.example.spiceapp.Tabs.Tab3Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -36,7 +36,7 @@ public class SocialPage extends AppCompatActivity {
     //This thing is the tells the TabLayout what to do whenever a tab gets clicked
     private void setupViewPager(ViewPager viewPager){
         SocialPageAdapter adapter = new SocialPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1Fragment(), "Chats");
+        adapter.addFragment(new ChatsFragment(), "Chats");
         adapter.addFragment(new ContactFragment(), "Contacts");
         adapter.addFragment(new Tab3Fragment(), "Events");
         viewPager.setAdapter(adapter);
