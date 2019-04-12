@@ -46,6 +46,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageActivity.class);
+                intent.putExtra("MESSAGE_TYPE", "contact");
                 intent.putExtra("userEmail", user.getEmail().replace('.','_'));
                 mContext.startActivity(intent);
             }

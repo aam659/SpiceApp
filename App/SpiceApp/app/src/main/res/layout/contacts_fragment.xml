@@ -13,11 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:backgroundTint="@color/colorPrimary"
-        android:foregroundTint="#FFFFFF"
         android:clickable="true"
+        android:focusable="true"
+        android:foregroundTint="#FFFFFF"
+        app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/plus" />
 
     <androidx.recyclerview.widget.RecyclerView

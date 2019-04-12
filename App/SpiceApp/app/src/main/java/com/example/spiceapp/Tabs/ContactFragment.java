@@ -42,8 +42,6 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Ryan Simpson
  */
 
-//TODO: ADD ONCLICK METHODS FOR RECYCLER VIEW
-
 public class ContactFragment extends Fragment {
     private static final String TAG = "ContactFragment";
 

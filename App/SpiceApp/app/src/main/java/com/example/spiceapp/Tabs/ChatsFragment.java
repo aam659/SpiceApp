@@ -1,5 +1,6 @@
 package com.example.spiceapp.Tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import com.example.spiceapp.Adapters.ContactsAdapter;
 import com.example.spiceapp.FirebaseManager;
 import com.example.spiceapp.FirebaseObjects.Chat;
 import com.example.spiceapp.FirebaseObjects.User;
+import com.example.spiceapp.MakeChat;
+import com.example.spiceapp.MessageActivity;
 import com.example.spiceapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,12 +58,22 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chats_fragment, container, false);
 
+        FloatingActionButton fab = view.findViewById(R.id.fabNewChat);
+
         recyclerView = view.findViewById(R.id.chatsRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         usersList = new ArrayList<>();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextScreen = new Intent(v.getContext(), MakeChat.class);
+                startActivityForResult(nextScreen, 0);
+            }
+        });
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -69,23 +83,14 @@ public class ChatsFragment extends Fragment {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    System.out.println("RECIEVER " + chat.getReciever());
-                    System.out.println("EMAIL " + mUser.getEmail().replace('.','_'));
                     if(chat.getSender().equals(mUser.getEmail().replace('.','_'))){
                         if(!usersList.contains(chat.getSender()) && !usersList.contains(chat.getReciever())) {
                             usersList.add(chat.getReciever());
-                            System.out.println("RECIEVER " + chat.getReciever());
-                            System.out.println("USERS " + usersList);
-
                         }
                     }
                     if(chat.getReciever().equals(mUser.getEmail().replace('.','_'))){
                         if(!usersList.contains(chat.getSender()) && !usersList.contains(chat.getReciever())) {
                             usersList.add(chat.getSender());
-                            System.out.println("SENDER " + chat.getSender());
-
-                            System.out.println("USERS " + usersList);
-
                         }
                     }
                 }
@@ -103,6 +108,7 @@ public class ChatsFragment extends Fragment {
 
         return view;
     }
+
 
     private void readChats() {
         mUsers = new ArrayList<>();

@@ -11,16 +11,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.Adapters.GroupMessageAdapter;
 import com.example.spiceapp.Adapters.MessageAdapter;
 import com.example.spiceapp.FirebaseObjects.Chat;
-import com.example.spiceapp.FirebaseObjects.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,13 +26,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.checkerframework.checker.linear.qual.Linear;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MessageActivity extends AppCompatActivity {
+public class GroupMessageActivity extends AppCompatActivity {
 
     CircleImageView profile_pic;
     TextView userName;
@@ -44,7 +40,7 @@ public class MessageActivity extends AppCompatActivity {
     EditText message_send;
     ImageButton send;
 
-    MessageAdapter messageAdapter;
+    GroupMessageAdapter messageAdapter;
     List<Chat> mChat;
 
     RecyclerView recyclerView;
@@ -52,10 +48,10 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message);
+        setContentView(R.layout.activity_group_message);
         initializeToolbar();
 
-        recyclerView = findViewById(R.id.messageRecyler);
+        recyclerView = findViewById(R.id.groupMessageRecyler);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
@@ -66,21 +62,16 @@ public class MessageActivity extends AppCompatActivity {
         message_send = findViewById(R.id.message_send);
         send = findViewById(R.id.btnSend);
         intent = getIntent();
-        String userEmail = intent.getStringExtra("userEmail");
-        reference = FirebaseDatabase.getInstance().getReference("users")
-                    .child(userEmail);
-
+        String groupName = intent.getStringExtra("groupName");
+        reference = FirebaseDatabase.getInstance().getReference("Groups")
+                .child(groupName).child("Chats");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(groupName);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                String setName = user.getfName() + " " + user.getlName();
-                ActionBar actionBar = getSupportActionBar();
-                actionBar.setTitle(setName);
-                //Todo: Change user profile picture too
-
-                readMessage(mUser.getEmail().replace('.','_'), userEmail, null);
+                readMessage(groupName, null);
             }
 
             @Override
@@ -94,49 +85,43 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = message_send.getText().toString();
                 if(!msg.equals("")){
-                    sendMessage(mUser.getEmail().replace('.','_'), userEmail, msg);
+                    sendMessage(mUser.getEmail().replace('.','_'), groupName, msg);
                 }
                 else
-                    Toast.makeText(MessageActivity.this, "Message empty.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GroupMessageActivity.this, "Message empty.", Toast.LENGTH_SHORT).show();
                 message_send.setText("");
             }
         });
-
-
     }
 
     private void initializeToolbar(){
-        androidx.appcompat.widget.Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarMessage);
+        androidx.appcompat.widget.Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarGroupMessage);
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
     }
 
-    private void sendMessage(String sender, String reciever, String message){
+    private void sendMessage(String sender, String groupName, String message){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
-        hashMap.put("reciever", reciever);
         hashMap.put("message", message);
-        reference.child("Chats").push().setValue(hashMap);
+        reference.child("Groups").child(groupName).child("Chats").push().setValue(hashMap);
     }
 
-    private void readMessage(String myEmail, String userEmail,String imageURL){
+    private void readMessage(String groupName,String imageURL){
         mChat = new ArrayList<>();
-        reference = FirebaseDatabase.getInstance().getReference().child("Chats");
+        reference = FirebaseDatabase.getInstance().getReference().child("Groups").child(groupName).child("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    if(chat.getReciever().equals(myEmail) && chat.getSender().equals(userEmail) ||
-                        chat.getReciever().equals(userEmail) && chat.getSender().equals(myEmail)){
-                        mChat.add(chat);
-                    }
+                    mChat.add(chat);
                 }
 
-                messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageURL);
+                messageAdapter = new GroupMessageAdapter(GroupMessageActivity.this, mChat, imageURL);
                 recyclerView.setAdapter(messageAdapter);
             }
 
@@ -146,5 +131,4 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
-
 }
