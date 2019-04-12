@@ -69,14 +69,23 @@ public class ChatsFragment extends Fragment {
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
+                    System.out.println("RECIEVER " + chat.getReciever());
+                    System.out.println("EMAIL " + mUser.getEmail().replace('.','_'));
                     if(chat.getSender().equals(mUser.getEmail().replace('.','_'))){
-                        if(!usersList.contains(chat.getSender())) {
+                        if(!usersList.contains(chat.getSender()) && !usersList.contains(chat.getReciever())) {
                             usersList.add(chat.getReciever());
+                            System.out.println("RECIEVER " + chat.getReciever());
+                            System.out.println("USERS " + usersList);
+
                         }
                     }
                     if(chat.getReciever().equals(mUser.getEmail().replace('.','_'))){
-                        if(!usersList.contains(chat.getSender())) {
+                        if(!usersList.contains(chat.getSender()) && !usersList.contains(chat.getReciever())) {
                             usersList.add(chat.getSender());
+                            System.out.println("SENDER " + chat.getSender());
+
+                            System.out.println("USERS " + usersList);
+
                         }
                     }
                 }
