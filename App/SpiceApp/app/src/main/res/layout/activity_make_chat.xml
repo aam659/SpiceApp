@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,34 +7,51 @@
     tools:context=".MakeChat">
 
 
-    <FrameLayout
-        android:backgroundTint="@color/colorPrimary"
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="45dp"
+        android:id="@+id/newGroupName"
+        android:hint="@string/strEnterGroupName"
+        android:textSize="27sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnMakeGroup"
+        android:layout_below="@id/newGroupName"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="30dp"
+        android:id="@+id/recyclerNewGroup"
+        />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/btnMakeGroup"
+        app:cardCornerRadius="30dp"
         android:layout_width="300dp"
         android:layout_height="56dp"
-        android:layout_below="@id/edtLoginPassword"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="81dp"
         android:background="@drawable/sign_in_btn"
+        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.76">
+        android:focusable="true">
 
         <TextView
             android:id="@+id/signInText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@color/quantum_white_100"
             android:text="@string/strConfirm"
+            android:textColor="@color/quantum_white_100"
             android:textSize="18sp" />
 
         <ProgressBar
@@ -44,6 +61,6 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

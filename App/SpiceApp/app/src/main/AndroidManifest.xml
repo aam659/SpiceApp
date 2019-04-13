@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GroupMessageActivity"></activity>
-        <activity android:name=".MakeChat" />
+        <activity android:name=".MakeChat"
+            android:windowSoftInputMode="adjustPan"
+        />
         <activity android:name=".MessageActivity" />
         <activity android:name=".AddContact" />
         <activity

@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -113,4 +114,6 @@ public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapte
         else
             return MSG_TYPE_LEFT;
     }
+
+
 }
