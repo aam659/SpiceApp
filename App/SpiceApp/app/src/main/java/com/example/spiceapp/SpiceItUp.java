@@ -21,10 +21,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +111,10 @@ public class SpiceItUp extends AppCompatActivity {
     private static int distance = 10; // distance in mood
     private static int lowPrice; // low price in mood
     private static int highPrice; //high price in mood
+    private ProgressBar suiProgressBar; // Progress bar
+    private TextView loadingTextView;   // TextView for loading information
+    private int progressStatusCounter; // counter for progress bar
+    private Handler suiHandler = new Handler(); // Handler for progress bar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +123,9 @@ public class SpiceItUp extends AppCompatActivity {
         initializeToolbar();    //add toolbar
         initializeNavBar(); //add nav bar
         initMapEngine();    // start places API
+
+        suiProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        loadingTextView = (TextView) findViewById(R.id.loadingComplete);
 
         FirebaseManager.initialize(); // start firbase
         if(FirebaseManager.isLoggedIn()) {  //if user a authenticated get current mood
@@ -518,8 +527,30 @@ public class SpiceItUp extends AppCompatActivity {
                         }
                     });
                 } else {
-                    ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
-                    imgRestaurant.setImageResource(R.drawable.chilli_logo);
+//                    ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
+//                    imgRestaurant.setImageResource(R.drawable.chilli_logo);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (progressStatusCounter < 100) {
+                                ++progressStatusCounter;
+                                android.os.SystemClock.sleep(10);
+                                suiHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        suiProgressBar.setProgress(progressStatusCounter);
+                                    }
+                                });
+                            }
+                            suiHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    loadingTextView.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+                    }).start();
                 }
             }
         }).addOnFailureListener((exception) -> {
