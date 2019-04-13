@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.TlsVersion;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.spiceapp.Adapters.ContactsAdapter;
 import com.example.spiceapp.Adapters.NewGroupAdapter;
@@ -30,6 +32,8 @@ public class MakeChat extends AppCompatActivity {
     private List<User> mUsers;
     private EditText editGroupName;
     private DatabaseReference reference;
+    private FirebaseUser mUser;
+    private ArrayList<String> mEmails;
 
 
     @Override
@@ -84,15 +88,45 @@ public class MakeChat extends AppCompatActivity {
 
     private void makeGroupChat() {
         reference = FirebaseDatabase.getInstance().getReference("Groups");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String groupName = editGroupName.getText().toString();
-        System.out.println(adapter.getCheckedUsers());
-        reference.child(groupName).child("Users").setValue(adapter.getCheckedUsers());
+        if(!groupName.isEmpty()) {
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.child(groupName).exists()) {
+                        mEmails = adapter.getCheckedUsers();
+                        if(mEmails.size() > 1){
+                            reference.child(groupName).child("Users").setValue(mEmails);
+                            Intent nextScreen = new Intent(getBaseContext(), GroupMessageActivity.class);
+                            nextScreen.putExtra("groupName", groupName);
+                            System.out.println("USERS ADDED " + adapter.getCheckedUsers());
+                            System.out.println("CURRENT USER " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                            startActivityForResult(nextScreen, 0);
+                        }
+                        else
+                            Toast.makeText(getBaseContext(), "Please select one or more users.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getBaseContext(), "Group name already exists.", Toast.LENGTH_SHORT).show();
+                        editGroupName.setText("");
+                    }
+                }
 
-        Intent nextScreen = new Intent(this, GroupMessageActivity.class);
-        nextScreen.putExtra("groupName", groupName);
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        //TODO: ADD CHECKING TO MAKE SURE THE NAME DOESNT ALREADY EXIST AND ALSO MAKE SURE THAT THE GROUP NAME EDIT TEXT IS NOT NULL
-        startActivityForResult(nextScreen, 0);
+                }
+            });
+        }
+        else
+            Toast.makeText(getBaseContext(), "Please enter a name.", Toast.LENGTH_SHORT).show();
+
+
+
+        //TODO: ADD CHECKING TO MAKE SURE THE NAME DOESN'T ALREADY EXIST AND ALSO MAKE SURE THAT THE GROUP NAME EDIT TEXT IS NOT NULL
+
+
     }
 }

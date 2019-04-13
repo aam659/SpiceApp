@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.spiceapp.FirebaseObjects.User;
 import com.example.spiceapp.MessageActivity;
 import com.example.spiceapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,7 @@ public class NewGroupAdapter extends RecyclerView.Adapter<NewGroupAdapter.ViewHo
     }
 
     public ArrayList<String> getCheckedUsers(){
+        checkedUsers.add(FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_'));
         return checkedUsers;
     }
 
