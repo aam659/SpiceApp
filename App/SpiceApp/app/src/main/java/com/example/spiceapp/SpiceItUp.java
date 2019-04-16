@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Rating;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,8 +103,7 @@ public class SpiceItUp extends AppCompatActivity {
     private static double deviceLongitude;
     private String name;    // name of place
     private String addr;    // address of place
-    private static double rating = -0.1; // rating of place - Default in case null
-    private String stringRating = "N/A"; //rating casted to string - Default in case null
+    private static double rating = 0.0; // rating of place - Default in case null
     private String phone = "205 555 5555"; // PhoneNumber of place - Default in case null
     private Bitmap bitmap;  //pic of place
     private static String preferencesString; // string used for place query
@@ -493,7 +494,6 @@ public class SpiceItUp extends AppCompatActivity {
                 //Get the restaurant phone number and rating.
                 if(place.getRating() != null) {
                     rating = place.getRating();
-                    stringRating = Double.toString(rating);
                 }
                 else if(place.getRating() == null)
                     System.out.println("rating was null");
@@ -593,11 +593,11 @@ public class SpiceItUp extends AppCompatActivity {
     private void updateViews(){
         TextView txtName = findViewById(R.id.txtName);
         TextView txtLocation = findViewById(R.id.txtLocation);
-        TextView txtRating = findViewById(R.id.txtRating);
+        RatingBar ratingBar = findViewById(R.id.rating);
         TextView txtPhone = findViewById(R.id.txtPhone);
         txtName.setText(name);
         txtLocation.setText(addr);
-        txtRating.setText(stringRating + "/5");
+        ratingBar.setRating((float)rating);
         txtPhone.setText(phone);
 
         ImageView restaurantImage = findViewById(R.id.imgRestuarant);
