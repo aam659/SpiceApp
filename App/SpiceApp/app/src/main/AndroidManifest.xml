@@ -17,10 +17,11 @@
         android:roundIcon="@mipmap/spice_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GroupMessageActivity"></activity>
-        <activity android:name=".MakeChat"
-            android:windowSoftInputMode="adjustPan"
-        />
+        <activity android:name=".CreateEvent"></activity>
+        <activity android:name=".GroupMessageActivity" />
+        <activity
+            android:name=".MakeChat"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".AddContact" />
         <activity

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.spiceapp.Tabs.ContactFragment;
 import com.example.spiceapp.Adapters.SocialPageAdapter;
 import com.example.spiceapp.Tabs.ChatsFragment;
-import com.example.spiceapp.Tabs.Tab3Fragment;
+import com.example.spiceapp.Tabs.EventsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -38,7 +38,7 @@ public class SocialPage extends AppCompatActivity {
         SocialPageAdapter adapter = new SocialPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ChatsFragment(), "Chats");
         adapter.addFragment(new ContactFragment(), "Contacts");
-        adapter.addFragment(new Tab3Fragment(), "Events");
+        adapter.addFragment(new EventsFragment(), "Events");
         viewPager.setAdapter(adapter);
     }
 

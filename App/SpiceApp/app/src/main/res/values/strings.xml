@@ -110,4 +110,5 @@
     <string name="strAddContact">Add Contact</string>
     <string name="TypeAMessage">Type a message...</string>
     <string name="strEnterGroupName">Enter New Group Name</string>
+    <string name="strEnterEventName">Enter event name</string>
 </resources>
