@@ -68,22 +68,6 @@
             android:hint="@string/password_screen"
             android:inputType="textPassword" />
 
-        <!--<androidx.cardview.widget.CardView-->
-            <!--android:id="@+id/cardLogin"-->
-            <!--android:layout_width="300dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_below="@+id/edtLoginPassword"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginStart="58dp"-->
-            <!--android:layout_marginLeft="58dp"-->
-            <!--android:layout_marginTop="23dp"-->
-            <!--android:layout_marginEnd="58dp"-->
-            <!--android:layout_marginRight="58dp"-->
-            <!--app:cardCornerRadius="25dp">-->
-
             <FrameLayout
                 android:id="@+id/btnLoginBtn"
                 android:layout_width="300dp"
@@ -112,35 +96,6 @@
                     android:visibility="invisible"/>
 
             </FrameLayout>
-        <!--</androidx.cardview.widget.CardView>-->
-
-        <!--<androidx.cardview.widget.CardView-->
-            <!--android:id="@+id/cardRegister"-->
-            <!--android:layout_width="300dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_below="@id/btnLoginBtn"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_marginTop="35dp"-->
-            <!--android:layout_marginStart="56dp"-->
-            <!--android:layout_marginLeft="56dp"-->
-            <!--android:layout_marginEnd="55dp"-->
-            <!--android:layout_marginRight="55dp"-->
-            <!--android:layout_marginBottom="100dp"-->
-            <!--app:cardCornerRadius="25dp" >-->
-
-        <!--<FrameLayout
-                android:id="@+id/btnLoginBtn"
-                android:layout_width="300dp"
-                android:layout_height="56dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/sign_in_btn"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_below="@id/edtLoginPassword">-->
 
             <FrameLayout
                 android:id="@+id/btnRegister"
@@ -153,14 +108,6 @@
                 android:focusable="true"
                 android:layout_below="@id/btnLoginBtn">
 
-                <!--<TextView
-                    android:id="@+id/signInText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/strLogin"
-                    android:textSize="18sp" />-->
-
                 <TextView
                     android:id="@+id/registerText"
                     android:layout_width="wrap_content"
@@ -169,8 +116,6 @@
                     android:text="@string/register"
                     android:textSize="18sp" />
             </FrameLayout>
-
-        <!--</androidx.cardview.widget.CardView>-->
 
         <View
             android:id="@+id/revealView"
