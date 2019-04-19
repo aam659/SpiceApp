@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage"
-    android:transitionName="regUser">
+    tools:context=".InspectMood">
 
 
     <TextView
@@ -28,18 +25,15 @@
 
     <FrameLayout
         android:id="@+id/cardMoodEdit"
-        android:layout_width="138dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/textCategories"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="54dp"
-        android:layout_marginLeft="54dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="219dp"
-        android:layout_marginRight="219dp"
-        android:layout_marginBottom="250dp"
+        android:layout_marginEnd="54dp"
+        android:layout_toStartOf="@id/cardMoodDelete"
         android:background="@drawable/sign_in_btn"
         android:clickable="true"
         android:focusable="true">
@@ -55,18 +49,16 @@
 
     <FrameLayout
         android:id="@+id/cardMoodDelete"
-        android:layout_width="138dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/textCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/cardMoodEdit"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="219dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="54dp"
         android:layout_marginEnd="54dp"
-        android:layout_marginBottom="250dp"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginTop="25dp"
         android:background="@drawable/sign_in_btn"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:clickable="true"
         android:focusable="true">
 

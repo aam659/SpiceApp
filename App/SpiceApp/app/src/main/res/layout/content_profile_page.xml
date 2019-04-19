@@ -9,6 +9,10 @@
     tools:context=".ProfilePage"
     tools:showIn="@layout/activity_profile_page">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgProfilePic"
         android:layout_width="187dp"
@@ -25,6 +29,7 @@
         android:layout_width="170dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgProfilePic"
+        android:layout_gravity="center"
         android:layout_alignParentStart="true"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="25dp"
@@ -39,6 +44,7 @@
         android:layout_width="170dp"
         android:layout_height="45dp"
         android:layout_below="@+id/imgProfilePic"
+        android:layout_gravity="center"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="15dp"
@@ -48,64 +54,74 @@
         android:textAlignment="center"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <FrameLayout
+        android:id="@+id/emailFrame"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_below="@+id/textName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="60dp"
-        android:fontFamily="@font/comfortaa"
-        android:text="@string/email"
-        android:textSize="18sp" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="58dp">
 
-    <TextView
-        android:id="@+id/textPhone"
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="60dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="@string/email"
+            android:textSize="18sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/PhoneFrame"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textEmail"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="60dp"
-        android:fontFamily="@font/comfortaa"
-        android:text="@string/strPhoneNumber"
-        android:textSize="18sp" />
+        android:layout_height="100dp"
+        android:layout_below="@+id/emailFrame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <TextView
+            android:id="@+id/textPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:fontFamily="@font/comfortaa"
+            android:text="@string/strPhoneNumber"
+            android:textSize="18sp" />
+    </FrameLayout>
 
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardLogout"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_above="@+id/bottom_navigation"
-        android:layout_alignParentEnd="true"
         android:layout_marginBottom="25dp"
         android:layout_marginStart="58dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="58dp"
-        android:layout_marginRight="58dp"
-        app:cardCornerRadius="25dp">
+        android:layout_marginEnd="58dp"
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnLogoutBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/strLogout"
+            android:textSize="18sp"/>
+    </FrameLayout>
 
-            <TextView
-                android:id="@+id/btnLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/strLogout"
-                android:textSize="18sp"/>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardEdit"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -116,24 +132,20 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="58dp"
         android:layout_marginRight="58dp"
-        app:cardCornerRadius="25dp">
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnEditBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/btnEditDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/strEdit"
+            android:textSize="18sp" />
+    </FrameLayout>
 
-            <TextView
-                android:id="@+id/btnEditDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/strEdit"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardMoods"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -144,22 +156,18 @@
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="58dp"
         android:layout_marginRight="58dp"
-        app:cardCornerRadius="25dp">
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnMoodsBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/btnMoods"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/strMoodsNav"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/btnMoods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/strMoodsNav"
+            android:textSize="18sp" />
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -175,9 +183,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/toolbar_menu"
         tools:layout_editor_absoluteX="0dp" />
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
 
 </RelativeLayout>
