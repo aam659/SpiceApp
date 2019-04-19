@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CreateEvent extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class CreateEvent extends AppCompatActivity {
     private DatabaseReference reference;
     private FirebaseUser mUser;
     private ArrayList<String> mEmails;
-    private ArrayList<Mood> moods;
+    private ArrayList<Mood> currentPreferences = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,16 +98,13 @@ public class CreateEvent extends AppCompatActivity {
                     if (!dataSnapshot.child(eventName).exists()) {
                         mEmails = adapter.getCheckedUsers();
                         if(mEmails.size() > 1){
-                            createMoodList();
-                            System.out.println(moods);
-                            reference.child(eventName).child("Users").setValue(mEmails);
+                            createMoodList(eventName);
+                            reference.child(eventName).child("users").setValue(mEmails);
                             reference.child(eventName).child("eventName").setValue(eventName);
+                            reference.child(eventName).child("rsvp").setValue(getHashMap());
                             //Intent nextScreen = new Intent(getBaseContext(), eventMessageActivity.class);
                             //nextScreen.putExtra("eventName", eventName);
-                            System.out.println("USERS ADDED " + adapter.getCheckedUsers());
-                            System.out.println("CURRENT USER " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
                             //startActivityForResult(nextScreen, 0);
-                            System.out.println("list of moods: " + moods);
                         }
                         else
                             Toast.makeText(getBaseContext(), "Please select one or more users.", Toast.LENGTH_SHORT).show();
@@ -128,18 +126,31 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
-    private void createMoodList(){
-        for(String e:mEmails){
-            reference = FirebaseDatabase.getInstance().getReference("users").child(e).child("CurrentPreference");
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+    private HashMap<String, Integer> getHashMap() {
+        HashMap <String, Integer> rsvp = new HashMap<>();
+        for(String email : mEmails){
+            rsvp.put(email, 0);
+        }
+        return rsvp;
+    }
+
+    private void createMoodList(String eventName){
+        for(String email : mEmails){
+            DatabaseReference currentPreferenceReference = FirebaseDatabase.getInstance().getReference("users").child(email).child("CurrentPreference");
+            currentPreferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    moods.add(dataSnapshot.getValue(Mood.class));
-                }
+                    try {
+                        currentPreferences.add(dataSnapshot.getValue(Mood.class));
+                        reference.child(eventName).child("currentPreferences").setValue(currentPreferences);
 
+                    }
+                    catch (Exception e){
+                        System.out.println("CURRENT PREFERENCE NOT FOUND: " + e);
+                    }
+                }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
         }
