@@ -117,6 +117,7 @@ public class SpiceItUp extends AppCompatActivity {
     private int progressStatusCounter; // counter for progress bar
     private Handler suiHandler = new Handler(); // Handler for progress bar
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,9 +125,6 @@ public class SpiceItUp extends AppCompatActivity {
         initializeToolbar();    //add toolbar
         initializeNavBar(); //add nav bar
         initMapEngine();    // start places API
-
-        suiProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        loadingTextView = (TextView) findViewById(R.id.loadingComplete);
 
         FirebaseManager.initialize(); // start firbase
         if(FirebaseManager.isLoggedIn()) {  //if user a authenticated get current mood
@@ -161,6 +159,9 @@ public class SpiceItUp extends AppCompatActivity {
             }
         });
 
+
+        suiProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        loadingTextView = (TextView) findViewById(R.id.loadingComplete);
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
@@ -348,10 +349,15 @@ public class SpiceItUp extends AppCompatActivity {
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
+            // System.out.println("Restaurant" + preferencesString);
         } else {
             searchRequest = new SearchRequest("Restaurant");
         }
+
         searchRequest.setSearchCenter(new GeoCoordinate(deviceLatitude,deviceLongitude));
+
+        // Checks device coordinates
+        System.out.println("COORDINATES: " + String.valueOf(deviceLatitude) + " " + String.valueOf(deviceLongitude));
 
         searchRequest.execute(discoveryResultPageListener);
     }
@@ -375,11 +381,12 @@ public class SpiceItUp extends AppCompatActivity {
                 for (DiscoveryResult item : s_ResultList) {
                     if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
                         PlaceLink placeLink = (PlaceLink) item;
-                        // Check for distance
 
+                        // Check for distance
                         if ((placeLink.getDistance() * .00062137) <= distance) {
                             PlaceRequest placeRequest = placeLink.getDetailsRequest();
                             System.out.println("Distance: " + (placeLink.getDistance() * .00062137));
+                            System.out.println("PLACEDETS" + placeRequest.getContent().toString());
                             placeRequest.execute(m_placeResultListener);
                             break;
                         }
@@ -402,7 +409,13 @@ public class SpiceItUp extends AppCompatActivity {
         public void onCompleted(Place place, ErrorCode errorCode) {
             if (errorCode == ErrorCode.NONE) {
                 name = place.getName();
+                // Check place name
+                // FIXME Incorrect place name - address incorrectly set before this
+                System.out.println("PLACENAME: " + name);
                 GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
+                // Check for place coordinates
+                // FIXME Correct location coordinates need to be returned
+                System.out.println("GEOCOORD" + String.valueOf(place.getLocation().getCoordinate()));
                 getHereAddress(geoCoordinate);
                 autoComplete(place.getName());
             }
@@ -527,30 +540,8 @@ public class SpiceItUp extends AppCompatActivity {
                         }
                     });
                 } else {
-//                    ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
-//                    imgRestaurant.setImageResource(R.drawable.chilli_logo);
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            while (progressStatusCounter < 100) {
-                                ++progressStatusCounter;
-                                android.os.SystemClock.sleep(10);
-                                suiHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        suiProgressBar.setProgress(progressStatusCounter);
-                                    }
-                                });
-                            }
-                            suiHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    loadingTextView.setVisibility(View.VISIBLE);
-                                }
-                            });
-                        }
-                    }).start();
+                    ImageView imgRestaurant = (ImageView) findViewById(R.id.imgRestuarant);
+                    imgRestaurant.setImageResource(R.drawable.chilli_logo);
                 }
             }
         }).addOnFailureListener((exception) -> {
@@ -595,6 +586,36 @@ public class SpiceItUp extends AppCompatActivity {
         TextView txtLocation = findViewById(R.id.txtLocation);
         RatingBar ratingBar = findViewById(R.id.rating);
         TextView txtPhone = findViewById(R.id.txtPhone);
+
+        progressStatusCounter = 0;
+// TODO Complete implementation of Progress Bar
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (progressStatusCounter < 100) {
+//                    ++progressStatusCounter;
+//                    android.os.SystemClock.sleep(50);
+//                    suiHandler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (suiProgressBar != null) {
+//                                // FIXME suiProgressBar is null for some reason here
+//                                suiProgressBar.setProgress(progressStatusCounter);
+//                                System.out.println("PROGRESS");
+//                            }
+//                        }
+//                    });
+//                }
+//                suiHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        if (loadingTextView != null)
+////                            loadingTextView.setVisibility(View.VISIBLE);
+//                    }
+//                });
+//            }
+//        }).start();
+
         txtName.setText(name);
         txtLocation.setText(addr);
         ratingBar.setRating((float)rating);

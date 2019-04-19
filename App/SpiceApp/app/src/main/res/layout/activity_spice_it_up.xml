@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/gradient"
     android:layout_width="match_parent"
@@ -93,6 +92,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
+        android:theme="@style/RatingBar"
         android:contentDescription="@string/restaurant_rating" />
 
     <TextView
@@ -162,10 +162,11 @@
         android:id="@+id/progressSUI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangeCategories"
+        android:layout_above="@id/txtLocation"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <TextView
         android:id="@+id/loadingComplete"
