@@ -26,7 +26,7 @@
         android:textSize="30sp"
         android:typeface="sans"/>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardMoodEdit"
         android:layout_width="138dp"
         android:layout_height="80dp"
@@ -40,24 +40,20 @@
         android:layout_marginEnd="219dp"
         android:layout_marginRight="219dp"
         android:layout_marginBottom="250dp"
-        app:cardCornerRadius="18dp">
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnMoodEdit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/strEdit"
+            android:textSize="18sp" />
+    </FrameLayout>
 
-            <TextView
-                android:id="@+id/textEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/strEdit"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardMoodDelete"
         android:layout_width="138dp"
         android:layout_height="80dp"
@@ -69,24 +65,20 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="54dp"
         android:layout_marginBottom="250dp"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        app:cardCornerRadius="18dp">
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnMoodDelete"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/textDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/delete"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/delete"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textMoodName"

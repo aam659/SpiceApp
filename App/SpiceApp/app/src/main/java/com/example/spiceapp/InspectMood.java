@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.spiceapp.FirebaseObjects.Categories;
@@ -32,7 +33,7 @@ public class InspectMood extends AppCompatActivity {
         mood = FirebaseManager.getSpecifcMoodReference(getIntent().getStringExtra("NAME")); //Gets reference to current mood
 
         //On click method for delete button
-        final CardView btnDelete = (CardView) findViewById(R.id.cardMoodDelete);
+        final FrameLayout btnDelete = (FrameLayout) findViewById(R.id.cardMoodDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +44,7 @@ public class InspectMood extends AppCompatActivity {
             }
         });
 
-        final CardView btnEdit = (CardView) findViewById(R.id.cardMoodEdit);
+        final FrameLayout btnEdit = (FrameLayout) findViewById(R.id.cardMoodEdit);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             //TODO: MAKE BREAKFAST SET CATEGORIES TO 0
@@ -89,10 +90,12 @@ public class InspectMood extends AppCompatActivity {
     private String getCategoryText(ArrayList<String> list){
         StringBuilder returnString = new StringBuilder("Categories: ");
         int iter = 0;
-        while (list != null && iter != 2){
+        while (list != null && list.size() != 0 && iter != 2){
             returnString.append(list.get(0));
             list.remove(0);
-            returnString.append(" ");
+            if (list.size() > 0) {
+                returnString.append(", ");
+            }
             iter++;
         }
         return returnString.toString();
