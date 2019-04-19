@@ -38,51 +38,51 @@ public class MapPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_page);
 
-        initializeMap();
-        addMarkerAtPlace();
+//        initializeMap();
+//        addMarkerAtPlace();
     }
 
-    private void initializeMap() {
-        // Search for the map fragment to finish setup by calling init().
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
-        mapFragment.init(new OnEngineInitListener() {
-            @Override
-            public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
-                if (error == OnEngineInitListener.Error.NONE) {
-                    // retrieve a reference of the map from the map fragment
-                    map = mapFragment.getMap();
-                    // Set the map center to the Vancouver region (no animation)
-                    map.setCenter(new GeoCoordinate(33.2098, -87.56592, 0.0),
-                            Map.Animation.LINEAR);
-                    // Set the zoom level to the average between min and max
-                    map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
-                } else {
-                    System.out.println("ERROR: Cannot initialize MapPage Fragment");
-                }
-            }
-        });
-    }
-
-    private void addMarkerAtPlace(/*PlaceLink placeLink*/) {
-            Image img = new Image();
-            try {
-                img.setImageResource(R.drawable.marker);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //cleanMap();
-            MapMarker mapMarker = new MapMarker();
-            mapMarker.setIcon(img);
-            //mapMarker.setCoordinate(new GeoCoordinate(placeLink.getPosition()));
-            //mapMarker.setCoordinate(new GeoCoordinate(33.2098, -87.56592, 0.0));
-            //map.addMapObject(mapMarker);
-            //m_mapObjectList.add(mapMarker);
-    }
-
-    private void cleanMap() {
-        if (!m_mapObjectList.isEmpty()) {
-            map.removeMapObjects(m_mapObjectList);
-            m_mapObjectList.clear();
-        }
-    }
+//    private void initializeMap() {
+//        // Search for the map fragment to finish setup by calling init().
+//        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
+//        mapFragment.init(new OnEngineInitListener() {
+//            @Override
+//            public void onEngineInitializationCompleted(OnEngineInitListener.Error error) {
+//                if (error == OnEngineInitListener.Error.NONE) {
+//                    // retrieve a reference of the map from the map fragment
+//                    map = mapFragment.getMap();
+//                    // Set the map center to the Vancouver region (no animation)
+//                    map.setCenter(new GeoCoordinate(33.2098, -87.56592, 0.0),
+//                            Map.Animation.LINEAR);
+//                    // Set the zoom level to the average between min and max
+//                    map.setZoomLevel((map.getMaxZoomLevel() + map.getMinZoomLevel()) / 2);
+//                } else {
+//                    System.out.println("ERROR: Cannot initialize MapPage Fragment");
+//                }
+//            }
+//        });
+//    }
+//
+//    private void addMarkerAtPlace(/*PlaceLink placeLink*/) {
+//            Image img = new Image();
+//            try {
+//                img.setImageResource(R.drawable.marker);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            //cleanMap();
+//            MapMarker mapMarker = new MapMarker();
+//            mapMarker.setIcon(img);
+//            //mapMarker.setCoordinate(new GeoCoordinate(placeLink.getPosition()));
+//            //mapMarker.setCoordinate(new GeoCoordinate(33.2098, -87.56592, 0.0));
+//            //map.addMapObject(mapMarker);
+//            //m_mapObjectList.add(mapMarker);
+//    }
+//
+//    private void cleanMap() {
+//        if (!m_mapObjectList.isEmpty()) {
+//            map.removeMapObjects(m_mapObjectList);
+//            m_mapObjectList.clear();
+//        }
+//    }
 }

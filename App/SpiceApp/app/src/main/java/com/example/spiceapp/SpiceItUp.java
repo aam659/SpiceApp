@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Rating;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -116,6 +117,7 @@ public class SpiceItUp extends AppCompatActivity {
     private TextView loadingTextView;   // TextView for loading information
     private int progressStatusCounter; // counter for progress bar
     private Handler suiHandler = new Handler(); // Handler for progress bar
+    private GeoCoordinate geoCoordinate; // Geocoordinate for place location
 
 
     @Override
@@ -412,7 +414,7 @@ public class SpiceItUp extends AppCompatActivity {
                 // Check place name
                 // FIXME Incorrect place name - address incorrectly set before this
                 System.out.println("PLACENAME: " + name);
-                GeoCoordinate geoCoordinate = place.getLocation().getCoordinate();
+                geoCoordinate = place.getLocation().getCoordinate();
                 // Check for place coordinates
                 // FIXME Correct location coordinates need to be returned
                 System.out.println("GEOCOORD" + String.valueOf(place.getLocation().getCoordinate()));
@@ -558,8 +560,14 @@ public class SpiceItUp extends AppCompatActivity {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Intents <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
     //launch activty in future for nav
     private void launchMap(){
-        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
-        startActivityForResult(nextScreen, 0);
+//        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
+//        startActivityForResult(nextScreen, 0);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + addr);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
     }
 
     /**
