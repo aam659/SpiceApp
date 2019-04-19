@@ -10,7 +10,6 @@
     android:background="#d50000"
     app:itemIconTint="#fafafa"
     app:itemTextColor="#fafafa"
-    app:layout_constraintBottom_toBottomOf="parent"
     app:menu="@menu/toolbar_menu"
     tools:layout_editor_absoluteX="0dp">
 

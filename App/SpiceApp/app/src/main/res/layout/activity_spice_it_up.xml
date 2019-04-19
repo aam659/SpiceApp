@@ -8,7 +8,9 @@
     android:layout_height="match_parent"
     tools:context=".SpiceItUp">
 
-    <!--android:id="@+id/btnChangeCategories"-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
 
     <FrameLayout
         android:id="@+id/btnChangeCategories"
@@ -23,22 +25,18 @@
         android:layout_marginEnd="130dp"
         android:layout_marginRight="58dp"
         android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true"
         android:backgroundTint="@color/colorPrimary">
 
-        <RelativeLayout
-            android:id="@+id/btnChangeCategoriesBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/btnBtnChange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/ChangeMood"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/btnBtnChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ChangeMood"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
     </FrameLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -92,20 +90,19 @@
         android:isIndicator="true"
         android:layout_above="@+id/btnSIU"
         android:layout_alignStart="@+id/toolbar"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:contentDescription="@string/restaurant_rating" />
 
     <TextView
         android:id="@+id/txtPhone"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/btnAccept"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="210dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="15dp"
+        android:layout_alignEnd="@id/toolbar"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:contentDescription="@string/restaurant_phone"
         android:gravity="center"
         android:text="@string/restaurant_phone"
@@ -128,19 +125,13 @@
         android:focusable="true"
         android:layout_below="@id/btnLoginBtn">
 
-        <RelativeLayout
-            android:id="@+id/btnSIUBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/btnTextSIU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/btnSIU"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/btnTextSIU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btnSIU"
+            android:textSize="18sp" />
     </FrameLayout>
 
     <FrameLayout
@@ -158,32 +149,14 @@
         android:clickable="true"
         android:focusable="true">
 
-        <RelativeLayout
-            android:id="@+id/btnAcceptBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/btnTextAccept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/btnAccept"
-                android:textSize="18sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/btnTextAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btnAccept"
+            android:textSize="18sp" />
     </FrameLayout>
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />  <!-- Top toolbar -->
-
-    <include
-        android:id="@+id/bottom_navigation"
-        layout="@layout/nav_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:layout_alignParentBottom="true" />
-
 
     <ProgressBar
         android:id="@+id/progressSUI"
@@ -203,5 +176,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:visibility="invisible"/>
+
+    <include
+        android:id="@+id/bottom_navigation"
+        layout="@layout/nav_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
