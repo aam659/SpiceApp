@@ -23,8 +23,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/socialViewPager"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="505dp"
+        android:layout_marginTop="34dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintTop_toBottomOf="@+id/socialTab" />
 
@@ -41,7 +41,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/toolbar_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/toolbar_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
