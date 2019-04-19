@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
@@ -84,8 +85,8 @@ public class HomePage extends AppCompatActivity {
 
 
             final TextView btnMainAction = (TextView) findViewById(R.id.btnMainAct);
-            final CardView btnMainActionCard = (CardView) findViewById(R.id.cardSignIn);
-            final CardView btnChoosePreference = (CardView) findViewById(R.id.cardChoosePreference);
+            final FrameLayout btnMainActionCard = (FrameLayout) findViewById(R.id.cardSignIn);
+            final FrameLayout btnChoosePreference = (FrameLayout) findViewById(R.id.cardChoosePreference);
 
             btnMainActionCard.startAnimation(atg);
             btnChoosePreference.startAnimation(atg2);
