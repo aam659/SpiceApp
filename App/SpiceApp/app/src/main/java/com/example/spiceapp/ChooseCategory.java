@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ChooseCategory extends AppCompatActivity {
         String nameOfMood = getIntent().getStringExtra("NAME_OF_MOOD");
 
         //Confirm button
-        final CardView btnConfirm = (CardView) findViewById(R.id.cardConfirmCat);
+        final FrameLayout btnConfirm = (FrameLayout) findViewById(R.id.cardConfirmCat);
 
 
         //An enumerated list of the checkboxes
