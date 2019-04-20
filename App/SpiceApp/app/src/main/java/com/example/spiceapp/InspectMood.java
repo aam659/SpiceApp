@@ -1,5 +1,6 @@
 package com.example.spiceapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -11,7 +12,11 @@ import android.widget.TextView;
 
 import com.example.spiceapp.FirebaseObjects.Categories;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -49,12 +54,39 @@ public class InspectMood extends AppCompatActivity {
             @Override
             //TODO: MAKE BREAKFAST SET CATEGORIES TO 0
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MealTime.class);
-                intent.putExtra("NAME_OF_MOOD", getIntent().getStringExtra("NAME"));
-                startActivityForResult(intent, 0);
+                checkIfCurrentMood();
             }
         });
 
+    }
+
+    private void checkIfCurrentMood(){
+        Query query = FirebaseManager.getCurrentPreference();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final String nameOfMood = getIntent().getStringExtra("NAME");
+                System.out.println("SELECTED " + nameOfMood);
+                String currMood = dataSnapshot.child("name").getValue(String.class);
+                Intent intent = new Intent(getApplicationContext(), MealTime.class);
+                if(nameOfMood.equals(currMood)){
+                    System.out.println("curr " + currMood);
+                    intent.putExtra("ISCURR","yes");// is current mood
+                    intent.putExtra("NAME_OF_MOOD", getIntent().getStringExtra("NAME"));
+                    startActivityForResult(intent, 0);
+                }
+                else{
+                    intent.putExtra("ISCURR","no");// not current mood
+                    intent.putExtra("NAME_OF_MOOD", getIntent().getStringExtra("NAME"));
+                    startActivityForResult(intent, 0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

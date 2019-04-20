@@ -233,7 +233,9 @@ public class CreateEvent extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<ArrayList<Mood>> t = new GenericTypeIndicator<ArrayList<Mood>>() {};
                 ArrayList<Mood> yourStringArray = dataSnapshot.child("currentPreferences").getValue(t);
-                if(currentPreferences.size() > 0) mood = currentPreferences.get(0);
+                Random rand = new Random();
+
+                if(currentPreferences.size() > 0) mood = currentPreferences.get(rand.nextInt(currentPreferences.size()));
                 ArrayList<String> categories = mood.getCategories();
 
 
@@ -264,8 +266,7 @@ public class CreateEvent extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-        //Random rand = new Random();
-        //rand.nextInt(currentPreferences.size())
+
 
     }
 

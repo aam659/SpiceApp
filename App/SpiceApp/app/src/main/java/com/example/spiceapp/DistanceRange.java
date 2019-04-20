@@ -31,22 +31,9 @@ public class DistanceRange extends AppCompatActivity {
 
         FirebaseUser user = FirebaseManager.getCurrentUser();
         database = FirebaseManager.getDatabaseReference();
-        Query query = FirebaseManager.getCurrentPreference();
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                curr = dataSnapshot.getValue(Mood.class);
-                currMood = dataSnapshot.child("name").getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         final String nameOfMood = getIntent().getStringExtra("NAME_OF_MOOD");
-
+        String isCurr = getIntent().getStringExtra("ISCURR");
         final Spinner distance = (Spinner) findViewById(R.id.spinnerDistance);
         ArrayAdapter<CharSequence> distanceAdapt = ArrayAdapter.createFromResource(this, R.array.distances, android.R.layout.simple_spinner_dropdown_item);
         distanceAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -58,9 +45,8 @@ public class DistanceRange extends AppCompatActivity {
             public void onClick(View v) {
                 double distanceNum = Double.valueOf(distance.getSelectedItem().toString().split(" ")[0]);
                 database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("distance").setValue(distanceNum);
-                if(nameOfMood == currMood){
-                    FirebaseManager.setCurrentPreference(curr);
-                }
+                if(isCurr.equals("yes"))
+                    database.child("users").child(user.getEmail().replace('.','_')).child("CurrentPreference").child("distance").setValue(distanceNum);
                 Intent nextScreen = new Intent(v.getContext(), HomePage.HomePageActivity.class);
                 startActivityForResult(nextScreen, 0);
             }
