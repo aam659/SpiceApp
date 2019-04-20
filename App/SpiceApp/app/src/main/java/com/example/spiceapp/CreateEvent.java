@@ -37,7 +37,6 @@ import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
 import com.here.android.mpa.search.ErrorCode;
 import com.here.android.mpa.search.PlaceLink;
-import com.here.android.mpa.search.PlaceRequest;
 import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.SearchRequest;
 
@@ -71,7 +70,14 @@ public class CreateEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
 
-        initMapEngine();    // start places API
+        locationSetup(new LocationCallBack() {
+            @Override
+            public void onCallback(double lat, double lon) {
+                deviceLatitude = lat;
+                deviceLongitude = lon;
+            }
+        });
+        initMapEngine();
 
         recyclerView = findViewById(R.id.recyclerNewEvent);
         recyclerView.setHasFixedSize(true);
@@ -79,23 +85,10 @@ public class CreateEvent extends AppCompatActivity {
         mUsers = new ArrayList<>();
         adapter = new NewGroupAdapter(this,  mUsers);
 
-        locationSetup(new LocationCallBack() {
-            @Override
-            public void onCallback(double lat, double lon) {
-                deviceLatitude = lat;
-                deviceLongitude = lon;
-                readUsers();
-            }
-        });
-
+        readUsers();
 
         editEventName = findViewById(R.id.newEventName);
-        findViewById(R.id.btnMakeEvent).setOnClickListener(view -> makeEvent(new EventCallBack() {
-            @Override
-            public void onCallback() {
-                addEventToDB();
-            }
-        }));
+        findViewById(R.id.btnMakeEvent).setOnClickListener(view -> makeEvent());
 
 
     }
@@ -131,7 +124,7 @@ public class CreateEvent extends AppCompatActivity {
 
     }
 
-    private void makeEvent(CreateEvent.EventCallBack eventCallBack){
+    private void makeEvent(){
         reference = FirebaseDatabase.getInstance().getReference("Events");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -143,8 +136,15 @@ public class CreateEvent extends AppCompatActivity {
                     if (!dataSnapshot.child(eventName).exists()) {
                         mEmails = adapter.getCheckedUsers();
                         if(mEmails.size() > 1){
-                            createMoodList(eventName);
-                            findPlace();
+                            createMoodList(eventName, new PlaceCallBack() {
+                                @Override
+                                public void onCallback() {
+                                    //findPlace();
+                                }
+                            });
+                            reference.child(eventName).child("users").setValue(mEmails);
+                            reference.child(eventName).child("eventName").setValue(eventName);
+                            reference.child(eventName).child("rsvp").setValue(getHashMap());
                             //Intent nextScreen = new Intent(getBaseContext(), eventMessageActivity.class);
                             //nextScreen.putExtra("eventName", eventName);
                             //startActivityForResult(nextScreen, 0);
@@ -167,11 +167,6 @@ public class CreateEvent extends AppCompatActivity {
         else
             Toast.makeText(getBaseContext(), "Please enter a name.", Toast.LENGTH_SHORT).show();
 
-        eventCallBack.onCallback();
-    }
-
-    private interface EventCallBack{
-        void onCallback();
     }
 
     private HashMap<String, Integer> getHashMap() {
@@ -182,7 +177,7 @@ public class CreateEvent extends AppCompatActivity {
         return rsvp;
     }
 
-    private void createMoodList(String eventName){
+    private void createMoodList(String eventName,CreateEvent.PlaceCallBack placeCallBack){
         for(String email : mEmails){
             DatabaseReference currentPreferenceReference = FirebaseDatabase.getInstance().getReference("users").child(email).child("CurrentPreference");
             currentPreferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -202,6 +197,11 @@ public class CreateEvent extends AppCompatActivity {
                 }
             });
         }
+        placeCallBack.onCallback();
+    }
+
+    private interface PlaceCallBack{
+        void onCallback();
     }
 
     /**
@@ -230,8 +230,9 @@ public class CreateEvent extends AppCompatActivity {
      * if signed in it uses current mood else it uses a random search
      */
     private void findPlace(){
-        Random rand = new Random();
-        mood = currentPreferences.get(rand.nextInt(currentPreferences.size()));
+        //Random rand = new Random();
+        //rand.nextInt(currentPreferences.size())
+        mood = currentPreferences.get(0);
         ArrayList<String> categories = mood.getCategories();
 
 
@@ -379,14 +380,5 @@ public class CreateEvent extends AppCompatActivity {
      */
     private interface LocationCallBack{
         void onCallback(double lat,double lon);
-    }
-
-    private void addEventToDB() {
-        String eventName = editEventName.getText().toString();
-        reference = FirebaseDatabase.getInstance().getReference("Events");
-        reference.child(eventName).child("users").setValue(mEmails);
-        reference.child(eventName).child("eventName").setValue(eventName);
-        reference.child(eventName).child("rsvp").setValue(getHashMap());
-        reference.child(eventName).child("rsvp").setValue(place);
     }
 }
