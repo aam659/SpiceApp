@@ -34,7 +34,7 @@ public class ChooseCategory extends AppCompatActivity {
 
         //Retrieves mood name from previous intent
         String nameOfMood = getIntent().getStringExtra("NAME_OF_MOOD");
-
+        String isCurr = getIntent().getStringExtra("ISCURR");
         //Confirm button
         final FrameLayout btnConfirm = (FrameLayout) findViewById(R.id.cardConfirmCat);
 
@@ -85,7 +85,10 @@ public class ChooseCategory extends AppCompatActivity {
                 if(checkBurgers.isChecked())
                     categories.add("Burgers");
                 database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("categories").setValue(categories);
+                if(isCurr.equals("yes"))
+                    database.child("users").child(user.getEmail().replace('.','_')).child("CurrentPreference").child("categories").setValue(categories);
                 Intent nextScreen = new Intent (v.getContext(), PriceRange.class);
+                nextScreen.putExtra("ISCURR",isCurr);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
             }

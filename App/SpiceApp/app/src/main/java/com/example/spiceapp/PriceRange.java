@@ -25,7 +25,7 @@ public class PriceRange extends AppCompatActivity {
         database = FirebaseManager.getDatabaseReference();
 
         final String nameOfMood = getIntent().getStringExtra("NAME_OF_MOOD");
-
+        String isCurr = getIntent().getStringExtra("ISCURR");
         final Spinner maximum = (Spinner) findViewById(R.id.spinnerMaximum);
         ArrayAdapter<CharSequence> maxAdapt = ArrayAdapter.createFromResource(this, R.array.priceRange, android.R.layout.simple_spinner_dropdown_item);
         maxAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -44,7 +44,12 @@ public class PriceRange extends AppCompatActivity {
                 database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("price").child("HighPrice").setValue(maxInt);
                 int minInt = getIntegerRepresentation(minimum.getSelectedItem().toString());
                 database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(nameOfMood).child("price").child("LowPrice").setValue(minInt);
+                if(isCurr.equals("yes")){
+                    database.child("users").child(user.getEmail().replace('.','_')).child("CurrentPreference").child("price").child("highPrice").setValue(maxInt);
+                    database.child("users").child(user.getEmail().replace('.','_')).child("CurrentPreference").child("price").child("lowPrice").setValue(minInt);
+                }
                 Intent nextScreen = new Intent(v.getContext(), DistanceRange.class);
+                nextScreen.putExtra("ISCURR",isCurr);
                 nextScreen.putExtra("NAME_OF_MOOD", nameOfMood);
                 startActivityForResult(nextScreen, 0);
             }
