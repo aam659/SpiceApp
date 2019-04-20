@@ -49,6 +49,7 @@ public class ProfilePage extends AppCompatActivity {
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     private static String fullName = null;
+    private static String email;
     private final String TAG = "ProfilePage";
     private static String phoneNumber;
 
@@ -56,7 +57,7 @@ public class ProfilePage extends AppCompatActivity {
      * FirebaseCallback used to wait for the data to populate
      */
     private interface FirebaseCallback{
-        void onCallback(String fullName, String phoneNumber);
+        void onCallback(String fullName, String phoneNumber, String email);
     }
 
 
@@ -69,6 +70,7 @@ public class ProfilePage extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.textName);
         TextView number = (TextView) findViewById(R.id.textPhone);
+        TextView txtEmail = (TextView) findViewById(R.id.textEmail);
         final TextView btnMoods = (TextView) findViewById(R.id.btnMoods);
         final TextView btnLogout = (TextView) findViewById(R.id.btnLogout);
         final TextView btnEdit = (TextView) findViewById(R.id.btnEditDetails);
@@ -96,11 +98,13 @@ public class ProfilePage extends AppCompatActivity {
         // Gets Firebase user info
         getUserInfo(new FirebaseCallback() {
             @Override
-            public void onCallback(String fullName, String phoneNumber) {
+            public void onCallback(String fullName, String phoneNumber, String email) {
                 if (fullName != null) {
                     name.setText(fullName);
                 }
-
+                if (email != null) {
+                    txtEmail.setText(email);
+                }
                 if (phoneNumber != null) {
                     number.setText("Phone Number: " + phoneNumber);
                 }
@@ -229,12 +233,12 @@ public class ProfilePage extends AppCompatActivity {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    email = dataSnapshot.child("email").getValue(String.class);
                     fullName = dataSnapshot.child("fName").getValue(String.class) + " " + dataSnapshot.child("lName").getValue(String.class);
                     phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
                     //TODO Add username and email fields to be displayed
 
-                    firebaseCallback.onCallback(fullName, phoneNumber);
+                    firebaseCallback.onCallback(fullName, phoneNumber, email);
                 }
 
                 @Override
