@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.EventDisplay;
 import com.example.spiceapp.FirebaseObjects.Event;
 import com.example.spiceapp.FirebaseObjects.User;
 import com.example.spiceapp.MessageActivity;
@@ -46,10 +47,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "EVENTNAME", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(mContext, EventDisplay.class);
-//                intent.putExtra("eventName", event.getEventName());
-//                mContext.startActivity(intent);
+//                Toast.makeText(mContext, "EVENTNAME", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, EventDisplay.class);
+                intent.putExtra("eventName", event.getEventName());
+                mContext.startActivity(intent);
             }
         });
 
