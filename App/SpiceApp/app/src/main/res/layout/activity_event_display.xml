@@ -17,7 +17,7 @@
         android:layout_height="180dp"
         android:layout_below="@+id/toolbar"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="123dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/imgRestaurant" />
 
@@ -25,11 +25,10 @@
         android:id="@+id/txtName"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/imgRestuarant"
+        android:layout_above="@+id/txtLocation"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="23dp"
         android:contentDescription="@string/restaurant_name"
         android:gravity="center"
         android:text="@string/restaurant_name"
@@ -45,41 +44,29 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="75dp"
         android:gravity="center"
         android:text="@string/txtLocation" />
 
     <RatingBar
         android:id="@+id/rating"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/ratingBarStyleSmall"
+        android:layout_above="@+id/btnSIU"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="38dp"
+        android:contentDescription="@string/restaurant_rating"
+        android:isIndicator="true"
+        android:numStars="5"
         android:scaleX="2.0"
         android:scaleY="2.0"
-        android:numStars="5"
         android:stepSize="0.1"
-        android:isIndicator="true"
-        android:layout_above="@+id/btnSIU"
-        android:layout_alignStart="@+id/toolbar"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:theme="@style/RatingBar"
-        android:contentDescription="@string/restaurant_rating" />
+        android:theme="@style/RatingBar" />
 
-    <TextView
-        android:id="@+id/txtPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnAccept"
-        android:layout_alignEnd="@id/toolbar"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:contentDescription="@string/restaurant_phone"
-        android:gravity="center"
-        android:text="@string/restaurant_phone"
-        android:textSize="15sp" />
 
     <!--android:id="@+id/btnSIU"-->
 
@@ -88,15 +75,15 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_above="@+id/bottom_navigation"
+        android:layout_below="@id/btnLoginBtn"
         android:layout_alignStart="@id/toolbar"
-        android:layout_marginStart="15dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="14dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="25dp"
-        android:layout_gravity="start"
         android:background="@drawable/sign_in_btn"
         android:clickable="true"
-        android:focusable="true"
-        android:layout_below="@id/btnLoginBtn">
+        android:focusable="true">
 
         <TextView
             android:id="@+id/btnTextSIU"
@@ -114,10 +101,10 @@
         android:layout_above="@+id/bottom_navigation"
         android:layout_below="@id/btnLoginBtn"
         android:layout_alignEnd="@id/toolbar"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="25dp"
         android:layout_gravity="end"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="21dp"
         android:background="@drawable/sign_in_btn"
         android:clickable="true"
         android:focusable="true">

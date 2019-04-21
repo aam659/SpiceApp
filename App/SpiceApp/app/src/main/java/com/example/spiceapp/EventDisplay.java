@@ -48,7 +48,6 @@ public class EventDisplay extends AppCompatActivity {
     private final String TAG = "EventDisplay";
     private PlacesClient placesClient;
     private static double rating = 0.0; // rating of place - Default in case null
-    private String phone = "205 555 5555"; // PhoneNumber of place - Default in case null
     private Bitmap bitmap;  //pic of place
 
     @Override
@@ -56,7 +55,7 @@ public class EventDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_display);
         FirebaseManager.initialize();
-
+        
         getCurrentPlace();
     }
 
@@ -123,7 +122,7 @@ public class EventDisplay extends AppCompatActivity {
     private void findPlaceByID(String id,String name,String addr) {
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Place.Field> fields =
-                Arrays.asList(Place.Field.PHOTO_METADATAS, Place.Field.PRICE_LEVEL, Place.Field.PHONE_NUMBER, Place.Field.RATING);
+                Arrays.asList(Place.Field.PHOTO_METADATAS, Place.Field.PRICE_LEVEL, Place.Field.RATING);
 
 // Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
         FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(id, fields).build();
@@ -138,11 +137,6 @@ public class EventDisplay extends AppCompatActivity {
                 else if(place.getRating() == null)
                     System.out.println("rating was null");
 
-                if(place.getPhoneNumber() != null) {
-                    phone = place.getPhoneNumber();
-                }
-                else if(place.getPhoneNumber() == null)
-                    System.out.println("Phone Number was null");
                 // Get the photo metadata.
                 if (place.getPhotoMetadatas() != null) {
                     PhotoMetadata photoMetadata = place.getPhotoMetadatas().get(0);
@@ -157,7 +151,7 @@ public class EventDisplay extends AppCompatActivity {
                             .build();
                     placesClient.fetchPhoto(photoRequest).addOnSuccessListener((fetchPhotoResponse) -> {
                         bitmap = fetchPhotoResponse.getBitmap();
-                        updateViews(addr);
+                        updateViews(addr,name);
                     }).addOnFailureListener((exception) -> {
                         if (exception instanceof ApiException) {
                             ApiException apiException = (ApiException) exception;
@@ -185,15 +179,14 @@ public class EventDisplay extends AppCompatActivity {
      * updateViews
      * updates all views with the results place details
      */
-    private void updateViews(String addr){
+    private void updateViews(String addr,String name){
         TextView txtName = findViewById(R.id.txtName);
         TextView txtLocation = findViewById(R.id.txtLocation);
         RatingBar ratingBar = findViewById(R.id.rating);
-        TextView txtPhone = findViewById(R.id.txtPhone);
 
         txtLocation.setText(addr);
         ratingBar.setRating((float)rating);
-        txtPhone.setText(phone);
+        txtName.setText(name);
 
         ImageView restaurantImage = findViewById(R.id.imgRestuarant);
         restaurantImage.setImageBitmap(bitmap);
