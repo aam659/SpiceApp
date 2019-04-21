@@ -1,7 +1,7 @@
 /* Search Bar Function */
 
 //Enter domain of site to search.
-let domainroot="https://aam659.github.io/SpiceApp/downloads.html"
+let domainroot="https://aam659.github.io/SpiceApp/downloads.html";
 
 let searchaction=[ //form action for the 3 search engines
     "http://www.google.com/search",
