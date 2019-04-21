@@ -1,8 +1,4 @@
 /* Search Bar Function */
-// document.getElementById('searchform').onsubmit = function() {
-//     window.location = "http://www.google.com/search?q=site:http://127.0.0.1:5500/downloads.html" + document.getElementById('search').nodeValue.valueOf;
-//     return false;
-// }
 
 //Enter domain of site to search.
 let domainroot="https://aam659.github.io/SpiceApp/"
