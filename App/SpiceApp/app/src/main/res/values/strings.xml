@@ -111,4 +111,6 @@
     <string name="TypeAMessage">Type a message...</string>
     <string name="strEnterGroupName">Enter New Group Name</string>
     <string name="strEnterEventName">Enter event name</string>
+    <string name="btnNo">No</string>
+    <string name="btnYes">Yes</string>
 </resources>

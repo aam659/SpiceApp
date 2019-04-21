@@ -116,4 +116,8 @@ public class FirebaseManager {
     static boolean isLoggedIn() {
             return !(FirebaseAuth.getInstance().getCurrentUser() == null);
     }
+
+    static DatabaseReference getEventRefernce(String name){
+        return mDatabase.getReference("Events/"+name);
+    }
 }

@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/spice_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateEvent"></activity>
+        <activity android:name=".EventDisplay"></activity>
+        <activity android:name=".CreateEvent" />
         <activity android:name=".GroupMessageActivity" />
         <activity
             android:name=".MakeChat"
