@@ -59,9 +59,14 @@
                 <a class="nav-link" href="team.html">Development Team</a>
               </li>
             </ul>
-            <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
+            <!-- <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
               <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            <form name="jksearch" class="form-inline mt-2 mt-md-0" action="https://www.google.com/search?" method="get" onSubmit="sitesearch(this)">
+              <input id="hiddenquery" type="hidden" name="q" />
+              <input name="qfront" type="text" class="form-control mr-sm-2" placeholder="Search" /> 
+              <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" /><br />
             </form>
           </div>
         </nav>
