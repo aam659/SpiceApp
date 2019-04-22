@@ -190,7 +190,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's first name
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("fName").setValue(firstName);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("fName").setValue(firstName);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
@@ -226,7 +226,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's name to firstName
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("Moods").setValue(moods);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("Moods").setValue(moods);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
@@ -258,7 +258,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's name to firstName
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("CurrentPreference").child("name").setValue(currentPreference);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("CurrentPreference").child("name").setValue(currentPreference);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
@@ -294,7 +294,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's name to firstName
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("Moods").setValue(moods);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("Moods").setValue(moods);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
@@ -323,7 +323,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's name to firstName
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("lName").setValue(lastName);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("lName").setValue(lastName);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
@@ -354,7 +354,7 @@ public class FirebaseManagerTest {
         mockedFirebaseUser = mockedFirebaseAuth.getCurrentUser();
 
         // Set mocked user's name to firstName
-        mockedDatabaseReference.child("users").child(mockedFirebaseuser.getEmail().replace('.','_')()).child("phoneNumber").setValue(phone);
+        mockedDatabaseReference.child("users").child(mockedFirebaseUser.getEmail().replace('.','_')).child("phoneNumber").setValue(phone);
 
         // Mock DataSnapshot
         DataSnapshot mockedDataSnapshot = Mockito.mock(DataSnapshot.class);
