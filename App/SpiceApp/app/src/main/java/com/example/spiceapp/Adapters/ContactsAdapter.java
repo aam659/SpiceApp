@@ -31,7 +31,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
     private Context mContext;
     private List<User> mUsers;
     private FirebaseStorage storage;
-    StorageReference storageReference;
+    private StorageReference storageReference;
 
     public ContactsAdapter(Context mContext, List<User> mUsers){
         this.mContext = mContext;
@@ -50,7 +50,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         User user = mUsers.get(position);
         String setName = user.getfName() + " " +user.getlName();
         holder.userName.setText(setName);
-        //TODO: Somehow add profile picture
+
+        // add profile picture
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
