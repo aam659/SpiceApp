@@ -43,6 +43,7 @@
         android:layout_width="fill_parent"
         android:layout_height="180dp"
         android:layout_below="@+id/btnChangeCategories"
+        android:layout_above="@+id/txtName"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
@@ -52,11 +53,11 @@
         android:id="@+id/txtName"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/imgRestuarant"
+        android:layout_above="@id/txtLocation"
         android:layout_marginStart="14dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="-4dp"
         android:contentDescription="@string/restaurant_name"
         android:gravity="center"
         android:text="@string/restaurant_name"
@@ -68,12 +69,12 @@
         android:id="@+id/txtLocation"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_above="@id/btnSIU"
+        android:layout_above="@id/rating"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="13dp"
         android:gravity="center"
         android:text="@string/txtLocation" />
 
@@ -82,11 +83,13 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSIU"
+        android:layout_above="@+id/btnDetails"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="165dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="166dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="21dp"
         android:contentDescription="@string/restaurant_rating"
         android:isIndicator="true"
         android:numStars="5"
@@ -165,5 +168,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:id="@+id/btnDetails"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/btnAccept"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="134dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/txtDetails"
+            android:textSize="18sp" />
+    </FrameLayout>
 
 </RelativeLayout>
