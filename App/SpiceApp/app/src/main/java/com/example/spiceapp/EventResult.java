@@ -59,6 +59,7 @@ public class EventResult extends AppCompatActivity {
 
         getCurrentPlace();
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+        findViewById(R.id.btnDetails).setOnClickListener(view -> dropPin());
     }
 
     private void getCurrentPlace(){
@@ -217,6 +218,26 @@ public class EventResult extends AppCompatActivity {
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mapIntent);
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void dropPin(){
+        final String name = getIntent().getStringExtra("eventName");
+        Query query = FirebaseManager.getEventRefernce(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String addr = dataSnapshot.child("addr").getValue(String.class);
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + addr);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
             }
 
             @Override
