@@ -162,6 +162,7 @@ public class SpiceItUp extends AppCompatActivity {
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+        findViewById(R.id.btnDetails).setOnClickListener(view -> dropPin());
         findViewById(R.id.btnChangeCategories).setOnClickListener(view -> chooseMood());
     }
 
@@ -564,6 +565,10 @@ public class SpiceItUp extends AppCompatActivity {
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         }
+    }
+
+    private void dropPin(){
+        //todo: alan please add code here
     }
 
     /**
