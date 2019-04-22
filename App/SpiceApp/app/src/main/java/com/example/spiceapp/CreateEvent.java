@@ -235,7 +235,7 @@ public class CreateEvent extends AppCompatActivity {
                 ArrayList<Mood> yourStringArray = dataSnapshot.child("currentPreferences").getValue(t);
                 Random rand = new Random();
 
-                if(currentPreferences.size() > 0) mood = currentPreferences.get(rand.nextInt(currentPreferences.size()));
+                if(yourStringArray.size() > 0) mood = yourStringArray.get(rand.nextInt(yourStringArray.size()));
                 ArrayList<String> categories = mood.getCategories();
 
 

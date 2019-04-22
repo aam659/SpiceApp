@@ -3,6 +3,7 @@ package com.example.spiceapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DownloadManager;
 import android.graphics.Bitmap;
@@ -30,10 +31,13 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.here.android.mpa.common.GeoCoordinate;
+import com.here.android.mpa.common.MapEngine;
+import com.here.android.mpa.common.OnEngineInitListener;
 import com.here.android.mpa.search.Address;
 import com.here.android.mpa.search.DiscoveryResult;
 import com.here.android.mpa.search.DiscoveryResultPage;
@@ -50,20 +54,47 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class EventDisplay extends AppCompatActivity {
     private final String TAG = "EventDisplay";
     private PlacesClient placesClient;
     private static double rating = 0.0; // rating of place - Default in case null
     private Bitmap bitmap;  //pic of place
+    private int distance;
+    private List<DiscoveryResult> s_ResultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_display);
+        initializeToolbar();
+        initMapEngine();
         FirebaseManager.initialize();
         findViewById(R.id.btnSIU).setOnClickListener(view -> vote(-1));
         findViewById(R.id.btnAccept).setOnClickListener(view -> vote(1));
+
+        final String name = getIntent().getStringExtra("eventName");
+        Query query = FirebaseManager.getEventRefernce(name);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int vote = dataSnapshot.child("rsvp").child(FirebaseManager
+                        .getCurrentUser().getEmail().replace('.','_')).getValue(Integer.class);
+                ActionBar actionBar = getSupportActionBar();
+                if(vote == 1)
+                    actionBar.setTitle("Current Vote: Yes");
+                else if(vote == -1)
+                    actionBar.setTitle("Current Vote: No");
+                else
+                    actionBar.setTitle("You Have Not Voted.");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         getCurrentPlace();
     }
@@ -199,8 +230,6 @@ public class EventDisplay extends AppCompatActivity {
 
         ImageView restaurantImage = findViewById(R.id.imgRestuarant);
         restaurantImage.setImageBitmap(bitmap);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setTitle("Mood: " + moodName);
     }
 
     private void vote(int x){
@@ -214,7 +243,7 @@ public class EventDisplay extends AppCompatActivity {
         });
     }
 
-    private int checkVotes(){
+    private void checkVotes(){
         final String name = getIntent().getStringExtra("eventName");
         Query query = FirebaseManager.getEventRefernce(name).child("rsvp");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -232,7 +261,7 @@ public class EventDisplay extends AppCompatActivity {
                 if(yes/rsvpMap.size() >= .5)
                     Toast.makeText(getApplicationContext(),"accepted",Toast.LENGTH_SHORT).show();
                 else if (no/rsvpMap.size() > .5)
-                    Toast.makeText(getApplicationContext(),"declined",Toast.LENGTH_SHORT).show();
+                    updatePlace();
             }
 
             @Override
@@ -240,6 +269,187 @@ public class EventDisplay extends AppCompatActivity {
 
             }
         });
-        return 0;
     }
+
+    /**
+     * initializeToolbar
+     * setups up general purpose top action bar
+     */
+    private void initializeToolbar(){
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+    }
+
+    private void updatePlace(){
+        final String name = getIntent().getStringExtra("eventName");
+        Query query = FirebaseManager.getEventRefernce(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double lat = dataSnapshot.child("lat").getValue(Double.class);
+                double lon = dataSnapshot.child("lon").getValue(Double.class);
+                GenericTypeIndicator<HashMap<String,Integer>> t = new GenericTypeIndicator<HashMap<String,Integer>>() {};
+                HashMap<String,Integer> map = dataSnapshot.child("rsvp").getValue(t);
+                for(Map.Entry<String,Integer> entry : map.entrySet()){
+                    entry.setValue(0);
+                }
+                FirebaseManager.getEventRefernce(name).child("rsvp").setValue(map);
+                placeSearch(lat,lon);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void placeSearch(double lat,double lon){
+        final String eventName = getIntent().getStringExtra("eventName");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Events").child(eventName);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<ArrayList<Mood>> t = new GenericTypeIndicator<ArrayList<Mood>>() {};
+                ArrayList<Mood> yourStringArray = dataSnapshot.child("currentPreferences").getValue(t);
+                Random rand = new Random();
+                Mood mood;
+                ArrayList<String> categories;
+                if(yourStringArray.size() > 0) {
+                    mood = yourStringArray.get(rand.nextInt(yourStringArray.size()));
+                    categories = mood.getCategories();
+
+
+                    distance = (int) mood.getDistance();
+                    String query = "";
+                    if (categories != null) {
+                        for (int i = categories.size() - 1; i > -1; --i) {
+                            if (i != -1)
+                                query += ", ";
+
+                            query += categories.get(i);
+                        }
+                    } else {
+                        query += ", Breakfast";
+                    }
+                    SearchRequest searchRequest;
+                    searchRequest = new SearchRequest("Restaurant" + query);
+
+                    searchRequest.setSearchCenter(new GeoCoordinate(lat, lon));
+
+                    // Checks device coordinates
+                    System.out.println("COORDINATES: " + String.valueOf(lat) + " " + String.valueOf(lon));
+
+                    searchRequest.execute(discoveryResultPageListener);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+    }
+
+    /**
+     * initMapEngine
+     * initialize hereAPI
+     */
+    private void initMapEngine(){
+        MapEngine mapEngine = MapEngine.getInstance();
+        mapEngine.init(this, new OnEngineInitListener() {
+            @Override
+            public void onEngineInitializationCompleted(Error error) {
+                if (error == OnEngineInitListener.Error.NONE) {
+                    // Post initialization code goes here
+                } else {
+                    // handle factory initialization failure
+                    Toast.makeText(getApplicationContext(),
+                            "ERROR:Failed to initialize Map Engine", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * result listener for the here searchRequest in findPlace
+     */
+    private ResultListener<DiscoveryResultPage> discoveryResultPageListener = new ResultListener<DiscoveryResultPage>() {
+        @Override
+        public void onCompleted(DiscoveryResultPage discoveryResultPage, ErrorCode errorCode) {
+            if (errorCode == ErrorCode.NONE) {
+                /*
+                 * The result is a DiscoveryResultPage object which represents a paginated
+                 * collection of items.The items can be either a PlaceLink or DiscoveryLink.The
+                 * PlaceLink can be used to retrieve place details by firing another
+                 * PlaceRequest,while the DiscoveryLink is designed to be used to fire another
+                 * DiscoveryRequest to obtain more refined results.
+                 */
+                s_ResultList = discoveryResultPage.getItems();
+                Collections.shuffle(s_ResultList);
+                for (DiscoveryResult item : s_ResultList) {
+                    if (item.getResultType() == DiscoveryResult.ResultType.PLACE) {
+                        PlaceLink placeLink = (PlaceLink) item;
+                        // Check for distance
+                        if ((placeLink.getDistance() * .00062137) <= distance) {
+                            PlaceRequest placeRequest = placeLink.getDetailsRequest();
+                            System.out.println("Distance: " + (placeLink.getDistance() * .00062137));
+                            System.out.println("PLACEDETS" + placeRequest.getContent().toString());
+                            placeRequest.execute(m_placeResultListener);
+                            break;
+                        }
+                    }
+                }
+                // TODO: Implement case for no search results found
+            } else {
+                // Invalid Search
+                Toast.makeText(getApplicationContext(), "Invalid Search Paramters", Toast.LENGTH_SHORT);
+                System.out.println("Failed Search Request");
+            }
+        }
+    };
+
+    /**
+     * result listener for place request in discovery listener
+     */
+    private ResultListener<com.here.android.mpa.search.Place> m_placeResultListener = new ResultListener<com.here.android.mpa.search.Place>() {
+        @Override
+        public void onCompleted(com.here.android.mpa.search.Place place, ErrorCode errorCode) {
+            if (errorCode == ErrorCode.NONE) {
+                // Check for place coordinates
+                System.out.println("GEOCOORD" + String.valueOf(place.getLocation().getCoordinate()));
+                getHereAddress(place.getLocation().getCoordinate(),place.getName());
+            }
+            else {
+                Toast.makeText(getApplicationContext(),
+                        "ERROR:Place request returns error: " + errorCode, Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    };
+
+    /**
+     * getHereAddress
+     * @param geoCoordinate
+     * retrieves the restaurants address
+     */
+    private void getHereAddress(GeoCoordinate geoCoordinate,String name){
+        final String eventName = getIntent().getStringExtra("eventName");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Events").child(eventName);
+        ReverseGeocodeRequest revGeo = new ReverseGeocodeRequest(geoCoordinate);
+        revGeo.execute((new ResultListener<Address>() {
+            @Override
+            public void onCompleted(Address address, ErrorCode errorCode) {
+                if(errorCode == ErrorCode.NONE){
+                    ref.child("name").setValue(name);
+                    ref.child("addr").setValue(address.getText());
+                    ref.child("lat").setValue(geoCoordinate.getLatitude());
+                    ref.child("lon").setValue(geoCoordinate.getLongitude());
+                }
+                else{
+                    System.out.println("Failed");
+                }
+            }
+        }));
+    }
+
 }
