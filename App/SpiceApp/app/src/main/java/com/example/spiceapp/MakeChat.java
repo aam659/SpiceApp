@@ -100,7 +100,7 @@ public class MakeChat extends AppCompatActivity {
                         if(mEmails.size() > 1){
                             reference.child(groupName).child("Users").setValue(mEmails);
                             reference.child(groupName).child("groupName").setValue(groupName);
-                            Intent nextScreen = new Intent(getBaseContext(), GroupMessageActivity.class);
+                            Intent nextScreen = new Intent(getBaseContext(), ChooseChatPicture.class);
                             nextScreen.putExtra("groupName", groupName);
                             System.out.println("USERS ADDED " + adapter.getCheckedUsers());
                             System.out.println("CURRENT USER " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
