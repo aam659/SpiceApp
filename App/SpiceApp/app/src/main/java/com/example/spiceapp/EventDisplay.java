@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DownloadManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,6 +80,8 @@ public class EventDisplay extends AppCompatActivity {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                checkVotes();
+
                 int vote = dataSnapshot.child("rsvp").child(FirebaseManager
                         .getCurrentUser().getEmail().replace('.','_')).getValue(Integer.class);
                 ActionBar actionBar = getSupportActionBar();
@@ -258,8 +261,11 @@ public class EventDisplay extends AppCompatActivity {
                     else if (entry.getValue() == -1)    no++;
                 }
 
-                if(yes/rsvpMap.size() >= .5)
-                    Toast.makeText(getApplicationContext(),"accepted",Toast.LENGTH_SHORT).show();
+                if(yes/rsvpMap.size() >= .5) {
+                    Intent next = new Intent(getApplicationContext(), EventResult.class);
+                    next.putExtra("eventName",name);
+                    startActivityForResult(next, 0);
+                }
                 else if (no/rsvpMap.size() > .5)
                     updatePlace();
             }
