@@ -28,7 +28,7 @@
         android:layout_above="@+id/txtLocation"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="2dp"
         android:contentDescription="@string/restaurant_name"
         android:gravity="center"
         android:text="@string/restaurant_name"
@@ -40,12 +40,12 @@
         android:id="@+id/txtLocation"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_above="@id/btnSIU"
+        android:layout_above="@id/rating"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="19dp"
         android:gravity="center"
         android:text="@string/txtLocation" />
 
@@ -54,11 +54,11 @@
         style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnSIU"
+        android:layout_above="@+id/btnDetails"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="166dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="23dp"
         android:contentDescription="@string/restaurant_rating"
         android:isIndicator="true"
         android:numStars="5"
@@ -124,5 +124,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />
+
+    <FrameLayout
+        android:id="@+id/btnDetails"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/btnAccept"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/sign_in_btn"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/btnDetails"
+            android:textSize="18sp"/>
+    </FrameLayout>
 
 </RelativeLayout>
