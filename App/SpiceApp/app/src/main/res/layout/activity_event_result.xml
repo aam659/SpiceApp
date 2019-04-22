@@ -69,7 +69,7 @@
 
 
     <FrameLayout
-        android:id="@+id/btnSIU"
+        android:id="@+id/btnDetails"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_above="@+id/bottom_navigation"
@@ -84,11 +84,11 @@
         android:focusable="true">
 
         <TextView
-            android:id="@+id/btnTextSIU"
+            android:id="@+id/btnTextDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/btnDetails"
+            android:text="@string/txtDetails"
             android:textSize="18sp" />
     </FrameLayout>
 

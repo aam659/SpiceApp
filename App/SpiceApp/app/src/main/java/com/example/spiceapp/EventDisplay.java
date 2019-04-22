@@ -78,8 +78,8 @@ public class EventDisplay extends AppCompatActivity {
         initializeToolbar();
         initMapEngine();
         FirebaseManager.initialize();
-        findViewById(R.id.btnSIU).setOnClickListener(view -> vote(-1));
-        findViewById(R.id.btnAccept).setOnClickListener(view -> vote(1));
+        findViewById(R.id.btnNo).setOnClickListener(view -> vote(-1));
+        findViewById(R.id.btnYes).setOnClickListener(view -> vote(1));
         findViewById(R.id.btnDetails).setOnClickListener(view -> dropPin());
 
         final String name = getIntent().getStringExtra("eventName");
