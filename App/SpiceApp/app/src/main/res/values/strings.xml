@@ -115,4 +115,5 @@
     <string name="btnYes">Yes</string>
     <string name="btnDirections">Directions</string>
     <string name="txtDetails">More Details</string>
+    <string name="strSelectAGroupAvatar">Select a Chat Avatar</string>
 </resources>
