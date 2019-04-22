@@ -10,9 +10,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.maps.model.LatLng;
@@ -26,6 +28,7 @@ import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -35,6 +38,11 @@ import com.here.android.mpa.search.DiscoveryResult;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Event result displays the place the group decided on and offers directions and more place details
+ *
+ * @author Logan Dawkins
+ */
 public class EventResult extends AppCompatActivity {
     private final String TAG = "EventResult";
     private PlacesClient placesClient;
@@ -47,6 +55,7 @@ public class EventResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_result);
         initializeToolbar();
+        initializeNavBar(); //add nav bar
         FirebaseManager.initialize();
         ActionBar bar = getSupportActionBar();
         final String name = getIntent().getStringExtra("eventName");
@@ -54,6 +63,7 @@ public class EventResult extends AppCompatActivity {
 
         getCurrentPlace();
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
+        findViewById(R.id.btnDetails).setOnClickListener(view -> dropPin());
     }
 
     private void getCurrentPlace(){
@@ -217,6 +227,82 @@ public class EventResult extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void dropPin(){
+        final String name = getIntent().getStringExtra("eventName");
+        Query query = FirebaseManager.getEventRefernce(name);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String addr = dataSnapshot.child("addr").getValue(String.class);
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + addr);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * initializeNavBar
+     * sets up the bottom nav bar
+     */
+    private void initializeNavBar(){
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                Intent nextScreen;
+                switch (item.getItemId()) {
+                    case R.id.tlbLogin:
+                        if (FirebaseManager.isLoggedIn()) {
+                            Toast.makeText(EventResult.this, "Already logged in!", Toast.LENGTH_LONG).show();
+                            return false;
+                        } else {
+                            nextScreen = new Intent(EventResult.this, LoginPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        }
+
+                    case R.id.tlbSocial:
+                        if (FirebaseManager.isLoggedIn()) {
+                            nextScreen = new Intent(EventResult.this, SocialPage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        } else {
+                            Toast.makeText(EventResult.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+
+                    case R.id.tlbProfile:
+                        if(FirebaseManager.isLoggedIn()) {
+                            nextScreen = new Intent(EventResult.this, ProfilePage.class);
+                            startActivityForResult(nextScreen, 0);
+                            return true;
+                        } else {
+                            Toast.makeText(EventResult.this, "Not Logged In", Toast.LENGTH_LONG).show();
+                            return false;
+                        }
+
+                    case R.id.tlbHome:
+                        nextScreen = new Intent(EventResult.this, HomePage.HomePageActivity.class);
+                        startActivityForResult(nextScreen, 0);
+                        return true;
+                    case R.id.tlbSIU:
+                        return true;
+                    default:
+                        // If we got here, the user's action was not recognized.
+                        //Do nothing
+                        return false;
+                }
             }
         });
     }

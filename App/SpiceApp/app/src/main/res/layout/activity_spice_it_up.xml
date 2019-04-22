@@ -15,18 +15,13 @@
         android:id="@+id/btnChangeCategories"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_below="@id/toolbar"
-        android:layout_alignEnd="@id/toolbar"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="130dp"
-        android:layout_marginLeft="58dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/sign_in_btn"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/colorPrimary">
+        android:backgroundTint="@color/colorAccent">
 
         <TextView
             android:id="@+id/btnBtnChange"
@@ -34,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/ChangeMood"
-            android:textColor="@color/colorAccent"
             android:textSize="18sp" />
     </FrameLayout>
 
@@ -42,10 +36,9 @@
         android:id="@+id/imgRestuarant"
         android:layout_width="fill_parent"
         android:layout_height="180dp"
-        android:layout_below="@+id/btnChangeCategories"
-        android:layout_above="@+id/txtName"
+        android:layout_below="@+id/toolbar"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/imgRestaurant" />
 
@@ -84,12 +77,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnDetails"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="165dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="166dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="23dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/restaurant_rating"
         android:isIndicator="true"
         android:numStars="5"
@@ -111,8 +103,6 @@
         android:gravity="center"
         android:text="@string/restaurant_phone"
         android:textSize="15sp" />
-
-    <!--android:id="@+id/btnSIU"-->
 
     <FrameLayout
         android:id="@+id/btnSIU"
@@ -174,10 +164,10 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_above="@+id/btnAccept"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="134dp"
-        android:layout_marginEnd="127dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="13dp"
         android:background="@drawable/sign_in_btn"
         android:clickable="true"

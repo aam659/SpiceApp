@@ -93,7 +93,4 @@ public class RegisterPage extends AppCompatActivity {
         startActivityForResult(details, 0);
 
     }
-
-
-
 }

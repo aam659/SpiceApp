@@ -94,5 +94,27 @@ public class AdditionalDetails extends AppCompatActivity {
             database.child("users").child(user.getEmail().replace('.','_')).child("lName").setValue(lName);
         if(!phone.isEmpty())
             database.child("users").child(user.getEmail().replace('.','_')).child("phoneNumber").setValue(phone);
+
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("Moods/Default/name").setValue("Default");
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("Moods/Default/mealTime").setValue("Dinner");
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("Moods/Default/distance").setValue(25);
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("Moods/Default/price/HighPrice").setValue(5);
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("Moods/Default/price/HighPrice").setValue(1);
+
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("CurrentPreference/name").setValue("Default");
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("CurrentPreference/mealTime").setValue("Dinner");
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("CurrentPreference/distance").setValue(25);
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("CurrentPreference/price/highPrice").setValue(5);
+        database.child("users").child(user.getEmail().replace('.','_'))
+                .child("CurrentPreference/price/lowPrice").setValue(1);
     }
 }
