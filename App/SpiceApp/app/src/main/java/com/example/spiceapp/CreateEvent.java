@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.spiceapp.Adapters.NewGroupAdapter;
 import com.example.spiceapp.FirebaseObjects.Mood;
 import com.example.spiceapp.FirebaseObjects.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -141,7 +143,6 @@ public class CreateEvent extends AppCompatActivity {
                         mEmails = adapter.getCheckedUsers();
                         if(mEmails.size() > 1){
                             createMoodList(eventName);
-                            findPlace();
                             reference.child(eventName).child("users").setValue(mEmails);
                             reference.child(eventName).child("eventName").setValue(eventName);
                             reference.child(eventName).child("rsvp").setValue(getHashMap());
@@ -178,19 +179,23 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     private void createMoodList(String eventName){
-        for(String email : mEmails){
-            DatabaseReference currentPreferenceReference = FirebaseDatabase.getInstance().getReference("users").child(email).child("CurrentPreference");
+        ArrayList<Mood> newList = new ArrayList<>();
+        for(int i = 0; i < mEmails.size(); i++){
+            DatabaseReference currentPreferenceReference = FirebaseDatabase.getInstance().getReference("users").child(mEmails.get(i)).child("CurrentPreference");
             currentPreferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    try {
-                        currentPreferences.add(dataSnapshot.getValue(Mood.class));
-                        reference.child(eventName).child("currentPreferences").setValue(currentPreferences);
+                    newList.add(dataSnapshot.getValue(Mood.class));
+                    if(newList.size() == mEmails.size()){
+                        FirebaseDatabase.getInstance().getReference("Events").child(eventName).child("currentPreferences")
+                                .setValue(newList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                findPlace();
+                            }
+                        });
+                    }
 
-                    }
-                    catch (Exception e){
-                        System.out.println("CURRENT PREFERENCE NOT FOUND: " + e);
-                    }
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -234,6 +239,7 @@ public class CreateEvent extends AppCompatActivity {
                 GenericTypeIndicator<ArrayList<Mood>> t = new GenericTypeIndicator<ArrayList<Mood>>() {};
                 ArrayList<Mood> yourStringArray = dataSnapshot.child("currentPreferences").getValue(t);
                 Random rand = new Random();
+
 
                 if(yourStringArray.size() > 0) mood = yourStringArray.get(rand.nextInt(yourStringArray.size()));
                 ArrayList<String> categories = mood.getCategories();
