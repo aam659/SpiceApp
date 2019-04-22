@@ -57,6 +57,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * Event display handles the users voting for a place and getting the new place
+ *
+ * @author Logan Dawkins
+ */
 public class EventDisplay extends AppCompatActivity {
     private final String TAG = "EventDisplay";
     private PlacesClient placesClient;

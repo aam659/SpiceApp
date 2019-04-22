@@ -35,6 +35,11 @@ import com.here.android.mpa.search.DiscoveryResult;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Event result displays the place the group decided on and offers directions and more place details
+ *
+ * @author Logan Dawkins
+ */
 public class EventResult extends AppCompatActivity {
     private final String TAG = "EventResult";
     private PlacesClient placesClient;
