@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -69,13 +70,14 @@ public class CreateEvent extends AppCompatActivity {
     private double deviceLatitude;
     private double deviceLongitude;
     private Mood mood;
+    private ProgressDialog pd;
     private int distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-
+        pd = new ProgressDialog(this);
         locationSetup(new LocationCallBack() {
             @Override
             public void onCallback(double lat, double lon) {
@@ -131,6 +133,8 @@ public class CreateEvent extends AppCompatActivity {
     }
 
     private void makeEvent(){
+        pd.setTitle("Creating Event...");
+        pd.show();
         reference = FirebaseDatabase.getInstance().getReference("Events");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -142,13 +146,15 @@ public class CreateEvent extends AppCompatActivity {
                     if (!dataSnapshot.child(eventName).exists()) {
                         mEmails = adapter.getCheckedUsers();
                         if(mEmails.size() > 1){
-                            createMoodList(eventName);
                             reference.child(eventName).child("users").setValue(mEmails);
                             reference.child(eventName).child("eventName").setValue(eventName);
-                            reference.child(eventName).child("rsvp").setValue(getHashMap());
-                            //Intent nextScreen = new Intent(getBaseContext(), eventMessageActivity.class);
-                            //nextScreen.putExtra("eventName", eventName);
-                            //startActivityForResult(nextScreen, 0);
+                            reference.child(eventName).child("rsvp").setValue(getHashMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    createMoodList(eventName);
+
+                                }
+                            });
                         }
                         else
                             Toast.makeText(getBaseContext(), "Please select one or more users.", Toast.LENGTH_SHORT).show();
@@ -349,7 +355,14 @@ public class CreateEvent extends AppCompatActivity {
                     ref.child("name").setValue(name);
                     ref.child("addr").setValue(address.getText());
                     ref.child("lat").setValue(geoCoordinate.getLatitude());
-                    ref.child("lon").setValue(geoCoordinate.getLongitude());
+                    ref.child("lon").setValue(geoCoordinate.getLongitude()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            pd.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), SocialPage.class);
+                            startActivityForResult(intent, 0);
+                        }
+                    });
                 }
                 else{
                     System.out.println("Failed");

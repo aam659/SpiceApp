@@ -30,8 +30,9 @@ public class Group {
 
     }
 
-    public Group(String groupName, List<String> users, List<Chat> chats) {
+    public Group(String groupName, List<String> users, HashMap<String, Chat> chats) {
         this.groupName = groupName;
         Users = users;
+        Chats = chats;
     }
 }

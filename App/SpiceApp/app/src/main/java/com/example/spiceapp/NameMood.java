@@ -37,6 +37,7 @@ public class NameMood extends AppCompatActivity {
                     database.child("users").child(user.getEmail().replace('.','_')).child("Moods").child(mood).child("name").setValue(mood);
                     Intent nextScreen = new Intent(v.getContext(), MealTime.class);
                     nextScreen.putExtra("NAME_OF_MOOD", mood);
+                    nextScreen.putExtra("ISCURR", "no");
                     startActivityForResult(nextScreen, 0);
                 }
                 else Toast.makeText(v.getContext(), "Please enter a name for the mood.", Toast.LENGTH_LONG).show();
