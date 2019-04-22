@@ -568,7 +568,10 @@ public class SpiceItUp extends AppCompatActivity {
     }
 
     private void dropPin(){
-        //todo: alan please add code here
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + addr);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 
     /**
