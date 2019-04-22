@@ -79,24 +79,25 @@
 
     <RatingBar
         android:id="@+id/rating"
+        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/ratingBarStyleSmall"
+        android:layout_above="@+id/btnSIU"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="38dp"
+        android:contentDescription="@string/restaurant_rating"
+        android:isIndicator="true"
+        android:numStars="5"
         android:scaleX="2.0"
         android:scaleY="2.0"
-        android:numStars="5"
         android:stepSize="0.1"
-        android:isIndicator="true"
-        android:layout_above="@+id/btnSIU"
-        android:layout_alignStart="@+id/toolbar"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:theme="@style/RatingBar"
-        android:contentDescription="@string/restaurant_rating" />
+        android:theme="@style/RatingBar" />
 
     <TextView
         android:id="@+id/txtPhone"
+        android:textColor="#0000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnAccept"
@@ -166,6 +167,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
+        android:visibility="invisible"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <TextView
