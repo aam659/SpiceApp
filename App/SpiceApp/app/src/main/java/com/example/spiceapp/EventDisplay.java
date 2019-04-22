@@ -13,8 +13,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.spiceapp.FirebaseObjects.Mood;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
@@ -27,6 +29,8 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.here.android.mpa.common.GeoCoordinate;
@@ -40,9 +44,12 @@ import com.here.android.mpa.search.ResultListener;
 import com.here.android.mpa.search.ReverseGeocodeRequest;
 import com.here.android.mpa.search.SearchRequest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EventDisplay extends AppCompatActivity {
     private final String TAG = "EventDisplay";
@@ -55,7 +62,9 @@ public class EventDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_display);
         FirebaseManager.initialize();
-        
+        findViewById(R.id.btnSIU).setOnClickListener(view -> vote(-1));
+        findViewById(R.id.btnAccept).setOnClickListener(view -> vote(1));
+
         getCurrentPlace();
     }
 
@@ -192,5 +201,45 @@ public class EventDisplay extends AppCompatActivity {
         restaurantImage.setImageBitmap(bitmap);
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setTitle("Mood: " + moodName);
+    }
+
+    private void vote(int x){
+        final String name = getIntent().getStringExtra("eventName");
+        DatabaseReference db = FirebaseManager.getEventRefernce(name);
+        db.child("rsvp").child(FirebaseManager.getCurrentUser().getEmail().replace('.','_')).setValue(x).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                checkVotes();
+            }
+        });
+    }
+
+    private int checkVotes(){
+        final String name = getIntent().getStringExtra("eventName");
+        Query query = FirebaseManager.getEventRefernce(name).child("rsvp");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                double yes = 0;
+                double no = 0;
+                GenericTypeIndicator<HashMap<String,Integer>> t = new GenericTypeIndicator<HashMap<String,Integer>>() {};
+                HashMap<String,Integer> rsvpMap = dataSnapshot.getValue(t);
+                for(Map.Entry<String,Integer> entry : rsvpMap.entrySet()){
+                    if(entry.getValue() == 1)   yes++;
+                    else if (entry.getValue() == -1)    no++;
+                }
+
+                if(yes/rsvpMap.size() >= .5)
+                    Toast.makeText(getApplicationContext(),"accepted",Toast.LENGTH_SHORT).show();
+                else if (no/rsvpMap.size() > .5)
+                    Toast.makeText(getApplicationContext(),"declined",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return 0;
     }
 }
