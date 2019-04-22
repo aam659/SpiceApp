@@ -2,6 +2,7 @@ package com.example.spiceapp;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -113,11 +114,8 @@ public class SpiceItUp extends AppCompatActivity {
     private static int distance = 10; // distance in mood
     private static int lowPrice; // low price in mood
     private static int highPrice; //high price in mood
-    private ProgressBar suiProgressBar; // Progress bar
-    private TextView loadingTextView;   // TextView for loading information
-    private int progressStatusCounter; // counter for progress bar
-    private Handler suiHandler = new Handler(); // Handler for progress bar
     private GeoCoordinate geoCoordinate; // Geocoordinate for place location
+    private ProgressDialog pg;
 
 
     @Override
@@ -127,6 +125,7 @@ public class SpiceItUp extends AppCompatActivity {
         initializeToolbar();    //add toolbar
         initializeNavBar(); //add nav bar
         initMapEngine();    // start places API
+        pg = new ProgressDialog(this);
 
         FirebaseManager.initialize(); // start firbase
         if(FirebaseManager.isLoggedIn()) {  //if user a authenticated get current mood
@@ -160,10 +159,6 @@ public class SpiceItUp extends AppCompatActivity {
                 findPlace();
             }
         });
-
-
-        suiProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        loadingTextView = (TextView) findViewById(R.id.loadingComplete);
 
         findViewById(R.id.btnSIU).setOnClickListener(view -> findPlace());
         findViewById(R.id.btnAccept).setOnClickListener(view -> launchMap());
@@ -348,6 +343,9 @@ public class SpiceItUp extends AppCompatActivity {
      * if signed in it uses current mood else it uses a random search
      */
     private void findPlace(){
+        pg.setTitle("Fetching Place...");
+        pg.show();
+
         SearchRequest searchRequest;
         if (FirebaseManager.isLoggedIn()) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
@@ -560,8 +558,6 @@ public class SpiceItUp extends AppCompatActivity {
     // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Intents <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
     //launch activty in future for nav
     private void launchMap(){
-//        Intent nextScreen = new Intent(SpiceItUp.this, MapPage.class);
-//        startActivityForResult(nextScreen, 0);
         Uri gmmIntentUri = Uri.parse("google.navigation:q=" + addr);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
@@ -590,39 +586,11 @@ public class SpiceItUp extends AppCompatActivity {
      * updates all views with the results place details
      */
     private void updateViews(){
+        pg.dismiss();
         TextView txtName = findViewById(R.id.txtName);
         TextView txtLocation = findViewById(R.id.txtLocation);
         RatingBar ratingBar = findViewById(R.id.rating);
         TextView txtPhone = findViewById(R.id.txtPhone);
-
-        progressStatusCounter = 0;
-// TODO Complete implementation of Progress Bar
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (progressStatusCounter < 100) {
-//                    ++progressStatusCounter;
-//                    android.os.SystemClock.sleep(50);
-//                    suiHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if (suiProgressBar != null) {
-//                                // FIXME suiProgressBar is null for some reason here
-//                                suiProgressBar.setProgress(progressStatusCounter);
-//                                System.out.println("PROGRESS");
-//                            }
-//                        }
-//                    });
-//                }
-//                suiHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-////                        if (loadingTextView != null)
-////                            loadingTextView.setVisibility(View.VISIBLE);
-//                    }
-//                });
-//            }
-//        }).start();
 
         txtName.setText(name);
         txtLocation.setText(addr);

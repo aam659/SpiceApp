@@ -113,4 +113,6 @@
     <string name="strEnterEventName">Enter event name</string>
     <string name="btnNo">No</string>
     <string name="btnYes">Yes</string>
+    <string name="btnDetails">More Details</string>
+    <string name="btnDirections">Directions</string>
 </resources>

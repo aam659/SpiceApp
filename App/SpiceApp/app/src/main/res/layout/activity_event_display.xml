@@ -5,7 +5,7 @@
     android:background="@drawable/gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventDisplay">
+    tools:context=".EventResult">
 
     <include
         android:id="@+id/toolbar"
@@ -117,26 +117,6 @@
             android:text="@string/btnYes"
             android:textSize="18sp" />
     </FrameLayout>
-
-    <!-- <ProgressBar
-        android:id="@+id/progressSUI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/txtLocation"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="8dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>-->
-
-    <TextView
-        android:id="@+id/loadingComplete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loadingComplete"
-        android:layout_below="@id/progressSUI"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:visibility="invisible"/>
 
     <include
         android:id="@+id/bottom_navigation"
