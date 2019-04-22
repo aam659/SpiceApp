@@ -2,6 +2,7 @@ package com.example.spiceapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,14 @@ import com.example.spiceapp.FirebaseObjects.Chat;
 import com.example.spiceapp.FirebaseObjects.User;
 import com.example.spiceapp.MessageActivity;
 import com.example.spiceapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,6 +36,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private List<Chat> mChats;
     private String imageURL;
     private FirebaseUser mUser;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     public MessageAdapter(Context mContext, List<Chat> mChats, String imageURL){
         this.mContext = mContext;
@@ -55,8 +64,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Chat chat = mChats.get(position);
         holder.show_message.setText(chat.getMessage());
 
-        //TODO: ADD PROFILE PICTURE
 
+
+        //TODO: ADD PROFILE PICTURE
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(!mChats.get(position).getSender().equals(mUser.getEmail()
+                .replace('.','_'))){
+            // add profile picture
+            storage = FirebaseStorage.getInstance();
+            storageReference = storage.getReference();
+
+            Task<Uri> task = storageReference.child("images/"+mChats.get(position).getSender()).getDownloadUrl();
+            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.profileImage);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@androidx.annotation.NonNull Exception e) {
+                    System.out.println("Failed to load pic");
+                }
+            });
+        }
     }
 
     @Override
