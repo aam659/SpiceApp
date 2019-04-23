@@ -147,6 +147,7 @@ public class CreateEvent extends AppCompatActivity {
                         mEmails = adapter.getCheckedUsers();
                         if(mEmails.size() > 1){
                             reference.child(eventName).child("users").setValue(mEmails);
+                            reference.child(eventName).child("users").setValue(mEmails);
                             reference.child(eventName).child("eventName").setValue(eventName);
                             reference.child(eventName).child("rsvp").setValue(getHashMap()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
