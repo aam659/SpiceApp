@@ -261,7 +261,7 @@ public class CreateEvent extends AppCompatActivity {
 
                         query += categories.get(i);
                     }
-                } else {
+                } else if(mood.getMealTime().equals("Breakfast")){
                     query += ", Breakfast";
                 }
 
