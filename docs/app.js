@@ -2,7 +2,7 @@
 
 // Enter domain of site to search.
 // Only works if actual domain name
-let domainroot="https://aam659.github.io/SpiceApp/";
+let domainroot="https://www.google.com";
 
 // name of hidden query form for the 3 search engines
 let queryfieldname="q";
