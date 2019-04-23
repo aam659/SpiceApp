@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -72,6 +73,7 @@ public class EventDisplay extends AppCompatActivity {
     private Bitmap bitmap;  //pic of place
     private int distance;
     private List<DiscoveryResult> s_ResultList;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +86,13 @@ public class EventDisplay extends AppCompatActivity {
         findViewById(R.id.btnNo).setOnClickListener(view -> vote(-1));
         findViewById(R.id.btnYes).setOnClickListener(view -> vote(1));
         findViewById(R.id.btnDetails).setOnClickListener(view -> dropPin());
+        pd = new ProgressDialog(this);
 
         final String name = getIntent().getStringExtra("eventName");
         Query query = FirebaseManager.getEventRefernce(name);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                checkVotes();
-
                 int vote = dataSnapshot.child("rsvp").child(FirebaseManager
                         .getCurrentUser().getEmail().replace('.','_')).getValue(Integer.class);
                 ActionBar actionBar = getSupportActionBar();
@@ -110,9 +111,23 @@ public class EventDisplay extends AppCompatActivity {
         });
 
         getCurrentPlace();
+        Query query1 = FirebaseManager.getEventRefernce(name).child("addr");
+        query1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getCurrentPlace();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getCurrentPlace(){
+        pd.setTitle("Fetching Place...");
+        pd.show();
         final String name = getIntent().getStringExtra("eventName");
         Query query = FirebaseManager.getEventRefernce(name);
         query.addValueEventListener(new ValueEventListener() {
@@ -233,6 +248,7 @@ public class EventDisplay extends AppCompatActivity {
      * updates all views with the results place details
      */
     private void updateViews(String addr,String name){
+        pd.dismiss();
         TextView txtName = findViewById(R.id.txtName);
         TextView txtLocation = findViewById(R.id.txtLocation);
         RatingBar ratingBar = findViewById(R.id.rating);
@@ -248,12 +264,13 @@ public class EventDisplay extends AppCompatActivity {
     private void vote(int x){
         final String name = getIntent().getStringExtra("eventName");
         DatabaseReference db = FirebaseManager.getEventRefernce(name);
-        db.child("rsvp").child(FirebaseManager.getCurrentUser().getEmail().replace('.','_')).setValue(x).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                checkVotes();
-            }
-        });
+        db.child("rsvp").child(FirebaseManager.getCurrentUser().getEmail().replace('.','_')).setValue(x)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        checkVotes();
+                    }
+                });
     }
 
     private void checkVotes(){
