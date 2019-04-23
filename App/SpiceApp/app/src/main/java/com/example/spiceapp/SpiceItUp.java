@@ -193,7 +193,7 @@ public class SpiceItUp extends AppCompatActivity {
 
                             preferencesString += categories.get(i);
                         }
-                    } else {
+                    } else if(mood.getMealTime().equals("Breakfast")){
                         preferencesString += ", Breakfast";
                     }
 
@@ -330,7 +330,7 @@ public class SpiceItUp extends AppCompatActivity {
         pg.show();
 
         SearchRequest searchRequest;
-        if (FirebaseManager.isLoggedIn()) {
+        if (FirebaseManager.isLoggedIn() && !preferencesString.equals("")) {
             searchRequest = new SearchRequest("Restaurant" + preferencesString);
             // System.out.println("Restaurant" + preferencesString);
         } else {

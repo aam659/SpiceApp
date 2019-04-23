@@ -104,7 +104,7 @@ public class AdditionalDetails extends AppCompatActivity {
         database.child("users").child(user.getEmail().replace('.','_'))
                 .child("Moods/Default/price/HighPrice").setValue(5);
         database.child("users").child(user.getEmail().replace('.','_'))
-                .child("Moods/Default/price/HighPrice").setValue(1);
+                .child("Moods/Default/price/LowPrice").setValue(1);
 
         database.child("users").child(user.getEmail().replace('.','_'))
                 .child("CurrentPreference/name").setValue("Default");
