@@ -369,7 +369,6 @@ public class SpiceItUp extends AppCompatActivity {
                         if ((placeLink.getDistance() * .00062137) <= distance) {
                             PlaceRequest placeRequest = placeLink.getDetailsRequest();
                             System.out.println("Distance: " + (placeLink.getDistance() * .00062137));
-                            System.out.println("PLACEDETS" + placeRequest.getContent().toString());
                             placeRequest.execute(m_placeResultListener);
                             break;
                         }
@@ -449,6 +448,7 @@ public class SpiceItUp extends AppCompatActivity {
                 .build();
 
         placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+            if(response.getAutocompletePredictions().isEmpty()) findPlace();
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId());
@@ -472,13 +472,11 @@ public class SpiceItUp extends AppCompatActivity {
 // Specify fields. Requests for photos must always have the PHOTO_METADATAS field.
         List<Field> fields =
                 Arrays.asList(Field.PHOTO_METADATAS, Field.PRICE_LEVEL, Field.PHONE_NUMBER, Field.RATING);
-
 // Get a Place object (this example uses fetchPlace(), but you can also use findCurrentPlace())
         FetchPlaceRequest placeRequest = FetchPlaceRequest.builder(id, fields).build();
 
         placesClient.fetchPlace(placeRequest).addOnSuccessListener((response) -> {
             com.google.android.libraries.places.api.model.Place place = response.getPlace();
-
             // Check for price level
             if ((FirebaseManager.isLoggedIn()) && ((place.getPriceLevel() == null) || (place.getPriceLevel() > highPrice - 1) || (place.getPriceLevel() < lowPrice - 1))) {
                 if (place.getPriceLevel() != null) {

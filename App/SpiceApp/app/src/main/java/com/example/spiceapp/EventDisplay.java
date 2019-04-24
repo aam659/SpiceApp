@@ -168,6 +168,7 @@ public class EventDisplay extends AppCompatActivity {
                 .build();
 
         placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+            if(response.getAutocompletePredictions().isEmpty()) updatePlace();
             for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
                 // Returns Place ID
                 findPlaceByID(prediction.getPlaceId(),query,addr);
