@@ -6,11 +6,41 @@ Date: 2/6/19 */
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
-body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+body, html {
+  height: 100%;
   color: #5a5a5a;
-  background-color: black;
+  background-color: white;
+  z-index: 2;
+}
+
+.parallax {
+  /* The image used */
+  background-image: url('chopping-board-colorful-colourful-616360.jpg');
+
+  /* Full height */
+  height: 500px; 
+  z-index: 12;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-ms-background-size: cover;
+}
+
+.box.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  padding: .5rem;
+  height: 300px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+  border-radius: 4px;
 }
 
 /* img {
@@ -106,6 +136,11 @@ body {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -.05rem;
+}
+
+#grad1 {
+  height: 200px;
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
 }
 
 

@@ -42,7 +42,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="position: absolute;">
           <!-- <a class="navbar-brand" href="#">Carousel</a> -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,13 +50,13 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Spice Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link text-dark" href="index.html" target="_top">Spice Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="downloads.html">Deliverables</a>
+                <a class="nav-link text-dark" href="#Downloads">Deliverables</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="team.html">Development Team</a>
+                <a class="nav-link text-dark" href="#Team">Development Team</a>
               </li>
             </ul>
             <!-- <form id="searchform" class="form-inline mt-2 mt-md-0" method="get" action="index.html">
@@ -74,6 +74,7 @@
       
       <main role="main">
       
+      <!--
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -82,7 +83,9 @@
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
+            -->
               <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <!-- 
                 <img class="img-fluid transOp" src="chopping-board-colorful-colourful-616360.jpg" alt="Responsive cutting board image">
               <div class="container mr-sm-2">
                 <div class="carousel-caption text-right text-light font-weight-bold">
@@ -94,7 +97,9 @@
               </div>
             </div>
             <div class="carousel-item text-center">
+      -->
               <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <!-- 
               <img class="img-fluid transOp" src="cinnamon-sticks-citrus-close-up-1735095.jpg" alt="Responsive spice image">
               <div class="container">
                 <div class="carousel-caption text-left text-light font-weight-bold">
@@ -108,7 +113,9 @@
               </div>
             </div>
             <div class="carousel-item text-right">
+            -->
               <!-- {% include icons/placeholder.svg width="100%" height="100%" background="#777" color="#777" text=" " title=" " %} -->
+              <!-- 
               <img class="img-fluid transOp" src="appetizers-chef-cooking-1267320.jpg" alt="Responsive spice image">
               <div class="container">
                 <div class="carousel-caption text-left text-light font-weight-bold">
@@ -129,15 +136,23 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-      
+      -->
       
         <!-- Marketing messaging and featurettes
         ================================================== -->
         <!-- Wrap the rest of the page in another container to center all the content. -->
-      
-        <div class="container marketing">
+        
+        <div class="box flex" style="background-image: linear-gradient(white, red);">
+          <div class="text-light">
+              <iframe class="mx-auto" width="500" height="400" src="https://www.youtube.com/embed/rfoE8xbpF_4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div style="padding: 175px; background-image: linear-gradient(red, white);"></div>
+
+        <div class="container marketing" style="height: 500px;">
             <div class="row">
-                <div class="text-light col-lg">
+                <div class="text-dark col-lg">
                     <h1 class="display-4">Spice up your life!</h1>
                     <p class="lead">
                         Spice is here to help you find your next dining experience! You can create
@@ -148,15 +163,159 @@
                         to break up the monotony.
                     </p>
                 </div>
-                <div class="text-light col-lg">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/rfoE8xbpF_4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
             </div>
         </div>
+
+        <div class="parallax"></div>
+
+        <div class="parallax" id="Downloads" style="height: 300px; text-align: center;">
+          <h1>Devliverables</h1>
+          <!-- Three columns of text below the carousel -->
+          <div class="row btn-group btn-group-toggle text-dark">
+            <div class="col-lg">
+                <!-- {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %} -->
+                <h2>Sprint 1</h2>
+                <p>Details for Sprint 1.</p>
+                <p>
+                  <a class="btn btn-danger btn-sm" href="SpiceAppSprint1-Dawkins,Lochbiler,Manning, Simpson.pdf" role="button" target="_blank">Presentation &raquo;</a>
+                  <a class="btn btn-danger btn-sm" href="Sprint1Retrospective.pdf" role="button" target="_blank">Retrospective &raquo;</a>
+                </p>
+                <p>
+                  <a class="btn btn-danger btn-sm" href="Sprint1Planning.pdf" role="button" target="_blank">Planning &raquo;</a>
+                  <a class="btn btn-danger btn-sm" href="sprint1Backlog - Sheet1.pdf" role="button" target="_blank">Backlog &raquo;</a>
+                </p>
+                <p>
+                  <a class="btn btn-danger btn-sm" href="DailyJournal.pdf" role="button" target="_blank">Daily Journal &raquo;</a>
+                </p>
+            </div> <!-- /.col-lg-4 -->
+
+            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> Active
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Radio
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" autocomplete="off"> Radio
+  </label>
+</div> -->
+
+
+        <div class="col-lg">
+                <!-- {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %} -->
+                <h2>Sprint 2</h2>
+                <p>Details for Sprint 2.</p>
+                <p>
+                    <a class="btn btn-danger btn-sm" href="Spice - Simpson, Dawkins, Manning.pdf" role="button" target="_blank">Presentation &raquo;</a>
+                    <a class="btn btn-danger btn-sm" href="Sprint2Retrospective.pdf" role="button" target="_blank">Retrospective &raquo;</a>
+                  </p>
+                  <p>
+                    <a class="btn btn-danger btn-sm" href="Sprint2Planning.pdf" role="button" target="_blank">Planning &raquo;</a>
+                    <a class="btn btn-danger btn-sm" href="sprint2backlog - Sheet1.pdf" role="button" target="_blank">Backlog &raquo;</a>
+                  </p>
+                  <p>
+                    <a class="btn btn-danger btn-sm" href="DailyJournal2.pdf" role="button" target="_blank">Daily Journal &raquo;</a>
+                  </p>
+            </div> <!-- /.col-lg-4 -->
+            <div class="col-lg">
+                <!-- {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %} -->
+                <h2>Sprint 3</h2>
+                <p>Details for Sprint 3.</p>
+                <p>
+                    <a class="btn btn-danger btn-sm" href="SPICE APP SPRINT 3.pdf" role="button" target="_blank">Presentation &raquo;</a>
+                    <a class="btn btn-danger btn-sm" href="Sprint3Retrospective.pdf" role="button" target="_blank">Retrospective &raquo;</a>
+                  </p>
+                  <p>
+                    <a class="btn btn-danger btn-sm" href="Sprint3Planning.pdf" role="button" target="_blank">Planning &raquo;</a>
+                    <a class="btn btn-danger btn-sm" href="sprint3 backlog - Sheet1.pdf" role="button" target="_blank">Backlog &raquo;</a>
+                  </p>
+                  <p>
+                    <a class="btn btn-danger btn-sm" href="DailyJournal3.pdf" role="button" target="_blank">Daily Journal &raquo;</a>
+                  </p>
+            </div> <!-- /.col-lg-4 -->
+            <div class="col-lg">
+                    <!-- {% include icons/placeholder.svg width="140" height="140" background="#777" color="#777" class="rounded-circle" %} -->
+                <h2>App Download and Github Link</h2>
+                <p>Download the app, source code, or view the github repository.</p>
+                <p>
+                  <a class="btn btn-danger btn-sm" href="Spice.apk" role="button">Android APK &raquo;</a>
+                </p>
+                <p>
+                    <a class="btn btn-danger btn-sm" href="https://github.com/aam659/SpiceApp" role="button">Github &raquo;</a>
+                  </p>
+            </div>
+          </div> <!-- /.row -->
+        </div>
+
+        <div class="parallax"></div>
+        
+        <h1 class="parallax text-dark" id="Team" style="height: 50px; padding: 0; margin: 0;">Software Team</h1>
+          <div class="row featurette parallax">
+            <div class="col-md-7 text-dark parallax">
+              <h2 class="featurette-heading">Alan Manning</h2>
+              <h4>Software Developer</h4>
+              <p class="lead">I am originally from Greenville, Mississippi, and I graduate in December, 2019. I hope to live and work in
+                Tuscaloosa, where I hope to attain a job as a web and mobile app developer. Having previous experience creating such applications,
+                I hope to create with Spice an app that many will enjoy and utilize a great deal in their daily lives.
+              </p>
+            </div>
+            <div class="col-md-5">
+              <!-- {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %} -->
+              <img src="IMG_1785.jpg" width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Alan">
+            </div>
+          </div>
+
+          <div class="row featurette parallax">
+            <div class="col-md-7 order-md-2 text-dark parallax">
+              <h2 class="featurette-heading">Donald Lochbiler</h2>
+              <h4>Software Developer</h4>
+              <p class="lead">I am a senior computer science major from Wolverine Lake, MI graduating in May 2019. 
+                My interests include data science and software engineering. I am excited to design my first android marketplace app.
+                I hope this expierence will be a helpful and enjoyable one.</p>
+            </div>
+            <div class="col-md-5">
+              <!-- {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %} -->
+              <img src="DonaldPhoto.jpeg" width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Don">
+            </div>
+          </div>
       
+          <div class="row featurette parallax" style="height: 650px;">
+            <div class="col-md-7 text-dark parallax">
+              <h2 class="featurette-heading">Logan Dawkins</h2>
+              <h4>Software Developer</h4>
+              <p class="lead">I am from Birmingham, Alabama and I graduate May, 2019.
+                I will start working at Lockheed Martin in Manassas, Virginia following graduation.
+                This is my first time developing an android application, so I hope you all enjoy it.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <!-- {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %} -->
+              <img src="20190206_172846.jpg" width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Logan">
+            </div>
+          </div>
+      
+          <div class="row featurette parallax">
+            <div class="col-md-7 order-md-2 text-dark parallax">
+              <h2 class="featurette-heading">Ryan Simpson</h2>
+              <h4>Software Developer</h4>
+              <p class="lead">I am a senior computer science student from Mobile, Alabama. I graduate in May 2019 where
+                I will move back home to Mobile and work. Although I have some minor experience in web development,
+                this will be my first time creating an application using the Android Development Kit. Im looking forward
+                to learning as much as I can this semester and excited to make something that others can find useful.</p>
+            </div>
+            <div class="col-md-5">
+              <!-- {% include icons/placeholder.svg width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" %} -->
+              <img src="Me.png" width="500" height="500" background="#eee" color="#aaa" class="bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="Ryan">
+            </div>
+          </div>
+      
+          <!-- /END THE FEATURETTES -->
+      
+        </div><!-- /.container -->
+
       
         <!-- FOOTER -->
-        <footer class="container">
+        <footer class="container" style="background-image: linear-gradient(white, red);">
           <p class="float-right"><a href="#">Back to top</a></p>
           <p>&copy; 2019-2020 Spice, Inc. <!-- &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> --></p>
         </footer>
