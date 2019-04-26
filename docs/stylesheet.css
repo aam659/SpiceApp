@@ -172,6 +172,7 @@ body, html {
 
 @media only screen and (max-width:749px) {
   .parallax {
-    background-attachment: inherit;
+    background-attachment: scroll;
+    background-size: 100% 100%;
   }
 }
